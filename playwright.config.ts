@@ -10,6 +10,9 @@ export default defineConfig({
   testDir: 'e2e',
   outputDir: 'e2e/results',
   fullyParallel: true,
+  // The first wave starts every browser at once with video recording on, so a
+  // cold page load can take 25 to 30s on a laptop. 60s keeps that from flaking.
+  timeout: 60_000,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: [

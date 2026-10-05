@@ -44,3 +44,25 @@ test('E-13: every public route answers 200 @smoke', async ({ request }) => {
     expect(res.status(), path).toBe(200);
   }
 });
+
+test('robots.txt keeps the desk out and points at the sitemap @smoke', async ({ request }) => {
+  const robots = await (await request.get('/robots.txt')).text();
+  expect(robots).toContain('Disallow: /desk');
+  expect(robots).toMatch(/Sitemap: \S+\/sitemap\.xml/);
+  const sitemap = await (await request.get('/sitemap.xml')).text();
+  expect(sitemap).toContain(`/editions/${LATEST_ID}</loc>`);
+  for (const v of latest.venues) expect(sitemap).toContain(`/venues/${v.id}</loc>`);
+  expect(sitemap).not.toContain('/desk');
+});
+
+test('share cards: every page has an Open Graph image and an X card @smoke', async ({ page, request }) => {
+  for (const path of ['/', `/venues/${latest.venues[0].id}`]) {
+    await page.goto(path);
+    const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(image, path).toBeTruthy();
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+    const res = await request.get(new URL(image!).pathname);
+    expect(res.status(), image!).toBe(200);
+    expect(res.headers()['content-type']).toBe('image/png');
+  }
+});
