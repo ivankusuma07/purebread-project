@@ -48,7 +48,15 @@ Add a note to the edition's `corrections` array with the date, the note, the ori
 
 ## Adding a data source for a venue
 
-1. Confirm the provider really lists the venue (open its page).
-2. Confirm each contract address on the explorer, and that it belongs to the venue.
-3. Add the mapping to `src/ingest/venues.ts`.
+1. Confirm the provider really lists the venue: the DefiLlama protocol page should name the venue and its own domain.
+2. Find contract addresses in DefiLlama's adapter source (`github.com/DefiLlama/dimension-adapters`) or the venue's own docs. Check each one has code (`eth_getCode` on `https://rpc.mainnet.chain.robinhood.com`) and look it up on Blockscout (`/api/v2/addresses/<address>`: `is_verified`, `name`, `proxy_type`).
+3. Add the mapping to `src/ingest/venues.ts`: `defillamaSlugs` (several are summed), `defillamaChain` for multichain venues so only Robinhood Chain counts, and `contracts` with the `verified` flag you saw.
 4. The next pull fills the figures and adds the provider to `sourceIds`.
+
+**Figures** are the last complete day before the data cut, never a partial day. **A TVL of 0 on DefiLlama** means it isn't tracked, so it's stored as not published.
+
+**Blockscout's API sits behind Cloudflare**, which blocks most scripted requests. When the monthly job can't reach it, contract `verified` flags carry forward unchanged. Re-check them by hand in a browser when a venue changes contracts.
+
+## Evidence review (Phase 0, done 5 October 2026)
+
+Every Edition 01 venue was checked against public sources: what it pairs against, who issues and holds any stock behind the pairs, its site and docs, its contracts on the explorer, and DefiLlama's figures. Each score's rationale names its evidence and date, and every source is in `data/sources.json`. CSL and Cardpad were removed from the register at the editor's decision; Factory New's move to Solana is recorded on its record.

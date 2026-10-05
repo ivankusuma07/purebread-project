@@ -47,6 +47,6 @@ docs/                runbook, score policy, scope, data and licensing
 
 ## Status
 
-Edition 2026-10 holds first-pass desk scores. Market figures, contract addresses and venue links are still being verified (Phase 0 in the plan), so they show as "not published", and the edition says so in its disclosures. Hanko's SVGs are working vectors; the plan calls for a hand-drawn final set.
+Edition 2026-10 is built from an evidence review of every venue (October 2026): pairings, issuers and custodians, verified contracts on the Robinhood Chain explorer, and DefiLlama figures pulled by the ingest code itself. Each score's rationale cites its evidence. Venues DefiLlama doesn't track (Long.xyz, Factory New) show their figures as "not published". Hanko's SVGs are working vectors; the plan calls for a hand-drawn final set.
 
 Veracity scores are editorial judgements on public information. Not an audit, a credit rating or investment advice.
