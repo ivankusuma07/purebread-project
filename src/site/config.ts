@@ -1,4 +1,6 @@
-// Network and public addresses. Robinhood Chain mainnet, as Fineness.
+// Network and public addresses. Robinhood Chain mainnet (4663), as Fineness.
+// RPC and explorer checked against the live chain on 5 October 2026: the RPC
+// answers eth_chainId with 0x1237 (4663); Blockscout serves /address and /tx.
 // Every address is optional: until the token, router and vault exist, the
 // fee router page runs in preview mode and says so.
 
@@ -8,8 +10,8 @@ export const CHAIN = {
   id: 4663,
   hexId: '0x1237',
   name: 'Robinhood Chain',
-  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL || 'https://rpc.chain.robinhood.com',
-  explorer: (process.env.NEXT_PUBLIC_EXPLORER_URL || 'https://robinscan.io').replace(/\/$/, ''),
+  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL || 'https://rpc.mainnet.chain.robinhood.com',
+  explorer: (process.env.NEXT_PUBLIC_EXPLORER_URL || 'https://robinhoodchain.blockscout.com').replace(/\/$/, ''),
 } as const;
 
 export const CONTRACTS = {

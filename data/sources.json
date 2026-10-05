@@ -10,8 +10,8 @@
     "type": "metrics"
   },
   "explorer": {
-    "name": "Robinhood Chain explorer",
-    "url": "https://robinscan.io",
+    "name": "Robinhood Chain explorer (Blockscout)",
+    "url": "https://robinhoodchain.blockscout.com",
     "type": "contracts"
   },
   "robinhood-chain-docs": {
