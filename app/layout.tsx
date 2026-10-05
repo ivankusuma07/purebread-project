@@ -25,11 +25,27 @@ const mono = JetBrains_Mono({
   display: 'swap',
 });
 
+const DESCRIPTION =
+  'A monthly register that checks the papers on every tokenized-stock venue. Scored 0 to 1000 in karat bands. Editorial judgement on public information, not an audit or investment advice.';
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: 'Veracity register', template: '%s · Veracity register' },
-  description:
-    'A monthly register that checks the papers on every tokenized-stock venue. Scored 0 to 1000 in karat bands. Editorial judgement on public information, not an audit or investment advice.',
+  description: DESCRIPTION,
+  applicationName: 'Veracity register',
+  openGraph: {
+    type: 'website',
+    siteName: 'Veracity register',
+    title: 'Veracity: most venues launch memecoins. Hanko checks the papers.',
+    description: DESCRIPTION,
+    url: '/',
+    locale: 'en_GB',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Veracity: most venues launch memecoins. Hanko checks the papers.',
+    description: DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {

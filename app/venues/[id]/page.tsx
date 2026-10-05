@@ -13,6 +13,7 @@ import { allVenueIds, LATEST_EDITION, SOURCES, venueHistory, type VenueRecord } 
 import { CRITERION_INFO } from '../../../src/site/lib/criteria';
 import {
   ASSET_TYPE_LABEL,
+  BAND_LABEL,
   chainLabel,
   longDate,
   pct,
@@ -34,9 +35,15 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { id } = await params;
   const history = venueHistory(id);
   const v = history[history.length - 1]?.venue;
-  return v
-    ? { title: `${v.name} papers`, description: `${v.name}: veracity ${v.veracity}, ${v.band}. ${v.thesis}` }
-    : { title: 'Venue papers' };
+  if (!v) return { title: 'Venue papers' };
+  const title = v.status === 'prelaunch' ? `${v.name}: not yet scored` : `${v.name}: veracity ${v.veracity}, ${BAND_LABEL[v.band]}`;
+  const description = v.thesis;
+  return {
+    title: `${v.name} papers`,
+    description: `${title}. ${description}`,
+    openGraph: { type: 'article', title, description, url: `/venues/${v.id}` },
+    twitter: { card: 'summary_large_image', title, description },
+  };
 }
 
 /** Score history across editions, with the hallmark drawn in vermilion. */
