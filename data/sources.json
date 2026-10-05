@@ -1,6 +1,6 @@
 {
   "defillama": {
-    "name": "DefiLlama",
+    "name": "DefiLlama (fees, volume, TVL)",
     "url": "https://defillama.com",
     "type": "metrics"
   },
@@ -14,9 +14,79 @@
     "url": "https://robinhoodchain.blockscout.com",
     "type": "contracts"
   },
+  "defillama-adapters": {
+    "name": "DefiLlama adapter source (contract addresses)",
+    "url": "https://github.com/DefiLlama/dimension-adapters",
+    "type": "contracts"
+  },
+  "mobula-docs": {
+    "name": "Mobula integration docs for Robinhood launchpads",
+    "url": "https://docs.mobula.io/almanac/robinhood-launchpads/longxyz",
+    "type": "contracts"
+  },
   "robinhood-chain-docs": {
     "name": "Robinhood Chain documentation",
     "url": "https://docs.robinhood.com/chain/",
+    "type": "docs"
+  },
+  "robinhood-stock-tokens": {
+    "name": "Robinhood launches Stock Tokens (issuer and custody)",
+    "url": "https://www.barchart.com/story/news/33124115/robinhood-launches-stock-tokens-reveals-layer-2-blockchain-and-expands-crypto-suite-in-eu-and-us-with-perpetual-futures-and-staking",
+    "type": "research"
+  },
+  "bitget-academy": {
+    "name": "Bitget Academy: top Robinhood Chain launchpads",
+    "url": "https://web3.bitget.com/en/academy/top-robinhood-chain-launchpads",
+    "type": "research"
+  },
+  "the-block-sep-2026": {
+    "name": "The Block: Pons propels Robinhood Chain to record fees",
+    "url": "https://www.theblock.co/news/ecosystems/2026-09-08-pons-propels-robinhood-chain-fees-record-6-million-daily-fees-doubles-413852",
+    "type": "research"
+  },
+  "airdropalert-pons": {
+    "name": "AirdropAlert: what is Pons",
+    "url": "https://airdropalert.com/blogs/pons-crypto-launchpad/",
+    "type": "research"
+  },
+  "mexc-long": {
+    "name": "MEXC Learn: what is Long.xyz",
+    "url": "https://www.mexc.com/learn/article/what-is-long-xyz-how-stock-paired-memecoins-are-reshaping-robinhood-chain/1",
+    "type": "research"
+  },
+  "uniswap-pools": {
+    "name": "Uniswap: launching and trading tokens on pools.trade",
+    "url": "https://support.uniswap.org/hc/en-us/articles/47943121516685-Launching-and-trading-tokens-on-pools-trade",
+    "type": "docs"
+  },
+  "pair-launch": {
+    "name": "PAIR launches the first multipool RWA launchpad on Robinhood Chain",
+    "url": "https://www.wboc.com/online_features/press_releases/pair-launches-the-first-multipool-rwa-launchpad-on-robinhood-chain-pairing-new-tokens-with-baskets/article_af90237d-742c-58ce-a928-787a1ea223a0.html",
+    "type": "research"
+  },
+  "cryptobriefing-bankr": {
+    "name": "Crypto Briefing: Bankr stock-paired tokens on Robinhood Chain",
+    "url": "https://cryptobriefing.com/bankr-stock-paired-tokens-robinhood-chain/",
+    "type": "research"
+  },
+  "flap-docs": {
+    "name": "Flap documentation",
+    "url": "https://docs.flap.sh/flap",
+    "type": "docs"
+  },
+  "blocmates-stonkfun": {
+    "name": "Blocmates: what is StonkFun",
+    "url": "https://www.blocmates.com/articles/what-is-stonkfun-heres-how-it-works",
+    "type": "research"
+  },
+  "nansen-xstocks": {
+    "name": "Nansen: xStocks and Backed Finance",
+    "url": "https://nansen.ai/post/what-is-xstocks",
+    "type": "research"
+  },
+  "factory-new-site": {
+    "name": "Factory New",
+    "url": "https://factorynewpad.fun/",
     "type": "docs"
   }
 }

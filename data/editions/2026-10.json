@@ -1,8 +1,8 @@
 {
   "edition": "2026-10",
   "published": "2026-10-05",
-  "dataAsOf": "2026-10-01",
-  "snapshotHash": "sha256:ab0e8e831931bf82920f75a1d7c112ddd4dd11c1e4a01981a9f18a1932c450e0",
+  "dataAsOf": "2026-10-05",
+  "snapshotHash": "sha256:211e3a39beded6fab0bd6ca43c0f597f74eb96f23402fa64202085e543b62996",
   "houseWeights": {
     "asset": 0.3,
     "traction": 0.25,
@@ -11,8 +11,10 @@
     "durability": 0.1
   },
   "disclosures": [
-    "Edition 01 scores are a first desk review of each venue's stated pairing structure. Market figures, contract addresses and venue links are still being verified, so they show as not published.",
-    "o1.exchange is on the watchlist. It is not admitted until a verified contract is on record.",
+    "Edition 01 was re-frozen on 5 October 2026, before launch, after an evidence review of every venue. No earlier version was announced.",
+    "Figures are DefiLlama's for the last complete day before the cut, counting only each venue's Robinhood Chain activity. Long.xyz and Factory New are not tracked there, so their figures show as not published.",
+    "Contract addresses come from DefiLlama's adapter source and Mobula's integration docs, and were checked on the Robinhood Chain explorer on 5 October 2026.",
+    "o1.exchange is on the watchlist: its launchpad is live on Robinhood Chain, but no stock pairing was found, so it is not admitted.",
     "No venue paid for inclusion, placement or removal. There are no affiliate links in this edition."
   ],
   "corrections": [],
@@ -26,27 +28,27 @@
       "struckDate": null,
       "admittedEdition": "2026-10",
       "rank": 1,
-      "veracity": 605,
+      "veracity": 630,
       "band": "14k",
-      "thesis": "Lists Robinhood stock tokens as the quote asset, so the claim to a real share is the strongest in the register.",
+      "thesis": "Every launch trades against a Robinhood Stock Token, never ETH. The strongest claim to a real share in the register.",
       "scores": {
         "asset": 7,
-        "traction": 6,
+        "traction": 7,
         "transparency": 6,
         "compliance": 5,
         "durability": 5
       },
       "rationale": {
-        "asset": "Pairs are quoted in issued stock tokens, not index exposure. Holders still have no redemption route of their own.",
-        "traction": "Visible launch flow on the chain, but no volume figure has been published that we can source yet.",
-        "transparency": "Operator documentation describes the pairing. Factory addresses are still to be confirmed on the explorer.",
-        "compliance": "Relies on the token issuer for regulated status. The venue itself cites no licence.",
-        "durability": "Live for one quarter. No shock on record yet, so resilience is untested rather than proven."
+        "asset": "Every token is paired with a Robinhood Stock Token such as NVDA, TSLA or SPCX (MEXC Learn). Those tokens are derivatives issued by Robinhood Europe, UAB, backed by shares held in the US; holders cannot redeem for the share.",
+        "traction": "Second-largest launchpad: about 25% of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy) and about 20% of tokenized-stock TVL. Not tracked by DefiLlama, so no daily figure is published here.",
+        "transparency": "LongLauncher and Airlock are verified on Blockscout and are not upgradeable. Its site and docs block automated checks, and only a co-founder is publicly named.",
+        "compliance": "Leans on the issuer: Stock Tokens are issued under MiFID II by a Bank of Lithuania-regulated entity. The venue itself cites no licence.",
+        "durability": "Live since Robinhood Chain mainnet in July 2026. Non-upgradeable core, but it depends on the shared Airlock and Uniswap v4."
       },
       "pairing": {
         "assetType": "tokenized-equity",
-        "custodian": "Robinhood Europe",
-        "jurisdiction": "Lithuania (EU)",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
         "redeemable": false,
         "verifiability": "attestation"
       },
@@ -56,14 +58,34 @@
         "fees24hUsd": null,
         "tvlUsd": null,
         "sourceIds": [],
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-05"
       },
-      "contracts": [],
+      "contracts": [
+        {
+          "label": "factory",
+          "address": "0x22e99278308b393ea1260859b181ad7e78f5eeed",
+          "verified": true
+        },
+        {
+          "label": "airlock",
+          "address": "0xeb7c034704ef8dcd2d32324c1545f62fb4ad0862",
+          "verified": true
+        }
+      ],
       "links": {
-        "site": null,
-        "docs": null
+        "site": "https://long.xyz",
+        "docs": "https://docs.long.xyz"
       },
-      "facts": []
+      "facts": [
+        [
+          "~25%",
+          "of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy)"
+        ],
+        [
+          "~20%",
+          "of tokenized-stock TVL on the chain (The Block)"
+        ]
+      ]
     },
     {
       "id": "pons",
@@ -74,140 +96,81 @@
       "struckDate": null,
       "admittedEdition": "2026-10",
       "rank": 2,
-      "veracity": 585,
+      "veracity": 590,
       "band": "14k",
-      "thesis": "The busiest launchpad on the chain. Most of its flow is memecoins; stock pairs are a small share.",
-      "scores": {
-        "asset": 6,
-        "traction": 7,
-        "transparency": 6,
-        "compliance": 4,
-        "durability": 5
-      },
-      "rationale": {
-        "asset": "Offers stock-token pairs, but most launches pair with ETH, so the real asset sits behind a minority of flow.",
-        "traction": "The most active launchpad we can see. A sourced volume figure is pending.",
-        "transparency": "Public interface and docs. Contract addresses are pending explorer confirmation.",
-        "compliance": "Standard launchpad terms. No prospectus or licence cited.",
-        "durability": "Running since the chain opened, with no outage on record."
-      },
-      "pairing": {
-        "assetType": "tokenized-equity",
-        "custodian": "Robinhood Europe",
-        "jurisdiction": "Lithuania (EU)",
-        "redeemable": false,
-        "verifiability": "attestation"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "pools-trade",
-      "name": "Pools.trade",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 3,
-      "veracity": 510,
-      "band": "9k",
-      "thesis": "Index vaults with careful disclosure. The vaults hold exposure, not shares, which caps the asset score.",
+      "thesis": "The busiest launchpad on the chain by far. Most launches pair with ETH; stock pairs are offered but are the minority.",
       "scores": {
         "asset": 4,
-        "traction": 4,
+        "traction": 9,
         "transparency": 7,
-        "compliance": 6,
+        "compliance": 3,
         "durability": 6
       },
       "rationale": {
-        "asset": "Vaults track a basket rather than hold custodied shares.",
-        "traction": "Modest flow compared with the launchpads.",
-        "transparency": "Vault composition is published and can be checked on-chain.",
-        "compliance": "Discloses risks and the vault operator by name.",
-        "durability": "Vault design has fewer moving parts than a launchpad, so less can break."
-      },
-      "pairing": {
-        "assetType": "inventory-index",
-        "custodian": "Pools vault operator",
-        "jurisdiction": null,
-        "redeemable": true,
-        "verifiability": "on-chain"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "flap",
-      "name": "Flap",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 4,
-      "veracity": 455,
-      "band": "9k",
-      "thesis": "Quotes launches against stock tokens, but holders get price exposure, not ownership.",
-      "scores": {
-        "asset": 6,
-        "traction": 3,
-        "transparency": 5,
-        "compliance": 4,
-        "durability": 4
-      },
-      "rationale": {
-        "asset": "Stock tokens set the quote. The launched tokens carry exposure to them, not a claim on them.",
-        "traction": "Thin activity in the window we checked.",
-        "transparency": "Docs explain the mechanism. Contract verification is pending.",
-        "compliance": "No licence or prospectus cited.",
-        "durability": "Young venue with one operator and no track record yet."
+        "asset": "Launches trade against WETH by default (Bitget Academy). Stock-token pairs such as NVDA, AAPL and HOOD are available (AirdropAlert), so a real asset stands behind only part of the flow.",
+        "traction": "Largest launchpad on the chain: about 60% of launchpad volume on 1 Sep 2026 (Bitget Academy) and $877K in fees on 4 Oct 2026 (DefiLlama).",
+        "transparency": "PonsLaunchFactory, PonsLaunchLocker, PonsV2LaunchFactory and the v4 hook are verified and not upgradeable. Operated by Pons Labs. A legacy factory is unverified.",
+        "compliance": "Launchpad terms only. No prospectus or licence cited. Protocol fees fund buybacks of its own PONS token.",
+        "durability": "Live since early July 2026 and kept running through the chain disruption of 4 Sep 2026."
       },
       "pairing": {
         "assetType": "tokenized-equity",
-        "custodian": "Robinhood Europe",
-        "jurisdiction": "Lithuania (EU)",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
         "redeemable": false,
         "verifiability": "attestation"
       },
       "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
+        "cumulativeVolumeUsd": 2773286370,
+        "dailyVolumeUsd": 12723070,
+        "fees24hUsd": 877056,
         "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
       },
-      "contracts": [],
+      "contracts": [
+        {
+          "label": "factory",
+          "address": "0xA5aAb3F0c6EeadF30Ef1D3Eb997108E976351feB",
+          "verified": true
+        },
+        {
+          "label": "locker",
+          "address": "0x736D76699C26D0d966744cAe304C000d471f7F35",
+          "verified": true
+        },
+        {
+          "label": "factory v2",
+          "address": "0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e",
+          "verified": true
+        },
+        {
+          "label": "v4 hook",
+          "address": "0xE5e702641Ea86F4ae6cC3cDaeD2B886f976Be044",
+          "verified": true
+        },
+        {
+          "label": "legacy factory",
+          "address": "0x0c37a24F5D23A486FA692d1500881d698B1F77a4",
+          "verified": false
+        }
+      ],
       "links": {
-        "site": null,
+        "site": "https://www.ponsfamily.com",
         "docs": null
       },
-      "facts": []
+      "facts": [
+        [
+          "~60%",
+          "of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy)"
+        ],
+        [
+          "1%",
+          "trading fee: 70% to the creator, 30% to the protocol (AirdropAlert)"
+        ]
+      ]
     },
     {
       "id": "stonkfun",
@@ -217,27 +180,350 @@
       "status": "active",
       "struckDate": null,
       "admittedEdition": "2026-10",
-      "rank": 5,
-      "veracity": 455,
-      "band": "9k",
-      "thesis": "A Solana memecoin launcher whose only link to real shares is an index it tracks.",
+      "rank": 3,
+      "veracity": 590,
+      "band": "14k",
+      "thesis": "A Solana launchpad whose stock pairs use xStocks, tokens backed one to one by real shares in custody.",
       "scores": {
-        "asset": 4,
-        "traction": 6,
+        "asset": 6,
+        "traction": 8,
         "transparency": 5,
-        "compliance": 3,
+        "compliance": 4,
+        "durability": 5
+      },
+      "rationale": {
+        "asset": "Stock pairs use xStocks such as SPYx, issued by Backed Assets (JE) Ltd and backed 1:1 by shares at Alpaca Securities (Nansen). Memecoin holders get exposure, not a claim on the shares (Blocmates). It also pairs with crypto and its own tokens.",
+        "traction": "About $10.1M daily volume and $298K fees on 3 Oct 2026, $807M cumulative (DefiLlama).",
+        "transparency": "Tracked by DefiLlama with a public site. No operator is named and no program addresses have been checked here.",
+        "compliance": "The xStocks issuer is registered in Jersey. The launchpad itself cites no licence. 60% of fees buy and burn its STONK token.",
+        "durability": "Launched in early August 2026. Survived one hype cycle and integrated Raydium LaunchLab in September."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Backed Assets (JE) Ltd (issuer); shares at Alpaca Securities",
+        "jurisdiction": "Jersey (JFSC)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": 806676509,
+        "dailyVolumeUsd": 10083275,
+        "fees24hUsd": 297598,
+        "tvlUsd": null,
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [],
+      "links": {
+        "site": "https://www.stonkfun.xyz",
+        "docs": null
+      },
+      "facts": [
+        [
+          "$807M",
+          "cumulative volume to 3 Oct 2026 (DefiLlama)"
+        ],
+        [
+          "60%",
+          "of trading fees buy and burn STONK (Blocmates)"
+        ]
+      ]
+    },
+    {
+      "id": "bankr",
+      "name": "Bankr",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 4,
+      "veracity": 535,
+      "band": "9k",
+      "thesis": "An AI trading assistant that can quote launches in any of 90+ Stock Tokens. The stock pairing is optional.",
+      "scores": {
+        "asset": 5,
+        "traction": 5,
+        "transparency": 7,
+        "compliance": 4,
+        "durability": 6
+      },
+      "rationale": {
+        "asset": "Since 20 Jul 2026 launches can be quoted in Robinhood Stock Tokens across 90+ equities and ETFs (Crypto Briefing), but stock pairing is optional.",
+        "traction": "97,058 of the 189,413 Doppler launches on Robinhood Chain by 30 Sep 2026 were Bankr's (DefiLlama adapter notes). Fees on the chain were $2.7K on 4 Oct 2026 (DefiLlama).",
+        "transparency": "Named team, public docs, two audits listed on DefiLlama. Launches go through the shared Doppler contracts rather than its own.",
+        "compliance": "No licence cited for stock-paired launches.",
+        "durability": "Running on Base since 2025 and on Robinhood Chain since July 2026."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": 2676,
+        "tvlUsd": null,
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [],
+      "links": {
+        "site": "https://bankr.bot",
+        "docs": "https://docs.bankr.bot"
+      },
+      "facts": [
+        [
+          "97,058",
+          "launches on Robinhood Chain by 30 Sep 2026 (DefiLlama adapter notes)"
+        ],
+        [
+          "90+",
+          "Stock Tokens available as quote assets (Crypto Briefing)"
+        ]
+      ]
+    },
+    {
+      "id": "pair",
+      "name": "PAIR",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 5,
+      "veracity": 495,
+      "band": "9k",
+      "thesis": "Pairs each launch with a basket of up to five Robinhood Stock Tokens. Strong design, but trading has almost stopped.",
+      "scores": {
+        "asset": 7,
+        "traction": 2,
+        "transparency": 6,
+        "compliance": 5,
         "durability": 4
       },
       "rationale": {
-        "asset": "Tracks listed equities through an index account. No custody, no redemption.",
-        "traction": "Steady launch cadence on Solana, the busiest of the off-chain venues.",
-        "transparency": "Public API and docs. Index holdings are only partly visible.",
-        "compliance": "Launcher disclaimers only.",
-        "durability": "Has survived one hype cycle. Volume swings hard with sentiment."
+        "asset": "Every token trades from its first block against a basket of up to five canonical Robinhood Stock Tokens, in permanently locked Uniswap v4 markets (PAIR launch release).",
+        "traction": "Passed $26M volume in its first five days after 26 Aug 2026, but fees were $9 on 4 Oct 2026 (DefiLlama).",
+        "transparency": "Launchpad and v4 locker are verified on Blockscout. The launchpad is an upgradeable proxy, so its code can change.",
+        "compliance": "Relies on the Stock Token issuer for regulated status. Announced an AWS partnership; no licence cited.",
+        "durability": "Live since 26 Aug 2026 with an upgradeable core."
       },
       "pairing": {
-        "assetType": "inventory-index",
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": 8.71,
+        "tvlUsd": null,
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [
+        {
+          "label": "launchpad (upgradeable proxy)",
+          "address": "0x8660A7F019C7943b0b0A91B8E39AFf3b6DB6Ae62",
+          "verified": true
+        },
+        {
+          "label": "v4 locker",
+          "address": "0xeFcF476E8870fB3eb8680f039414fdcCE6C2a117",
+          "verified": true
+        }
+      ],
+      "links": {
+        "site": "https://pair.fund",
+        "docs": null
+      },
+      "facts": [
+        [
+          "$26M",
+          "volume in the first five days after launch on 26 Aug 2026 (PAIR)"
+        ],
+        [
+          "5",
+          "Stock Tokens at most in one launch basket"
+        ]
+      ]
+    },
+    {
+      "id": "flap",
+      "name": "Flap",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 6,
+      "veracity": 470,
+      "band": "9k",
+      "thesis": "Pairs launches with a stock and pays that stock out to holders. Large on BNB Chain, small on Robinhood Chain.",
+      "scores": {
+        "asset": 6,
+        "traction": 2,
+        "transparency": 6,
+        "compliance": 4,
+        "durability": 6
+      },
+      "rationale": {
+        "asset": "Its Stocks Vault pairs a memecoin with a tokenized stock and pays that stock to holders as dividends (AirdropAlert). Exposure, not ownership of the share.",
+        "traction": "On Robinhood Chain: $13K volume and $2.6K fees on 4 Oct 2026, with $94K TVL (DefiLlama). Almost all its activity is on BNB Chain.",
+        "transparency": "Its Robinhood Chain portal is verified on Blockscout but is an upgradeable proxy. Public docs.",
+        "compliance": "No licence cited.",
+        "durability": "Running since January 2024 on BNB Chain, on Robinhood Chain since 8 Jul 2026."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": 66220652,
+        "dailyVolumeUsd": 13135,
+        "fees24hUsd": 2608,
+        "tvlUsd": 94451.31199,
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [
+        {
+          "label": "portal (upgradeable proxy)",
+          "address": "0x26605f322f7fF986f381bB9A6e3f5DAb0bEaEb09",
+          "verified": true
+        }
+      ],
+      "links": {
+        "site": "https://flap.sh",
+        "docs": "https://docs.flap.sh"
+      },
+      "facts": [
+        [
+          "8 Jul 2026",
+          "first day on Robinhood Chain (DefiLlama adapter)"
+        ],
+        [
+          "$94K",
+          "TVL on Robinhood Chain on 5 Oct 2026 (DefiLlama)"
+        ]
+      ]
+    },
+    {
+      "id": "pools-trade",
+      "name": "Pools.trade",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 7,
+      "veracity": 470,
+      "band": "9k",
+      "thesis": "Uniswap Labs' own launchpad: the most transparent venue here, with no stock behind its pairs.",
+      "scores": {
+        "asset": 1,
+        "traction": 4,
+        "transparency": 9,
+        "compliance": 6,
+        "durability": 7
+      },
+      "rationale": {
+        "asset": "Tokens launch into Uniswap v4 pools with a fixed supply of one billion (Uniswap). No stock-token pairing was found, so nothing real backs the pair.",
+        "traction": "$6.9K fees on 4 Oct 2026 (DefiLlama). Live since 30 Jul 2026.",
+        "transparency": "Built and named by Uniswap Labs, on Uniswap's verified UERC20Factory and PoolManager, with public support docs.",
+        "compliance": "A known US company with published terms. It makes no securities claim because it pairs no securities.",
+        "durability": "Runs on Uniswap's core contracts with permanently locked liquidity."
+      },
+      "pairing": {
+        "assetType": "none",
         "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "none"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": 6947,
+        "tvlUsd": null,
+        "sourceIds": [
+          "defillama"
+        ],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [
+        {
+          "label": "token factory",
+          "address": "0x000000e200088d55c39a11f609e5f667729ad49b",
+          "verified": true
+        },
+        {
+          "label": "v4 pool manager",
+          "address": "0x8366a39cc670b4001a1121b8f6a443a643e40951",
+          "verified": true
+        }
+      ],
+      "links": {
+        "site": "https://pools.trade",
+        "docs": "https://support.uniswap.org/hc/en-us/articles/47943121516685-Launching-and-trading-tokens-on-pools-trade"
+      },
+      "facts": [
+        [
+          "1B",
+          "fixed supply for every launch (Uniswap)"
+        ],
+        [
+          "0.25%",
+          "LP fee, no extra launchpad fee (Uniswap)"
+        ]
+      ]
+    },
+    {
+      "id": "factory-new",
+      "name": "Factory New",
+      "chain": "solana",
+      "resident": false,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 8,
+      "veracity": 220,
+      "band": "below-hallmark",
+      "thesis": "Now a Solana memecoin launcher whose fees buy game skins for a public reserve. No stock anywhere.",
+      "scores": {
+        "asset": 2,
+        "traction": 2,
+        "transparency": 3,
+        "compliance": 2,
+        "durability": 2
+      },
+      "rationale": {
+        "asset": "Fees buy CS2 and Dota 2 skins for a public Steam reserve (Factory New site). Collectibles, not stock, and the reserve is not tied to any single token.",
+        "traction": "Not tracked by DefiLlama; no figure is published.",
+        "transparency": "Public site describing the fee split. No operator named, no contracts checked.",
+        "compliance": "Nothing cited.",
+        "durability": "Has moved from Robinhood Chain to Solana. Too young to judge."
+      },
+      "pairing": {
+        "assetType": "collectible",
+        "custodian": "Public Steam reserve (operator-held)",
         "jurisdiction": null,
         "redeemable": false,
         "verifiability": "public-inventory"
@@ -248,254 +534,19 @@
         "fees24hUsd": null,
         "tvlUsd": null,
         "sourceIds": [],
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-05"
       },
       "contracts": [],
       "links": {
-        "site": null,
+        "site": "https://factorynewpad.fun",
         "docs": null
       },
-      "facts": []
-    },
-    {
-      "id": "pair",
-      "name": "PAIR",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 6,
-      "veracity": 435,
-      "band": "9k",
-      "thesis": "Multi-asset pools that synthesise stock exposure instead of holding stock tokens.",
-      "scores": {
-        "asset": 5,
-        "traction": 3,
-        "transparency": 6,
-        "compliance": 4,
-        "durability": 3
-      },
-      "rationale": {
-        "asset": "Exposure is synthetic. Nothing is custodied on the holder side.",
-        "traction": "Early pools with limited depth.",
-        "transparency": "Contracts are upgradeable through a proxy, documented but not yet confirmed.",
-        "compliance": "No licence cited for synthetic exposure.",
-        "durability": "New, with an upgradeable core that adds operator risk."
-      },
-      "pairing": {
-        "assetType": "synthetic",
-        "custodian": null,
-        "jurisdiction": null,
-        "redeemable": false,
-        "verifiability": "on-chain"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "bankr",
-      "name": "Bankr",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 7,
-      "veracity": 375,
-      "band": "9k",
-      "thesis": "A trading bot that can pair launches with stock tokens. The stock link is optional, not the product.",
-      "scores": {
-        "asset": 3,
-        "traction": 4,
-        "transparency": 5,
-        "compliance": 3,
-        "durability": 4
-      },
-      "rationale": {
-        "asset": "Stock pairing is available but optional. Most use has no real asset behind it.",
-        "traction": "Real users through the bot interface. Venue-level volume is not published.",
-        "transparency": "Docs are public. The bot itself is closed.",
-        "compliance": "No licence cited.",
-        "durability": "An established bot that added this chain recently."
-      },
-      "pairing": {
-        "assetType": "synthetic",
-        "custodian": null,
-        "jurisdiction": null,
-        "redeemable": false,
-        "verifiability": "none"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "cardpad",
-      "name": "Cardpad",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 8,
-      "veracity": 350,
-      "band": "below-hallmark",
-      "thesis": "Says collectibles back its tokens. We could not see the vault, so the claim stays a claim.",
-      "scores": {
-        "asset": 3,
-        "traction": 2,
-        "transparency": 6,
-        "compliance": 4,
-        "durability": 3
-      },
-      "rationale": {
-        "asset": "Claims vaulted collectibles. Collectibles are not stock, and the vault is not visible.",
-        "traction": "No verifiable activity in the window.",
-        "transparency": "Contracts were filed for review, which is more than most venues offer.",
-        "compliance": "Names a vault operator but no regulator.",
-        "durability": "Interface reachability unconfirmed at the cut date."
-      },
-      "pairing": {
-        "assetType": "collectible",
-        "custodian": "Cardpad vault",
-        "jurisdiction": null,
-        "redeemable": false,
-        "verifiability": "attestation"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "factory-new",
-      "name": "Factory New",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 9,
-      "veracity": 240,
-      "band": "below-hallmark",
-      "thesis": "Game tokens with no real asset behind them. Listed for scrutiny, not certified.",
-      "scores": {
-        "asset": 2,
-        "traction": 2,
-        "transparency": 4,
-        "compliance": 2,
-        "durability": 2
-      },
-      "rationale": {
-        "asset": "No stock or other real asset in the pairing.",
-        "traction": "A few dozen transfers in the window.",
-        "transparency": "Tokens are visible on the explorer. No docs.",
-        "compliance": "Nothing cited.",
-        "durability": "Too young to judge."
-      },
-      "pairing": {
-        "assetType": "none",
-        "custodian": null,
-        "jurisdiction": null,
-        "redeemable": false,
-        "verifiability": "none"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
-    },
-    {
-      "id": "csl",
-      "name": "CSL",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 10,
-      "veracity": 170,
-      "band": "below-hallmark",
-      "thesis": "Filed contracts and nothing else we could check. Listed so readers can watch it.",
-      "scores": {
-        "asset": 1,
-        "traction": 1,
-        "transparency": 4,
-        "compliance": 1,
-        "durability": 2
-      },
-      "rationale": {
-        "asset": "No backing shown.",
-        "traction": "No market activity found.",
-        "transparency": "Contracts filed, which is the one thing in its favour.",
-        "compliance": "Nothing cited.",
-        "durability": "Interface reachability unconfirmed at the cut date."
-      },
-      "pairing": {
-        "assetType": "none",
-        "custodian": null,
-        "jurisdiction": null,
-        "redeemable": false,
-        "verifiability": "none"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-01"
-      },
-      "contracts": [],
-      "links": {
-        "site": null,
-        "docs": null
-      },
-      "facts": []
+      "facts": [
+        [
+          "3.125%",
+          "trading fee, of which 2.5% buys skins (Factory New)"
+        ]
+      ]
     }
   ]
 }
