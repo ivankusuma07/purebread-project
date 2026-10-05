@@ -1,45 +1,101 @@
 @import 'tailwindcss';
 
 /*
- * Veracity: an assay-office register on Japanese ledger paper.
- * Two radii only (0 for paper, full round for the seal). No shadows,
- * no gradients. Vermilion is reserved for the seal and the hallmark line.
+ * Veracity, night edition: an assay vault after hours. Deep ink, molten gold,
+ * vermilion for the seal and the hallmark. Token names are kept from the
+ * paper edition (paper = background, ink = text) so every page shares them.
  */
 @theme {
-  --color-paper: #e9eee8;
-  --color-paper-deep: #dfe6df;
-  --color-ink: #1f2b4a;
-  --color-ink-2: #47516b;
-  --color-ink-3: #5a6378;
-  --color-grid: #9fb8a3;
-  --color-grid-soft: #c9d6ca;
-  --color-vermilion: #d8342a;
-  --color-vermilion-ink: #b8261d;
-  --color-shiba: #c67b3d;
+  --color-paper: #070a12;
+  --color-paper-deep: #0e1322;
+  --color-ink: #f3efe6;
+  --color-ink-2: #b9bfce;
+  --color-ink-3: #8a93a9;
+  --color-grid: #2a3350;
+  --color-grid-soft: #1a2136;
+  --color-vermilion: #ff5a45;
+  --color-vermilion-ink: #ff8a7a;
+  --color-shiba: #e08a45;
   --color-cream: #f3ead8;
+  --color-gold: #f2c14e;
+  --color-gold-hi: #ffe7a3;
+  --color-gold-lo: #b7791f;
 
-  /* Karat bands. Swatch colours from the plan; *-ink variants pass 4.5:1 as text. */
-  --color-k22: #5b3a8e;
-  --color-k18: #2c5aa0;
-  --color-k14: #2f7a4f;
-  --color-k14-ink: #276843;
-  --color-k9: #b08a1e;
-  --color-k9-ink: #7a5f0e;
-  --color-below: #7a8088;
-  --color-below-ink: #5f656d;
+  /* Karat bands, tuned for a dark ground. */
+  --color-k22: #c9a7ff;
+  --color-k18: #74aeff;
+  --color-k14: #5ad692;
+  --color-k14-ink: #5ad692;
+  --color-k9: #f2c14e;
+  --color-k9-ink: #f2c14e;
+  --color-below: #6b7389;
+  --color-below-ink: #8f97ab;
 
   --font-mincho: var(--font-zen-mincho), 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --font-gothic: var(--font-zen-gothic), 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SFMono-Regular', monospace;
 
   --radius-seal: 9999px;
+
+  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --animate-star-movement-top: star-movement-top linear infinite alternate;
+  --animate-pulse-dot: pulse-dot 2s ease-out infinite;
+
+  @keyframes star-movement-bottom {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes star-movement-top {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgb(90 214 146 / 0.6);
+    }
+    100% {
+      box-shadow: 0 0 0 10px rgb(90 214 146 / 0);
+    }
+  }
 }
 
-/* Double margin rule down the left of the book, like a printed ledger. */
-@utility margin-rule {
-  background-image: linear-gradient(var(--color-grid), var(--color-grid)), linear-gradient(var(--color-grid), var(--color-grid));
-  background-size: 1px 100%, 1px 100%;
-  background-position: 0 0, 4px 0;
-  background-repeat: no-repeat;
+/* Faint vault grid behind everything. */
+@utility vault-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Glass panel: the main surface for cards, tables and the register. */
+@utility panel {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.015));
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Molten gold text. */
+@utility text-gold {
+  background: linear-gradient(100deg, var(--color-gold-hi), var(--color-gold) 45%, var(--color-gold-lo));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @layer base {
@@ -47,17 +103,32 @@
     background: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-gothic);
-    font-feature-settings: 'palt' 0;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 1.5rem;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    color-scheme: dark;
   }
 
   body {
     min-height: 100dvh;
-    background: var(--color-paper);
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgb(242 193 78 / 0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgb(255 90 69 / 0.07), transparent 60%),
+      var(--color-paper);
     font-size: 1rem;
     line-height: 1.7;
     overflow-x: hidden;
+  }
+
+  /* Film grain over the whole page, static and cheap. */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   h1,
@@ -65,8 +136,8 @@
   h3 {
     font-family: var(--font-mincho);
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: 0.005em;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
     text-wrap: balance;
   }
 
@@ -77,70 +148,127 @@
   a {
     text-underline-offset: 0.2em;
     text-decoration-thickness: 1px;
+    text-decoration-color: rgb(242 193 78 / 0.5);
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--color-gold-hi);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ink);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   ::selection {
-    background: var(--color-grid-soft);
+    background: rgb(242 193 78 / 0.3);
   }
 
   table {
     font-variant-numeric: tabular-nums;
   }
+
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-mono);
+  }
 }
 
 @layer components {
-  /* Figures in registers line up. */
   .num {
     font-variant-numeric: tabular-nums lining-nums;
   }
 
-  /* Body copy: under ~75 characters a line. */
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-ligatures: none;
+  }
+
   .measure {
     max-width: 68ch;
   }
 
-  /* The ledger: thin grid-green rules between entries. */
   .ledger > * + * {
-    border-top: 1px solid var(--color-grid-soft);
+    border-top: 1px solid rgb(255 255 255 / 0.06);
   }
 
-  /* A chapter of the register book. */
   .chapter {
-    border-top: 1px solid var(--color-grid);
-    padding-block: 3.5rem;
+    padding-block: 4.5rem;
   }
 
   .chapter-title {
-    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-size: clamp(1.9rem, 1.3rem + 2vw, 3rem);
   }
 
+  /* Small numbered label above a chapter heading. */
+  .chapter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgb(242 193 78 / 0.3);
+    background: rgb(242 193 78 / 0.08);
+    color: var(--color-gold);
+    border-radius: 999px;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
 
-  /* Plain rectangular controls: ink on paper. */
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid var(--color-ink);
-    padding: 0.4rem 0.85rem;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
     font-size: 0.875rem;
     line-height: 1.4;
-    background: transparent;
+    background: rgb(255 255 255 / 0.04);
     color: var(--color-ink);
     cursor: pointer;
+    transition:
+      background 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
   }
 
   .btn:hover {
-    background: var(--color-paper-deep);
+    background: rgb(255 255 255 / 0.09);
+    border-color: rgb(242 193 78 / 0.5);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
   }
 
   .btn[aria-pressed='true'] {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: linear-gradient(100deg, var(--color-gold-hi), var(--color-gold));
+    border-color: transparent;
+    color: #1a1305;
+    font-weight: 700;
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-gold {
+    background: linear-gradient(100deg, var(--color-gold-hi), var(--color-gold) 50%, #e2a83a);
+    color: #1a1305;
+    border-color: transparent;
+    font-weight: 700;
+    box-shadow: 0 8px 30px -8px rgb(242 193 78 / 0.55);
+  }
+
+  .btn-gold:hover {
+    background: linear-gradient(100deg, #fff1c4, var(--color-gold-hi) 50%, var(--color-gold));
+    color: #1a1305;
   }
 
   .table-ledger {
@@ -152,17 +280,28 @@
   .table-ledger thead th {
     text-align: left;
     font-weight: 500;
-    color: var(--color-ink-2);
-    font-size: 0.8125rem;
-    padding: 0.5rem 0.75rem 0.5rem 0;
-    border-bottom: 1px solid var(--color-ink);
+    color: var(--color-ink-3);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 0.85rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
     vertical-align: bottom;
   }
 
-  .table-ledger td {
-    padding: 0.65rem 0.75rem 0.65rem 0;
-    border-bottom: 1px solid var(--color-grid-soft);
+  .table-ledger td,
+  .table-ledger tbody th {
+    padding: 0.8rem 0.85rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.05);
     vertical-align: top;
+  }
+
+  .table-ledger tbody tr {
+    transition: background 150ms ease;
+  }
+
+  .table-ledger tbody tr:hover {
+    background: rgb(255 255 255 / 0.03);
   }
 
   .table-ledger td.n,
@@ -171,49 +310,94 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Native range input dressed as a ledger rule with an ink thumb. */
   .rule-range {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 28px;
+    height: 32px;
     background: transparent;
     cursor: ew-resize;
   }
 
   .rule-range::-webkit-slider-runnable-track {
-    height: 2px;
-    background: var(--color-ink);
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-vermilion), var(--color-gold) 60%, var(--color-k14));
   }
 
   .rule-range::-moz-range-track {
-    height: 2px;
-    background: var(--color-ink);
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-vermilion), var(--color-gold) 60%, var(--color-k14));
   }
 
   .rule-range::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px;
-    height: 26px;
-    margin-top: -12px;
-    background: var(--color-paper);
-    border: 2px solid var(--color-ink);
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;
+    border-radius: 999px;
+    background: var(--color-ink);
+    border: 3px solid var(--color-gold);
+    box-shadow: 0 0 0 6px rgb(242 193 78 / 0.18);
   }
 
   .rule-range::-moz-range-thumb {
-    width: 10px;
-    height: 22px;
-    border-radius: 0;
-    background: var(--color-paper);
-    border: 2px solid var(--color-ink);
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--color-ink);
+    border: 3px solid var(--color-gold);
+  }
+
+  /* The hallmark, glowing. */
+  .hallmark-rule {
+    height: 2px;
+    background: var(--color-vermilion);
+    box-shadow:
+      0 0 12px rgb(255 90 69 / 0.8),
+      0 0 30px rgb(255 90 69 / 0.35);
+  }
+
+  /* Score bar under a venue: gold fill to its veracity out of 1000. */
+  .score-bar {
+    height: 4px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.06);
+    overflow: hidden;
+  }
+
+  .score-bar > span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-gold-lo), var(--color-gold) 60%, var(--color-gold-hi));
+    box-shadow: 0 0 12px rgb(242 193 78 / 0.5);
+  }
+
+  .score-bar.below > span {
+    background: linear-gradient(90deg, #3a4156, var(--color-below));
+    box-shadow: none;
+  }
+
+  .lift {
+    transition:
+      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-4px);
+    border-color: rgb(242 193 78 / 0.35);
+    box-shadow: 0 20px 50px -20px rgb(242 193 78 / 0.35);
   }
 }
 
 /*
- * The stamp moment. The head script adds .stamp-pending before first paint on
- * a first visit (and never with reduced motion or without JS), so the seal and
- * the row imprints start hidden. StampMoment then adds .stamp-run to play the
- * sequence once, under 1.2s, and removes both classes.
+ * The stamp moment. The head script adds .stamp-pending before first paint on a
+ * first visit (never with reduced motion or without JS). StampMoment adds
+ * .stamp-run to play it once and then removes both classes.
  */
 .stamp-pending [data-stamp='seal'],
 .stamp-pending [data-stamp='row'] {
@@ -221,18 +405,56 @@
 }
 
 .stamp-run [data-stamp='seal'] {
-  animation: seal-land 380ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 420ms both;
+  animation: seal-land 420ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 420ms both;
 }
 
 .stamp-run [data-stamp='ink'] {
-  animation: ink-spread 520ms ease-out 560ms both;
+  animation: ink-spread 700ms ease-out 600ms both;
 }
 
 .stamp-run [data-stamp='row'] {
-  animation: row-seal 200ms ease-out calc(700ms + var(--i, 0) * 40ms) both;
+  animation: row-seal 220ms ease-out calc(700ms + var(--i, 0) * 40ms) both;
 }
 
-/* Hanko's paw: raised until the seal lands, then down on the paper. */
+@keyframes seal-land {
+  from {
+    opacity: 0;
+    transform: scale(1.6) rotate(-14deg);
+    filter: blur(4px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-2deg);
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-6deg);
+  }
+}
+
+@keyframes ink-spread {
+  from {
+    opacity: 0.9;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes row-seal {
+  from {
+    opacity: 0;
+    transform: scale(1.8) rotate(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-6deg);
+  }
+}
+
 [data-hanko='up'] {
   opacity: 0;
 }
@@ -271,50 +493,19 @@
   }
 }
 
-@keyframes seal-land {
-  from {
-    opacity: 0;
-    transform: scale(1.35) rotate(-9deg);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(0.96) rotate(-2deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(-3deg);
-  }
-}
-
-@keyframes ink-spread {
-  from {
-    opacity: 0.55;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 0;
-    transform: scale(1.35);
-  }
-}
-
-@keyframes row-seal {
-  from {
-    opacity: 0;
-    transform: scale(1.4);
-  }
-  to {
-    opacity: 0.9;
-    transform: scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .stamp-pending [data-stamp='seal'],
   .stamp-pending [data-stamp='row'] {
     opacity: 1;
   }
   .stamp-run [data-stamp] {
     animation: none;
+  }
+  .lift:hover {
+    transform: none;
   }
 }
 
@@ -323,11 +514,13 @@
   .judges-sheet[open] > .judges-body {
     position: fixed;
     inset: auto 0 0 0;
-    z-index: 40;
-    max-height: 72dvh;
+    z-index: 70;
+    max-height: 75dvh;
     overflow-y: auto;
-    background: var(--color-paper);
-    border-top: 2px solid var(--color-ink);
-    padding: 1rem 1rem 1.5rem;
+    background: var(--color-paper-deep);
+    border-top: 1px solid rgb(242 193 78 / 0.4);
+    border-radius: 1.25rem 1.25rem 0 0;
+    padding: 1.25rem 1rem 1.75rem;
+    box-shadow: 0 -20px 60px rgb(0 0 0 / 0.6);
   }
 }

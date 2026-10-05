@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Zen_Kaku_Gothic_New, Zen_Old_Mincho } from 'next/font/google';
+import { JetBrains_Mono, Zen_Kaku_Gothic_New, Zen_Old_Mincho } from 'next/font/google';
 import { SITE } from '../src/site/config';
 import { STAMP_HEAD_SCRIPT } from '../src/site/components/StampMoment';
 import './globals.css';
@@ -18,6 +18,13 @@ const gothic = Zen_Kaku_Gothic_New({
   display: 'swap',
 });
 
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: { default: 'Veracity register', template: '%s · Veracity register' },
@@ -26,18 +33,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#e9eee8',
+  themeColor: '#070a12',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // The head script may add a class before hydration (the stamp moment). That mismatch is intended.
-    <html lang="en" className={`${mincho.variable} ${gothic.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${mincho.variable} ${gothic.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: STAMP_HEAD_SCRIPT }} />
       </head>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-paper">
           Skip to the register
         </a>
         {children}
