@@ -7,7 +7,7 @@ import { cleanMetric } from './http';
 import { runIngest, type Providers } from './run';
 
 const offline: Providers = {
-  defillama: async () => ({ fees24hUsd: null, tvlUsd: null }),
+  defillama: async () => ({ fees24hUsd: null, tvlUsd: null, dailyVolumeUsd: null, cumulativeVolumeUsd: null }),
   bitquery: async () => ({ cumulativeVolumeUsd: null, dailyVolumeUsd: null }),
   explorer: async () => null,
 };
@@ -38,7 +38,7 @@ describe('ingest', () => {
   it('never lets a fresh null overwrite a published figure, and writes atomically', async () => {
     const out = join(mkdtempSync(join(tmpdir(), 'veracity-')), 'snap.json');
     const { snapshot, providers, raw } = await runIngest(['v', 'unmapped'], out, '2026-11-01', prev, offline, {
-      v: { defillamaSlug: 'v', bitqueryNetwork: 'robinhood' },
+      v: { defillamaSlugs: ['v'], bitqueryNetwork: 'robinhood' },
     });
     expect(snapshot.venues[0]).toMatchObject({ cumulativeVolumeUsd: 100, fees24hUsd: 5, dailyVolumeUsd: null });
     expect(snapshot.venues[0].contracts[0].verified).toBe(true);
@@ -50,12 +50,12 @@ describe('ingest', () => {
   it('takes fresh figures and records which provider confirmed them', async () => {
     const out = join(mkdtempSync(join(tmpdir(), 'veracity-')), 'snap.json');
     const live: Providers = {
-      defillama: async () => ({ fees24hUsd: 9, tvlUsd: 1000 }),
+      defillama: async () => ({ fees24hUsd: 9, tvlUsd: 1000, dailyVolumeUsd: null, cumulativeVolumeUsd: null }),
       bitquery: async () => ({ cumulativeVolumeUsd: 200, dailyVolumeUsd: 20 }),
       explorer: async () => false,
     };
     const { snapshot, providers } = await runIngest(['v'], out, '2026-11-01', prev, live, {
-      v: { defillamaSlug: 'v', bitqueryNetwork: 'robinhood' },
+      v: { defillamaSlugs: ['v'], bitqueryNetwork: 'robinhood' },
     });
     expect(snapshot.venues[0]).toMatchObject({ cumulativeVolumeUsd: 200, dailyVolumeUsd: 20, fees24hUsd: 9, tvlUsd: 1000 });
     expect(snapshot.venues[0].contracts[0].verified).toBe(false);

@@ -37,14 +37,21 @@ async function ingestVenue(
   let cumulativeVolumeUsd = prev?.cumulativeVolumeUsd ?? null;
   let dailyVolumeUsd = prev?.dailyVolumeUsd ?? null;
 
-  if (mapping?.defillamaSlug) {
-    const stats = await providers.defillama(mapping.defillamaSlug);
-    if (stats.fees24hUsd != null) {
-      fees24hUsd = stats.fees24hUsd;
-      used.add('defillama');
-    }
-    if (stats.tvlUsd != null) {
-      tvlUsd = stats.tvlUsd;
+  let llamaVolume = false;
+  if (mapping?.defillamaSlugs?.length) {
+    const stats = await providers.defillama(mapping.defillamaSlugs, asOf, mapping.defillamaChain);
+    for (const [key, value] of [
+      ['fees24hUsd', stats.fees24hUsd],
+      ['tvlUsd', stats.tvlUsd],
+      ['dailyVolumeUsd', stats.dailyVolumeUsd],
+      ['cumulativeVolumeUsd', stats.cumulativeVolumeUsd],
+    ] as const) {
+      if (value == null) continue;
+      if (key === 'fees24hUsd') fees24hUsd = value;
+      if (key === 'tvlUsd') tvlUsd = value;
+      if (key === 'dailyVolumeUsd') dailyVolumeUsd = value;
+      if (key === 'cumulativeVolumeUsd') cumulativeVolumeUsd = value;
+      if (key === 'dailyVolumeUsd' || key === 'cumulativeVolumeUsd') llamaVolume = true;
       used.add('defillama');
     }
   }
@@ -52,7 +59,8 @@ async function ingestVenue(
   // Mapped contracts win over carried ones: the mapping is where corrections land.
   const known: ContractRef[] = mapping?.contracts ?? prev?.contracts ?? [];
   const factories = known.filter((c) => c.label === 'factory').map((c) => c.address);
-  if (mapping?.bitqueryNetwork && factories.length > 0) {
+  // Bitquery fills volume only where DefiLlama publishes none.
+  if (!llamaVolume && mapping?.bitqueryNetwork && factories.length > 0) {
     const volume = await providers.bitquery(mapping.bitqueryNetwork, factories, asOf);
     if (volume.cumulativeVolumeUsd != null) cumulativeVolumeUsd = volume.cumulativeVolumeUsd;
     if (volume.dailyVolumeUsd != null) dailyVolumeUsd = volume.dailyVolumeUsd;
