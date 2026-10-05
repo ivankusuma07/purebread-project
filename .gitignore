@@ -14,3 +14,6 @@ playwright/.cache
 
 # Reference material, not part of the product
 fineness-main.zip
+
+.vercel
+.env*
