@@ -3,7 +3,9 @@
 **A monthly register that checks the papers on every tokenized-stock venue.**
 Fineness (fineness.tech) underneath, rebuilt: the same method, data pipeline, editions, token mechanics and network. What changes is what you see: a new name, a new layout, and a Shiba Inu inspector instead of the cat.
 
-*v1.2 · 5 October 2026 · Supersedes v1.1 and v1.0 (PUREBRED) · Reference: the `fineness-main` repo*
+*v1.3 · 5 October 2026 · Supersedes v1.2, v1.1 and v1.0 (PUREBRED) · Reference: the `fineness-main` repo*
+
+**Changes in v1.3:** the design is now the night assay vault (§7): dark, gold and vermilion, WebGL aurora hero, count-up stats, score ticker, glass panels and scroll reveals, built with React Bits. The earlier ban list is lifted at the lead's request, except the rule against em dashes.
 
 **Changes in v1.2:**
 - **Everything behind the page works like Fineness.** The method, pipeline, JSON, desk, token and fee router all match Fineness. Veracity-only additions are removed: no on-chain edition seal, no extra fixes, no extra disclosures.
@@ -157,180 +159,97 @@ The cut points are real gold standards: 916 parts per thousand is 22 karat, 750 
 
 ---
 
-## 7. Design direction: new, and not AI-generated
+## 7. Design direction: the night assay vault
 
-**The goal:** look like an official assay-office register printed on Japanese ledger paper, not a crypto landing page. An assay office is where metal gets its hallmark stamped, which is exactly Hanko's job. Fineness copied a fintech template (TeraWallet), with its cream background, olive and gold, Inter and Geist Mono, bento grids, a shutter preloader and letter-by-letter reveals. Veracity deliberately goes the other way.
+**The goal:** an engaging, crypto-native page that still feels like nobody else's. An assay vault after hours: deep ink, molten gold, and the vermilion of Hanko's seal. The register is the product; the motion and light exist to pull people into it. (v1.3 lifted the earlier ban list at the lead's request. The one rule that stays is no em dashes, §7.0.)
 
-### 7.0 It must not look AI-generated
+### 7.0 Copy rules
 
-The lead's feedback is that the design looks AI-generated: built from the same defaults that AI site builders and templates produce, so it reads as nobody's work. These are those defaults. None of them ship:
-
-- **Colour:** no purple-to-blue or any other gradient wash, no gradient text, no glow, no glassmorphism or frosted panels, no neon accents on black.
-- **Layout:** no centred hero with a big slogan over a chart, no row of three identical feature cards, no bento grid, no "trusted by" logo strip, no oversized stat cards.
-- **Surfaces:** no soft grey shadow on every box, no rounded-xl cards everywhere, no pill badges on every label.
-- **Type:** no all-caps tracked eyebrow above every heading, no single coloured word in a headline, no "→" on every button, no Inter + mono pairing.
-- **Motion:** no scroll-triggered fade-up on every section, no hover lift on every card, no marquee, no count-up numbers, no letter-by-letter reveals, no WebGL or particle backgrounds.
-- **Icons and images:** no icons in tinted circles as section decoration, no emoji, no glossy 3D or AI-rendered mascots.
-- **Copy:** no filler ("Unlock the power of…", "Built for the future of…", "Seamless"), no claims the data can't back. Every sentence says something specific about this register.
-- **No em dashes (—), anywhere.** Not in headings, body copy, button labels, tooltips, Hanko's lines, meta descriptions, docs or commit messages. Use a full stop, comma, colon or parentheses instead. In the UI, an unchanged delta shows `0` and a missing figure shows "not published", never a dash. Ranges use an en dash (`375–584`) or the word "to". A lint check fails the build if `—` appears in any copy or data file.
-
-What replaces them is in §7.1–7.6: a real palette with a reason for each colour, a ledger layout, two Japanese typefaces, one orchestrated moment, and one hand-drawn character. The test for every page: could someone tell it was made by a person, for this register specifically?
+- **No em dashes (—), anywhere.** Not in headings, body copy, button labels, tooltips, Hanko's lines, meta descriptions, docs or commit messages. Use a full stop, comma, colon or parentheses. An unchanged delta shows `0`, a missing figure shows "not published", never a dash. Ranges use an en dash (`375–584`) or "to". Test A-09 fails the build if `—` appears in any copy or data file.
+- No filler ("Unlock the power of…", "Seamless"), no claims the data can't back.
+- Sentence case for headings. Small uppercase mono tags (`02 / KARAT`) label chapters.
 
 ### 7.1 Palette
 
 | Name | Hex | Used for |
 |---|---|---|
-| Ledger paper | `#E9EEE8` | Page background: a cool sage-grey, like registry stock |
-| Indigo ink | `#1F2B4A` | All text and rules. Japanese indigo dye, a real colour rather than a tinted black |
-| Grid green | `#9FB8A3` | Ledger and manuscript-paper grid lines, table rules |
-| Seal vermilion | `#D8342A` | **Only** the hanko seal and the hallmark line. Never decoration |
-| Shiba red | `#C67B3D` | **Only** Hanko's coat in illustrations |
+| Vault ink | `#070A12` | Page background, with a faint 64px grid and static film grain |
+| Panel | white at 3–5% over ink | Glass panels: cards, tables, the register |
+| Cream | `#F3EFE6` | Text |
+| Molten gold | `#FFE7A3` → `#F2C14E` → `#B7791F` | Scores, headings accents, primary buttons, score bars, the aurora |
+| Seal vermilion | `#FF5A45` | The seal, the hallmark line (with glow), the aurora's second colour |
+| Shiba red | `#E08A45` | Hanko's coat |
 
-**Band colours** are semantic and used only for karat bands. They're flat ink colours, not gold: Fineness's gold-on-cream is the look being left behind.
-
-| Band | Hex |
-|---|---|
-| 22k | purple `#5B3A8E` |
-| 18k | blue `#2C5AA0` |
-| 14k | green `#2F7A4F` |
-| 9k | ochre `#B08A1E` |
-| Below hallmark | slate `#7A8088`, with no seal |
+**Karat band colours** (dots, pills and the karat scale): 22k `#C9A7FF`, 18k `#74AEFF`, 14k `#5AD692`, 9k `#F2C14E`, below hallmark `#6B7389`. All text colours pass 4.5:1 on the vault ink.
 
 ### 7.2 Type
 
-- **Zen Old Mincho:** the headline, venue names, and the veracity scores. Venue names and scores read like a printed certificate.
-- **Zen Kaku Gothic New:** everything else, including tables, UI and body text. It's a Japanese grotesque with tabular figures.
-- **No monospace anywhere.** Hashes and addresses use the gothic's tabular figures, shortened to `0x73e6…7b99`, with a copy button.
-- **Sentence case everywhere.**
-- Body line length stays under about 75 characters. Tables use their own widths.
+- **Zen Old Mincho:** headlines, venue names and every score. Big, high-contrast, certificate-like.
+- **Zen Kaku Gothic New:** body and UI.
+- **JetBrains Mono:** hashes, addresses, code and the chapter tags.
 
-### 7.3 Layout: the register book
+### 7.3 Layout
 
-The page reads like a bound register, not a stack of marketing sections. **The register itself is the hero:** on the first screen you see the ranked venues, not a slogan over a chart.
-
-*Numbers in these wireframes are layout placeholders taken from Fineness's Edition 2026-11, not Veracity scores.*
-
-**Desktop (≥1200px)**
-```
-┌─────────────┬───────────────────────────────────────────────────────────┐
-│ VERACITY    │ Most venues launch memecoins. Hanko checks the papers.    │
-│             │ Nothing in this register clears 18 karat.                 │
-│ Contents    │                                                           │
-│  Register   │ Edition 2026-11   [SEAL]  frozen 1 Oct                    │
-│  Bands      │                   snapshot sha256:df90…6d23  copy         │
-│  Sniff test │ 10 venues · median 557 · 2 below hallmark · data 1 Oct    │
-│  How an     │───────────────────────────────────────────────────────────│
-│   edition   │  #  Venue          Chain      Veracity Band       Δ       │
-│   is made   │  1  Pons           Robinhood   745    14k       ▲25  [▸]  │
-│  Criteria   │  2  Long.xyz       Robinhood   720    14k        0   [▸]  │
-│  Custody    │  …                                                        │
-│  Struck off │ ━━━━━━━━━━━━━━━━━━━ the hallmark · 375 ━━━━━━━━━━━━━━━━━━ │
-│  Limits     │  9  Factory New    Robinhood   350    Below hallmark      │
-│  FAQ        │ 10  CSL            Robinhood   220    Below hallmark      │
-│  Data       │───────────────────────────────────────────────────────────│
-│  Archive    │ Judge's sheet ▾  (house weights · 30 25 20 15 10)         │
-│             │                                           [Hanko, seated] │
-└─────────────┴───────────────────────────────────────────────────────────┘
- left rail: sticky contents, like the tabs on a ledger
-```
-
-**Mobile (≤809px)**
-```
-┌───────────────────────────────┐
-│ VERACITY            Contents ▾│
-│ Most venues launch memecoins. │
-│ Hanko checks the papers.      │
-│ [SEAL] Edition 2026-11        │
-│ sha256:df90…6d23  copy        │
-├───────────────────────────────┤
-│ 1 Pons                 745 14k│
-│   Robinhood · ▲25          ▸  │
-│ 2 Long.xyz             720 14k│
-│ …                             │
-│ ━━━━━ the hallmark · 375 ━━━━ │
-│ 9 Factory New  350 Below hallm│
-├───────────────────────────────┤
-│ Judge's sheet ▸ (bottom sheet)│
-└───────────────────────────────┘
-```
-
-**Layout rules:**
-- Text is **left-aligned** throughout. The only centred element is the seal.
-- The register rows sit on a faint grid-green ledger rule. Hallmarked rows (375 and up) carry a small vermilion hanko imprint. Rows below the hallmark are set in slate with no seal.
-- The hallmark line is drawn as a **vermilion rule** across the ledger, and moves live when weights change.
-- Sections below the register are **chapters**, each with a plain heading. They're laid out as text, tables and one illustration each, not as grids of identical rounded cards. Border radius is used in two sizes only: 0 for paper and tables, full round for the seal.
-- The seal is Hanko's stamp: an ink mark on the edition, printed beside the snapshot hash. It's an illustration, not an on-chain record.
+- **Top bar:** sticky glass bar with the seal wordmark, page links, an "On this page" menu and a gold edition button. One menu on phones, working without JavaScript.
+- **Hero:** WebGL aurora (gold into vermilion) behind a split-text headline, "Hanko checks the papers." in shining gold, the finding, and two calls to action. On the right, the edition seal in a glowing ring with Hanko stamping it and floating chips for the leader and the hallmark.
+- **Numbers:** four spotlight cards that count up (venues, median, top score, below hallmark), then the snapshot hash with a decrypt effect and a copy button.
+- **Score ticker:** every ranked venue with its score and movement, looping under the hero.
+- **The register:** a glass ledger with gold rank badges for the top three, a gold score bar under each venue, band pills, the seal on every hallmarked row, and a glowing hallmark line. Rows re-sort with the judge's sheet.
+- **Chapters:** each with a numbered tag and a large heading, easing in on scroll. Bands become a karat scale with every venue plotted on it; the criteria matrix becomes a gold heatmap; data shows in a terminal window.
+- **Closing:** a gold call-to-action band, then the archive and the colophon.
 
 ### 7.4 Section-by-section mapping
 
-| Fineness section | Veracity chapter | Treatment |
+| Fineness section | Veracity | Treatment |
 |---|---|---|
-| Masthead + menu | Book header + contents rail | Sticky left rail on desktop, "Contents" sheet on mobile |
-| Alert strip | Headline finding | One sentence under the tagline |
-| Hero + hero chart + stamping cat | **Register as hero + edition seal** | The stamp moment (§7.5) happens here |
-| Stat row | Edition facts | One line of facts under the seal, not big-number cards |
-| Logo row | Dropped | The register already names every venue |
-| Backing-gap caliper ("Crucible") | **The sniff test** | Drag between "stock on paper" and "stock in the pool". Hanko's ears and tail react, and the karat band updates. An illustration, not a venue |
-| Scoring workflow (3 stages) | **How an edition is made: fetch, judge, freeze** | A real sequence, so it's numbered 1–3. One Hanko illustration per step |
-| Utility bento (4 decks) | **What you can do with it** | Four short paragraphs: read the gap, follow the deltas, reweight and share, pull the JSON |
-| Scale table | **Bands** | The karat scale with the hallmark at 375 |
-| Weight panel | **Judge's sheet** | 5 sliders + presets, URL updates, "Custom weights" banner with reset |
-| Comparison table | **Criteria matrix** | Venue × 5 criteria, scores 0–10 |
-| Regulated table | **Custody and papers** | Custodian, jurisdiction, redeemable, verification |
-| Struck list | **Struck off the register** | Final score + date struck |
-| Limits | **What these scores don't claim** | 4 limits, rewritten in plain language |
-| FAQ | FAQ | 5 questions, incl. "Why a Shiba?" |
-| Protocol CTA (JSON) | **Data** | Endpoint, JSON sample, plain copy button |
-| Next edition | Next edition | Date and what will change |
-| Corrections | Corrections | Dated notes, originals visible |
-| Sources | Sources | Provenance list |
-| Footer | Footer + **archive** | Every past edition with its snapshot hash |
-| Floating mascot | **Hanko in the margin** | Seated at the edge of the page on desktop. Click him for a line. No timed pop-ups |
-| Preloader | Removed | Content renders immediately |
+| Masthead + menu | Glass top bar | Sticky, "On this page" menu, gold edition button |
+| Alert strip | Headline finding | Under the headline |
+| Hero + chart + stamping cat | **Aurora hero + edition seal** | The stamp moment plays here |
+| Stat row | Count-up spotlight cards | Venues, median, top score, below hallmark |
+| Logo row | **Score ticker** | Venue chips with score and movement |
+| Backing-gap caliper | **The sniff test** | Gradient slider, gold bars, Hanko reacts |
+| Scoring workflow | **How an edition is made** | Three spotlight cards: fetch, judge, freeze |
+| Utility bento | **What you can do with it** | 2×2 hover cards with icons |
+| Scale table | **Scored like gold** | Karat scale with every venue plotted, band cards |
+| Weight panel | **Judge's sheet** | Glass panel, elastic gold sliders, presets |
+| Comparison table | **Criteria matrix** | Gold heatmap |
+| Regulated table | **Custody and papers** | Glass table |
+| Struck list | **Struck off** | Clean-sheet card or table |
+| Limits | **Fine print** | Four numbered cards |
+| FAQ | **Questions** | Accordion cards beside a glowing Hanko |
+| Protocol CTA | **Every edition is a JSON file** | Terminal window |
+| Next / corrections / sources | **Colophon** | Three cards side by side |
+| Footer | CTA band + archive | Gold call to action, then every edition |
+| Floating mascot | **Hanko in the corner** | Magnetic, speaks when clicked |
+| Preloader | None | Content renders immediately |
 
 ### 7.5 Motion
 
-The page has **one orchestrated moment**. On first visit, Hanko raises his paw and stamps the edition seal: the vermilion seal lands with a small ink spread, and hallmarked rows receive their seals in rank order. It lasts under 1.2s, plays once per session, and is skipped entirely with reduced motion.
+- **On load:** the aurora drifts; the headline words rise in; the gold line shines; Hanko stamps the seal once per session (under 1.2s); the stats count up; the hash decrypts.
+- **On scroll:** chapters ease in; the ticker loops.
+- **On hover:** cards lift with a cursor spotlight; Hanko leans toward the cursor; the ticker pauses.
+- **On action:** rows re-sort and the hallmark line slides; sliders stretch; copying confirms with a check.
+- **Reduced motion:** the stamp moment, scroll reveals, count-ups and hover lifts are skipped. Without JavaScript every number, score and section is still visible.
 
-Everything else moves **only when the reader does something**:
-- **Reweighting:** rows re-sort with a layout (FLIP) animation and the hallmark line slides to its new position.
-- **Expanding a row:** opens the venue's criteria and rationale.
-- **The sniff test:** reacts to dragging.
-- **Copying a hash or address:** confirms with a check.
+### 7.6 React Bits and Lucide
 
-### 7.6 React Bits and Lucide, scaled back
-
-React Bits is limited to pieces that answer a user's action:
-
-| Keep | Where |
+| Component | Where |
 |---|---|
-| **ElasticSlider** | Judge's sheet sliders |
-| **StatusMark** | Fee router tx states (`pending`, `done`, `failed`) |
-| **HoldButton** | Hold-to-confirm on `executeBuyback()` and the other public contract calls |
+| **Aurora** | Hero background |
+| **SplitText** | Headline entrance |
+| **ShinyText** | "Hanko checks the papers." |
+| **StarBorder** | Primary hero call to action |
+| **CountUp** | Hero stats (adapted: server renders the final value) |
+| **DecryptedText** | Snapshot hash |
+| **SpotlightCard** | Stats, steps, uses, data, colophon (adapted: themable) |
+| **LogoLoop** | Score ticker |
+| **AnimatedContent** | Chapter reveals (adapted: visible without JavaScript) |
+| **Magnet** | Hanko in the corner |
+| **ElasticSlider** | Judge's sheet (adapted: controlled, keyboard) |
+| **StatusMark** | Fee router tx states |
+| **HoldButton** | Hold-to-confirm on public contract calls |
 
-Nothing else from React Bits: no text effects, backgrounds, scroll reveals, spotlight cards or logo loops. The register reorder uses `motion` layout animations directly.
-
-**Lucide icon map:**
-
-| Concept | Icon |
-|---|---|
-| Edition seal / frozen | `Stamp` |
-| Hanko / mascot fallback | `Dog`, `PawPrint` |
-| Karat band | `Award` |
-| Papers / registration | `FileCheck`, `ScrollText` |
-| Judge's sheet | `SlidersHorizontal` |
-| Method | `Scale` |
-| Contents | `BookOpen` |
-| Archive | `Archive` |
-| Hash / chain link | `Hash`, `Link2` |
-| Struck off | `Ban` |
-| Movers | `TrendingUp`, `TrendingDown` |
-| Burn / vault / data | `Flame`, `Vault`, `Database` |
-| Freeze window | `Hourglass`, `CalendarClock` |
-| Copy / done / external | `Copy`, `Check`, `ExternalLink` |
-| Wallet | `Wallet` |
-
-Lucide has no brand logos, so the X and GitHub icons are small custom SVGs.
+**Lucide icons:** `BookOpen` (on this page), `Menu`, `ArrowDown`, `Braces` (JSON), `Hash`, `Eye`, `TrendingUp` / `TrendingDown`, `Shuffle`, `Scale`, `Award`, `FileCheck`, `ShieldCheck`, `Ban`, `Database`, `CalendarClock`, `ScrollText`, `Archive`, `Flame`, `Vault`, `Hourglass`, `Wallet`, `Copy` / `Check`, `ExternalLink`, `SlidersHorizontal`, `Plus`. X and GitHub are small custom SVGs.
 
 ---
 
@@ -460,7 +379,7 @@ veracity/
 
 | ID | Flow | Checks |
 |---|---|---|
-| E-01 | Home | Register renders as the first screen. Hallmark line sits between the last row ≥375 and the first <375 |
+| E-01 | Home | "Explore the register" brings the register into view. Hallmark line sits between the last row ≥375 and the first <375 |
 | E-02 | Shared `?w=` link | Same order **with JavaScript off** (server-side ordering) |
 | E-03 | Judge's sheet | URL updates, rows re-sort, hallmark line moves, reset restores house order |
 | E-04 | Edition header | Snapshot hash shown and equal to the JSON's `snapshotHash`. Copy button copies it |
@@ -518,7 +437,7 @@ Hosting is not counted: Railway Hobby and Vercel Hobby.
 | D4 | Token | `$VERA` on a launchpad bonding curve, Fineness's 50/30/20 mechanics |
 | D5 | Error reports | Verification Vault bounties, as Fineness |
 | D6 | Off-chain venues | Ranked inline, split into a watchlist at 3, as Fineness |
-| D7 | Design | Register-book layout, ledger palette, Zen Mincho + Zen Kaku Gothic, one stamp moment, React Bits reduced to 3 components, nothing that looks AI-generated (§7.0) |
+| D7 | Design | The night assay vault (§7): dark, molten gold and vermilion, aurora hero, React Bits motion, Hanko throughout. No em dashes |
 | D8 | Code | Rebuilt from scratch with the same behaviour. No Fineness code, copy or art reused |
 
 ---
@@ -529,7 +448,7 @@ Hosting is not counted: Railway Hobby and Vercel Hobby.
 |---|---|
 | **Copying Fineness too closely.** The repo has no licence file, so its code, copy and art are all rights reserved by default | **Rebuild from scratch.** Mirror the features and methodology (ideas, which aren't protected), but write new code, new copy and new art. Don't copy Fineness's scores or rationale text either |
 | **Looking like a clone of Fineness** | New name, character, layout, palette and type |
-| **Looking AI-generated** (the lead's main complaint) | The §7.0 list is a review checklist: every page is checked against it before release, and the mascot art is drawn by hand |
+| **Looking like every other crypto site** | Keep what is ours at the centre: Hanko, the seal, karat bands, the hallmark line and Mincho type. Effects serve the register, not the other way round |
 | **Name confusion with Verasity ($VRA)** | Check before committing. Use "Veracity register" in titles and never a `$VRA`-like ticker |
 | **Mainnet contracts hold real ETH** | The router and vault have no owner and no withdraw, so mistakes can't be patched after deploy. Test them on a local chain first, and start with small fee balances |
 | **Token conflict with scored venues** | Same as Fineness: if `$VERA` launches on a scored venue's launchpad, that venue's score is unaffected by the launch. This is how Fineness ran it |
