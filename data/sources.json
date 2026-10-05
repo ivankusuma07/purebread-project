@@ -88,5 +88,20 @@
     "name": "Factory New",
     "url": "https://factorynewpad.fun/",
     "type": "docs"
+  },
+  "launch-scan": {
+    "name": "Launch counts from factory event logs on Robinhood Chain (scripts/launch-scan.ts)",
+    "url": "https://github.com/ivankusuma07/purebread-project/blob/main/scripts/launch-scan.ts",
+    "type": "contracts"
+  },
+  "dexscreener": {
+    "name": "DexScreener (pool volume and liquidity on Robinhood Chain)",
+    "url": "https://dexscreener.com/robinhood",
+    "type": "metrics"
+  },
+  "pons-docs": {
+    "name": "Pons documentation",
+    "url": "https://docs.ponsfamily.com",
+    "type": "docs"
   }
 }

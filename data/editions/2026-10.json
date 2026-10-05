@@ -2,7 +2,7 @@
   "edition": "2026-10",
   "published": "2026-10-05",
   "dataAsOf": "2026-10-05",
-  "snapshotHash": "sha256:211e3a39beded6fab0bd6ca43c0f597f74eb96f23402fa64202085e543b62996",
+  "snapshotHash": "sha256:6bc0b53b8773ed1e7f14448bfa42eb3ce2e38ba9f570aa3c4b58e0895178c3dc",
   "houseWeights": {
     "asset": 0.3,
     "traction": 0.25,
@@ -12,81 +12,14 @@
   },
   "disclosures": [
     "Edition 01 was re-frozen on 5 October 2026, before launch, after an evidence review of every venue. No earlier version was announced.",
-    "Figures are DefiLlama's for the last complete day before the cut, counting only each venue's Robinhood Chain activity. Long.xyz and Factory New are not tracked there, so their figures show as not published.",
+    "Figures are DefiLlama's for the last complete day before the cut, counting only each venue's Robinhood Chain activity. Long.xyz and Factory New are not tracked there, so their figures show as not published; Long.xyz's record quotes a DexScreener 24-hour reading instead, outside the snapshot.",
+    "Launch counts and stock-pairing shares for Long.xyz and Pons were counted from their factories' event logs on Robinhood Chain up to block 80,788,317 (5 October 2026), with scripts/launch-scan.ts.",
     "Contract addresses come from DefiLlama's adapter source and Mobula's integration docs, and were checked on the Robinhood Chain explorer on 5 October 2026.",
     "o1.exchange is on the watchlist: its launchpad is live on Robinhood Chain, but no stock pairing was found, so it is not admitted.",
     "No venue paid for inclusion, placement or removal. There are no affiliate links in this edition."
   ],
   "corrections": [],
   "venues": [
-    {
-      "id": "long-xyz",
-      "name": "Long.xyz",
-      "chain": "robinhood-chain",
-      "resident": true,
-      "status": "active",
-      "struckDate": null,
-      "admittedEdition": "2026-10",
-      "rank": 1,
-      "veracity": 630,
-      "band": "14k",
-      "thesis": "Every launch trades against a Robinhood Stock Token, never ETH. The strongest claim to a real share in the register.",
-      "scores": {
-        "asset": 7,
-        "traction": 7,
-        "transparency": 6,
-        "compliance": 5,
-        "durability": 5
-      },
-      "rationale": {
-        "asset": "Every token is paired with a Robinhood Stock Token such as NVDA, TSLA or SPCX (MEXC Learn). Those tokens are derivatives issued by Robinhood Europe, UAB, backed by shares held in the US; holders cannot redeem for the share.",
-        "traction": "Second-largest launchpad: about 25% of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy) and about 20% of tokenized-stock TVL. Not tracked by DefiLlama, so no daily figure is published here.",
-        "transparency": "LongLauncher and Airlock are verified on Blockscout and are not upgradeable. Its site and docs block automated checks, and only a co-founder is publicly named.",
-        "compliance": "Leans on the issuer: Stock Tokens are issued under MiFID II by a Bank of Lithuania-regulated entity. The venue itself cites no licence.",
-        "durability": "Live since Robinhood Chain mainnet in July 2026. Non-upgradeable core, but it depends on the shared Airlock and Uniswap v4."
-      },
-      "pairing": {
-        "assetType": "tokenized-equity",
-        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
-        "jurisdiction": "Lithuania (Bank of Lithuania)",
-        "redeemable": false,
-        "verifiability": "attestation"
-      },
-      "metrics": {
-        "cumulativeVolumeUsd": null,
-        "dailyVolumeUsd": null,
-        "fees24hUsd": null,
-        "tvlUsd": null,
-        "sourceIds": [],
-        "asOf": "2026-10-05"
-      },
-      "contracts": [
-        {
-          "label": "factory",
-          "address": "0x22e99278308b393ea1260859b181ad7e78f5eeed",
-          "verified": true
-        },
-        {
-          "label": "airlock",
-          "address": "0xeb7c034704ef8dcd2d32324c1545f62fb4ad0862",
-          "verified": true
-        }
-      ],
-      "links": {
-        "site": "https://long.xyz",
-        "docs": "https://docs.long.xyz"
-      },
-      "facts": [
-        [
-          "~25%",
-          "of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy)"
-        ],
-        [
-          "~20%",
-          "of tokenized-stock TVL on the chain (The Block)"
-        ]
-      ]
-    },
     {
       "id": "pons",
       "name": "Pons",
@@ -95,10 +28,10 @@
       "status": "active",
       "struckDate": null,
       "admittedEdition": "2026-10",
-      "rank": 2,
+      "rank": 1,
       "veracity": 590,
       "band": "14k",
-      "thesis": "The busiest launchpad on the chain by far. Most launches pair with ETH; stock pairs are offered but are the minority.",
+      "thesis": "The busiest launchpad on the chain by far. Six in ten launches pair with ETH; fewer than three in ten pair with a stock.",
       "scores": {
         "asset": 4,
         "traction": 9,
@@ -107,9 +40,9 @@
         "durability": 6
       },
       "rationale": {
-        "asset": "Launches trade against WETH by default (Bitget Academy). Stock-token pairs such as NVDA, AAPL and HOOD are available (AirdropAlert), so a real asset stands behind only part of the flow.",
-        "traction": "Largest launchpad on the chain: about 60% of launchpad volume on 1 Sep 2026 (Bitget Academy) and $877K in fees on 4 Oct 2026 (DefiLlama).",
-        "transparency": "PonsLaunchFactory, PonsLaunchLocker, PonsV2LaunchFactory and the v4 hook are verified and not upgradeable. Operated by Pons Labs. A legacy factory is unverified.",
+        "asset": "Of the 671,162 launches on its v2 factory from 3 Aug to 5 Oct 2026, 29.1% pair with a Robinhood Stock Token (63 tickers, led by NVDA and SPCX) and 59.5% with ETH (factory event logs). Its docs describe WETH pools only. A real asset stands behind under a third of launches.",
+        "traction": "Largest launchpad on the chain: about 60% of launchpad volume on 1 Sep 2026 (Bitget Academy), $12.7M volume and $877K fees on 4 Oct 2026 (DefiLlama), and 671,162 v2 launches in nine weeks.",
+        "transparency": "PonsLaunchFactory, PonsLaunchLocker, PonsV2LaunchFactory, the v2 launch router and the v4 hook are verified and not upgradeable. Operated by Pons Labs, with public docs. A legacy factory is unverified.",
         "compliance": "Launchpad terms only. No prospectus or licence cited. Protocol fees fund buybacks of its own PONS token.",
         "durability": "Live since early July 2026 and kept running through the chain disruption of 4 Sep 2026."
       },
@@ -152,6 +85,11 @@
           "verified": true
         },
         {
+          "label": "v2 launch router",
+          "address": "0xe33E9E479dF8802cb0866d5d05258bEc4cF62948",
+          "verified": true
+        },
+        {
           "label": "legacy factory",
           "address": "0x0c37a24F5D23A486FA692d1500881d698B1F77a4",
           "verified": false
@@ -159,9 +97,17 @@
       ],
       "links": {
         "site": "https://www.ponsfamily.com",
-        "docs": null
+        "docs": "https://docs.ponsfamily.com"
       },
       "facts": [
+        [
+          "671K",
+          "launches on the v2 factory, 3 Aug to 5 Oct 2026 (factory event logs)"
+        ],
+        [
+          "29.1%",
+          "of those launches paired with a Robinhood Stock Token; 59.5% with ETH"
+        ],
         [
           "~60%",
           "of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy)"
@@ -180,7 +126,7 @@
       "status": "active",
       "struckDate": null,
       "admittedEdition": "2026-10",
-      "rank": 3,
+      "rank": 2,
       "veracity": 590,
       "band": "14k",
       "thesis": "A Solana launchpad whose stock pairs use xStocks, tokens backed one to one by real shares in custody.",
@@ -193,7 +139,7 @@
       },
       "rationale": {
         "asset": "Stock pairs use xStocks such as SPYx, issued by Backed Assets (JE) Ltd and backed 1:1 by shares at Alpaca Securities (Nansen). Memecoin holders get exposure, not a claim on the shares (Blocmates). It also pairs with crypto and its own tokens.",
-        "traction": "About $10.1M daily volume and $298K fees on 3 Oct 2026, $807M cumulative (DefiLlama).",
+        "traction": "$17.3M volume and $577K fees on 4 Oct 2026, up from $10.1M and $298K the day before, and $824M cumulative (DefiLlama). Strong for its age, but on Solana, not Robinhood Chain.",
         "transparency": "Tracked by DefiLlama with a public site. No operator is named and no program addresses have been checked here.",
         "compliance": "The xStocks issuer is registered in Jersey. The launchpad itself cites no licence. 60% of fees buy and burn its STONK token.",
         "durability": "Launched in early August 2026. Survived one hype cycle and integrated Raydium LaunchLab in September."
@@ -206,28 +152,130 @@
         "verifiability": "attestation"
       },
       "metrics": {
-        "cumulativeVolumeUsd": 806676509,
-        "dailyVolumeUsd": 10083275,
-        "fees24hUsd": 297598,
+        "cumulativeVolumeUsd": 823962052,
+        "dailyVolumeUsd": 17285543,
+        "fees24hUsd": 577372,
         "tvlUsd": null,
         "sourceIds": [
           "defillama"
         ],
         "asOf": "2026-10-05"
       },
-      "contracts": [],
+      "contracts": [
+        {
+          "label": "STONK token",
+          "address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+          "verified": false
+        },
+        {
+          "label": "lock program",
+          "address": "LockrWmn6K5twhz3y9w1dQERbmgSaRkfnTeTKbpofwE",
+          "verified": false
+        },
+        {
+          "label": "operator",
+          "address": "5CEbueQnq1Ym2uSSx2xXds3jQAqT1BDnkA59RZobSPAG",
+          "verified": false
+        }
+      ],
       "links": {
         "site": "https://www.stonkfun.xyz",
         "docs": null
       },
       "facts": [
         [
-          "$807M",
-          "cumulative volume to 3 Oct 2026 (DefiLlama)"
+          "$824M",
+          "cumulative volume to 4 Oct 2026 (DefiLlama)"
         ],
         [
           "60%",
           "of trading fees buy and burn STONK (Blocmates)"
+        ]
+      ]
+    },
+    {
+      "id": "long-xyz",
+      "name": "Long.xyz",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 3,
+      "veracity": 550,
+      "band": "9k",
+      "thesis": "Sold as stock-paired, but on-chain only half its launches trade against a Robinhood Stock Token. The rest pair with ETH, stablecoins, memecoins and leveraged tokens.",
+      "scores": {
+        "asset": 5,
+        "traction": 7,
+        "transparency": 5,
+        "compliance": 5,
+        "durability": 5
+      },
+      "rationale": {
+        "asset": "Of its 72,224 launches from 13 Jul to 5 Oct 2026, 50.4% pair with a Robinhood Stock Token, falling to 41.0% on the current factory since 6 Sep (factory event logs). The rest pair with ETH (11%), USDG, the AI memecoin and leveraged tokens, so the claim that every token is stock-paired (MEXC Learn) does not hold. Stock Tokens are derivatives issued by Robinhood Europe, UAB; holders cannot redeem for the share.",
+        "traction": "Second-largest launchpad: about 25% of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy) and 72,224 launches since 13 Jul. Not tracked by DefiLlama. DexScreener read $4.8M of 24h volume and $29.6M of liquidity across 676 pools of its launches at 13:05 UTC on 5 Oct 2026; the busiest pools quote USDG and the AI memecoin, not stocks.",
+        "transparency": "On 6 Sep 2026 launches moved to an upgradeable proxy; its LongLaunchFactory implementation is verified on Blockscout, and the first launcher was paused on 10 Sep. Upgradeable code can change without notice. Its site and docs block automated checks, and only a co-founder is publicly named.",
+        "compliance": "Leans on the issuer: Stock Tokens are issued under MiFID II by a Bank of Lithuania-regulated entity. The venue itself cites no licence.",
+        "durability": "Live since 13 Jul 2026, and kept launching through its September factory migration. Its core is now upgradeable and depends on the shared Airlock and Uniswap v4."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe, UAB (issuer); shares held at a US custodian via Alpaca Securities",
+        "jurisdiction": "Lithuania (Bank of Lithuania)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-05"
+      },
+      "contracts": [
+        {
+          "label": "factory (upgradeable proxy)",
+          "address": "0x1Eef016F22A943abC7DD11422EDeE9D235942104",
+          "verified": true
+        },
+        {
+          "label": "factory implementation",
+          "address": "0x7B7b87fd1Fb05864cD572C7306038552286c73d9",
+          "verified": true
+        },
+        {
+          "label": "first launcher (paused)",
+          "address": "0x22e99278308b393ea1260859b181ad7e78f5eeed",
+          "verified": true
+        },
+        {
+          "label": "airlock",
+          "address": "0xeb7c034704ef8dcd2d32324c1545f62fb4ad0862",
+          "verified": true
+        }
+      ],
+      "links": {
+        "site": "https://long.xyz",
+        "docs": "https://docs.long.xyz"
+      },
+      "facts": [
+        [
+          "72K",
+          "launches, 13 Jul to 5 Oct 2026 (factory event logs)"
+        ],
+        [
+          "50.4%",
+          "of those launches paired with a Robinhood Stock Token; 41.0% since 6 Sep"
+        ],
+        [
+          "$4.8M",
+          "24h volume across 676 pools, 13:05 UTC on 5 Oct 2026 (DexScreener)"
+        ],
+        [
+          "~25%",
+          "of Robinhood Chain launchpad volume on 1 Sep 2026 (Bitget Academy)"
         ]
       ]
     },
@@ -274,7 +322,18 @@
         ],
         "asOf": "2026-10-05"
       },
-      "contracts": [],
+      "contracts": [
+        {
+          "label": "fee hook",
+          "address": "0x6f02324d20cc679d0e585290caa6b16bacbc0f77",
+          "verified": true
+        },
+        {
+          "label": "fee hook (Safe share)",
+          "address": "0x9982538f41f2ae29ddb9d3d9307010052984fdbb",
+          "verified": true
+        }
+      ],
       "links": {
         "site": "https://bankr.bot",
         "docs": "https://docs.bankr.bot"
@@ -397,7 +456,7 @@
         "cumulativeVolumeUsd": 66220652,
         "dailyVolumeUsd": 13135,
         "fees24hUsd": 2608,
-        "tvlUsd": 94451.31199,
+        "tvlUsd": 93902.30667,
         "sourceIds": [
           "defillama"
         ],

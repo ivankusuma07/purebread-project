@@ -10,7 +10,17 @@
       "tvlUsd": null,
       "contracts": [
         {
-          "label": "factory",
+          "label": "factory (upgradeable proxy)",
+          "address": "0x1Eef016F22A943abC7DD11422EDeE9D235942104",
+          "verified": true
+        },
+        {
+          "label": "factory implementation",
+          "address": "0x7B7b87fd1Fb05864cD572C7306038552286c73d9",
+          "verified": true
+        },
+        {
+          "label": "first launcher (paused)",
           "address": "0x22e99278308b393ea1260859b181ad7e78f5eeed",
           "verified": true
         },
@@ -49,6 +59,11 @@
           "verified": true
         },
         {
+          "label": "v2 launch router",
+          "address": "0xe33E9E479dF8802cb0866d5d05258bEc4cF62948",
+          "verified": true
+        },
+        {
           "label": "legacy factory",
           "address": "0x0c37a24F5D23A486FA692d1500881d698B1F77a4",
           "verified": false
@@ -57,11 +72,27 @@
     },
     {
       "id": "stonkfun",
-      "cumulativeVolumeUsd": 806676509,
-      "dailyVolumeUsd": 10083275,
-      "fees24hUsd": 297598,
+      "cumulativeVolumeUsd": 823962052,
+      "dailyVolumeUsd": 17285543,
+      "fees24hUsd": 577372,
       "tvlUsd": null,
-      "contracts": []
+      "contracts": [
+        {
+          "label": "STONK token",
+          "address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+          "verified": false
+        },
+        {
+          "label": "lock program",
+          "address": "LockrWmn6K5twhz3y9w1dQERbmgSaRkfnTeTKbpofwE",
+          "verified": false
+        },
+        {
+          "label": "operator",
+          "address": "5CEbueQnq1Ym2uSSx2xXds3jQAqT1BDnkA59RZobSPAG",
+          "verified": false
+        }
+      ]
     },
     {
       "id": "pair",
@@ -88,14 +119,25 @@
       "dailyVolumeUsd": null,
       "fees24hUsd": 2676,
       "tvlUsd": null,
-      "contracts": []
+      "contracts": [
+        {
+          "label": "fee hook",
+          "address": "0x6f02324d20cc679d0e585290caa6b16bacbc0f77",
+          "verified": true
+        },
+        {
+          "label": "fee hook (Safe share)",
+          "address": "0x9982538f41f2ae29ddb9d3d9307010052984fdbb",
+          "verified": true
+        }
+      ]
     },
     {
       "id": "flap",
       "cumulativeVolumeUsd": 66220652,
       "dailyVolumeUsd": 13135,
       "fees24hUsd": 2608,
-      "tvlUsd": 94451.31199,
+      "tvlUsd": 93902.30667,
       "contracts": [
         {
           "label": "portal (upgradeable proxy)",
