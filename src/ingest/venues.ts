@@ -34,17 +34,29 @@ export const VENUE_INGEST: Record<string, VenueIngestConfig> = {
       { label: 'locker', address: '0x736D76699C26D0d966744cAe304C000d471f7F35', verified: true },
       { label: 'factory v2', address: '0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e', verified: true },
       { label: 'v4 hook', address: '0xE5e702641Ea86F4ae6cC3cDaeD2B886f976Be044', verified: true },
+      { label: 'v2 launch router', address: '0xe33E9E479dF8802cb0866d5d05258bEc4cF62948', verified: true },
       { label: 'legacy factory', address: '0x0c37a24F5D23A486FA692d1500881d698B1F77a4', verified: false },
     ],
   },
   'long-xyz': {
+    // Launches moved to an upgradeable proxy on 6 Sep 2026; the first launcher was
+    // paused on 10 Sep. The proxy address is the one the Long.xyz app calls.
     contracts: [
-      { label: 'factory', address: '0x22e99278308b393ea1260859b181ad7e78f5eeed', verified: true },
+      { label: 'factory (upgradeable proxy)', address: '0x1Eef016F22A943abC7DD11422EDeE9D235942104', verified: true },
+      { label: 'factory implementation', address: '0x7B7b87fd1Fb05864cD572C7306038552286c73d9', verified: true },
+      { label: 'first launcher (paused)', address: '0x22e99278308b393ea1260859b181ad7e78f5eeed', verified: true },
       { label: 'airlock', address: '0xeb7c034704ef8dcd2d32324c1545f62fb4ad0862', verified: true },
     ],
   },
   stonkfun: {
     defillamaSlugs: ['stonkfun'],
+    // Solana accounts, from DefiLlama's adapter: the STONK mint, the liquidity
+    // lock program and the operator account. Not EVM contracts; no source check.
+    contracts: [
+      { label: 'STONK token', address: '6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx', verified: false },
+      { label: 'lock program', address: 'LockrWmn6K5twhz3y9w1dQERbmgSaRkfnTeTKbpofwE', verified: false },
+      { label: 'operator', address: '5CEbueQnq1Ym2uSSx2xXds3jQAqT1BDnkA59RZobSPAG', verified: false },
+    ],
   },
   'pools-trade': {
     defillamaSlugs: ['pools'],
@@ -65,6 +77,12 @@ export const VENUE_INGEST: Record<string, VenueIngestConfig> = {
   bankr: {
     defillamaSlugs: ['bankr'],
     defillamaChain: RH,
+    // Bankr launches through the shared Doppler contracts; these fee hooks pay its
+    // fee wallet on every swap (DefiLlama's Bankr adapter).
+    contracts: [
+      { label: 'fee hook', address: '0x6f02324d20cc679d0e585290caa6b16bacbc0f77', verified: true },
+      { label: 'fee hook (Safe share)', address: '0x9982538f41f2ae29ddb9d3d9307010052984fdbb', verified: true },
+    ],
   },
   flap: {
     defillamaSlugs: ['flap-sh'],
