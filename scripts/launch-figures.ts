@@ -8,7 +8,7 @@
 // Used for Long.xyz in Edition 01: DefiLlama does not track it. The result is
 // recorded in the snapshot with the "dexscreener" source.
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 interface Pair {
   chainId: string;
@@ -27,21 +27,27 @@ async function main(): Promise<void> {
   const assets = [...new Set(scan.longAssets.map((a) => a.toLowerCase()))];
   const mine = new Set(assets);
 
+  // Pools found so far are checkpointed next to the scan, so a rerun after a
+  // dropped connection picks up where it stopped.
+  const checkpoint = `${scanPath}.figures-progress.json`;
+  const saved = existsSync(checkpoint) ? (JSON.parse(readFileSync(checkpoint, 'utf8')) as { next: number; pools: [string, Pair][] }) : null;
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-  const pools = new Map<string, Pair>();
+  const pools = new Map<string, Pair>(saved?.pools ?? []);
   let calls = 0;
-  for (let i = 0; i < assets.length; i += 30) {
+  for (let i = saved?.next ?? 0; i < assets.length; i += 30) {
     const batch = assets.slice(i, i + 30);
     let pairs: Pair[] = [];
     for (let attempt = 0; ; attempt++) {
       try {
-        const res = await fetch(`https://api.dexscreener.com/tokens/v1/robinhood/${batch.join(',')}`);
+        const res = await fetch(`https://api.dexscreener.com/tokens/v1/robinhood/${batch.join(',')}`, {
+          signal: AbortSignal.timeout(20_000),
+        });
         if (res.ok) {
           pairs = (await res.json()) as Pair[];
           break;
         }
       } catch {
-        // Network blip: wait and try again.
+        // Network blip or timeout: wait and try again.
       }
       if (attempt >= 7) throw new Error(`DexScreener unreachable at batch ${i / 30}`);
       await sleep(3000 * (attempt + 1));
@@ -54,7 +60,10 @@ async function main(): Promise<void> {
       pools.set(p.pairAddress.toLowerCase(), p);
     }
     await sleep(220);
-    if (calls % 100 === 0) console.error(`${calls} calls, ${pools.size} pools`);
+    if (calls % 100 === 0) {
+      writeFileSync(checkpoint, JSON.stringify({ next: i + 30, pools: [...pools] }));
+      console.error(`${calls} calls, ${pools.size} pools`);
+    }
   }
 
   let volume = 0;
