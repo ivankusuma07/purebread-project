@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { CRITERIA, HALLMARK, HOUSE_WEIGHTS } from '../../../src/scoring/veracity';
 import Seal from '../../../src/site/art/Seal';
 import BandMark from '../../../src/site/components/BandMark';
+import PageHead from '../../../src/site/components/PageHead';
 import Book from '../../../src/site/components/Book';
 import CopyButton from '../../../src/site/components/CopyButton';
 import { explorerAddress } from '../../../src/site/config';
@@ -102,54 +103,48 @@ export default async function VenuePage({ params }: { params: Params }) {
 
   return (
     <Book contents={CONTENTS} edition={latest.edition}>
-      <header className="pb-8 pt-8 min-[1200px]:pt-12">
-        <p className="text-sm text-ink-2">
-          <Link href="/">Register</Link> / <Link href="/venues">venues</Link> / papers
-        </p>
-        <div className="mt-4 grid items-start gap-6 sm:grid-cols-[1fr_auto]">
-          <div>
-            <h1 className="text-[clamp(2rem,1.4rem+2.6vw,3rem)]">{current.name}</h1>
-            <p className="mt-1 text-ink-2">
-              {chainLabel(current.chain)}
-              {!current.resident && ', off-chain'} · admitted {current.admittedEdition}
+      <PageHead
+        crumbs={[['venues', '/venues'], ['papers']]}
+        kicker={`${chainLabel(current.chain)}${current.resident ? '' : ' · off-chain'} · admitted ${current.admittedEdition}`}
+        title={current.name}
+        lede={
+          <>
+            <p className="font-mincho text-xl text-ink">{current.thesis}</p>
+            <p className="mt-3 text-sm text-ink-3">
+              Scored in edition {latest.edition}, snapshot <span className="mono">{shortHash(latest.snapshotHash)}</span>
               {current.status === 'struck' && current.struckDate && ` · struck off ${longDate(current.struckDate)}`}
               {current.status === 'paused' && ' · paused'}
               {puppy && ' · puppy, not yet ranked'}
             </p>
-            <p className="measure mt-4 text-lg text-ink">{current.thesis}</p>
-          </div>
-          <div className="flex items-center gap-4 sm:flex-col sm:items-end">
+          </>
+        }
+        aside={
+          <div className="panel flex items-center gap-6 px-6 py-5">
             {puppy ? (
               <p className="text-ink-2">Not yet scored</p>
             ) : (
               <>
-                <div className="text-right">
-                  <p className="num font-mincho text-5xl font-bold leading-none">{current.veracity}</p>
-                  <p className="mt-1">
-                    <BandMark band={current.band} />
+                <div>
+                  <p className="text-xs uppercase tracking-[0.14em] text-ink-3">Veracity</p>
+                  <p className={`num font-mincho text-6xl font-bold leading-none ${hallmarked ? 'text-gold' : 'text-below-ink'}`}>{current.veracity}</p>
+                  <p className="mt-2 flex items-center gap-2">
+                    <BandMark band={current.band} pill />
+                    {current.delta && <span className="num text-sm text-ink-2">{signed(current.delta.veracity)} since {current.delta.basis}</span>}
                   </p>
-                  {current.delta && (
-                    <p className="num mt-1 text-sm text-ink-2">
-                      {signed(current.delta.veracity)} since {current.delta.basis}
-                    </p>
-                  )}
                 </div>
                 {hallmarked ? (
-                  <Seal className="size-16 -rotate-3" title="Hallmarked" />
+                  <Seal className="size-20 -rotate-6 drop-shadow-[0_0_24px_rgba(255,90,69,0.6)]" title="Hallmarked" />
                 ) : (
-                  <p className="text-sm text-below-ink">Below the hallmark: listed, not certified.</p>
+                  <p className="max-w-[10rem] text-sm text-below-ink">Below the hallmark: listed, not certified.</p>
                 )}
               </>
             )}
           </div>
-        </div>
-        <p className="mt-4 text-sm text-ink-2">
-          Scored in edition {latest.edition}, snapshot <span className="num">{shortHash(latest.snapshotHash)}</span>.
-        </p>
-      </header>
+        }
+      />
 
-      <section id="history" aria-labelledby="history-title" className="chapter">
-        <h2 id="history-title" className="chapter-title mb-5">
+      <section id="history" aria-labelledby="history-title" className="panel mb-4 p-6 sm:p-8">
+        <h2 id="history-title" className="mb-6 text-3xl">
           History
         </h2>
         <HistoryChart records={records} name={current.name} />
@@ -187,8 +182,8 @@ export default async function VenuePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section id="scores" aria-labelledby="scores-title" className="chapter">
-        <h2 id="scores-title" className="chapter-title mb-5">
+      <section id="scores" aria-labelledby="scores-title" className="panel mb-4 p-6 sm:p-8">
+        <h2 id="scores-title" className="mb-6 text-3xl">
           Scores
         </h2>
         <dl className="ledger">
@@ -207,8 +202,8 @@ export default async function VenuePage({ params }: { params: Params }) {
         </dl>
       </section>
 
-      <section id="custody" aria-labelledby="custody-title" className="chapter">
-        <h2 id="custody-title" className="chapter-title mb-5 flex items-center gap-2">
+      <section id="custody" aria-labelledby="custody-title" className="panel mb-4 p-6 sm:p-8">
+        <h2 id="custody-title" className="mb-6 text-3xl flex items-center gap-2">
           <FileCheck size={20} aria-hidden /> Custody and pairing
         </h2>
         <dl className="grid max-w-xl grid-cols-[10rem_1fr] gap-x-6 gap-y-2">
@@ -225,8 +220,8 @@ export default async function VenuePage({ params }: { params: Params }) {
         </dl>
       </section>
 
-      <section id="figures" aria-labelledby="figures-title" className="chapter">
-        <h2 id="figures-title" className="chapter-title mb-5">
+      <section id="figures" aria-labelledby="figures-title" className="panel mb-4 p-6 sm:p-8">
+        <h2 id="figures-title" className="mb-6 text-3xl">
           Figures
         </h2>
         <dl className="grid max-w-xl grid-cols-[10rem_1fr] gap-x-6 gap-y-2">
@@ -264,8 +259,8 @@ export default async function VenuePage({ params }: { params: Params }) {
         )}
       </section>
 
-      <section id="contracts" aria-labelledby="contracts-title" className="chapter">
-        <h2 id="contracts-title" className="chapter-title mb-5 flex items-center gap-2">
+      <section id="contracts" aria-labelledby="contracts-title" className="panel mb-4 p-6 sm:p-8">
+        <h2 id="contracts-title" className="mb-6 text-3xl flex items-center gap-2">
           <Link2 size={20} aria-hidden /> Contracts and links
         </h2>
         {current.contracts.length === 0 ? (
@@ -303,9 +298,21 @@ export default async function VenuePage({ params }: { params: Params }) {
         </ul>
       </section>
 
-      <nav aria-label="Other venues" className="flex justify-between gap-4 border-t border-grid py-6">
-        {prev ? <Link href={`/venues/${prev.id}`}>Previous: {prev.name}</Link> : <span />}
-        {next ? <Link href={`/venues/${next.id}`}>Next: {next.name}</Link> : <span />}
+      <nav aria-label="Other venues" className="flex justify-between gap-4 pt-6">
+        {prev ? (
+          <Link href={`/venues/${prev.id}`} className="btn no-underline">
+            Previous: {prev.name}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link href={`/venues/${next.id}`} className="btn no-underline">
+            Next: {next.name}
+          </Link>
+        ) : (
+          <span />
+        )}
       </nav>
     </Book>
   );

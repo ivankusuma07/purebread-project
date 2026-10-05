@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { HALLMARK } from '../../src/scoring/veracity';
 import BandMark from '../../src/site/components/BandMark';
 import Book from '../../src/site/components/Book';
+import PageHead from '../../src/site/components/PageHead';
 import { LATEST_EDITION } from '../../src/site/editions';
 import { ASSET_TYPE_LABEL, chainLabel, editionMonth } from '../../src/site/lib/format';
 import type { Venue } from '../../src/types';
@@ -28,19 +29,19 @@ export default function VenuesPage() {
 
   return (
     <Book contents={[{ href: '#venues', label: 'All venues' }]} edition={LATEST_EDITION.edition}>
-      <header className="pb-6 pt-8 min-[1200px]:pt-12">
-        <p className="text-sm text-ink-2">
-          <Link href="/">Register</Link> / venues
-        </p>
-        <h1 className="mt-3 text-[clamp(1.9rem,1.4rem+2vw,2.75rem)]">Venues</h1>
-        <p className="measure mt-3 text-ink-2">
-          Every venue in edition {LATEST_EDITION.edition} ({editionMonth(LATEST_EDITION.edition)}). Open a venue&apos;s
-          papers for its history, scores, custody and contracts.
-        </p>
-      </header>
+      <PageHead
+        crumbs={[['venues']]}
+        kicker="Index"
+        title={
+          <>
+            Every venue, <span className="text-gold">one ledger</span>
+          </>
+        }
+        lede={<>Edition {LATEST_EDITION.edition} ({editionMonth(LATEST_EDITION.edition)}). Ranked venues first, then puppies and the struck off. Open a venue&apos;s papers for its history, scores, custody and contracts.</>}
+      />
 
-      <section id="venues" aria-label="Venue index" className="border-t-2 border-ink">
-        <div className="overflow-x-auto">
+      <section id="venues" aria-label="Venue index" className="pb-8">
+        <div className="panel overflow-x-auto p-2">
           <table className="table-ledger min-w-[38rem]">
             <thead>
               <tr>
@@ -71,8 +72,8 @@ export default function VenuesPage() {
                       </span>
                     </td>
                     <td>{ASSET_TYPE_LABEL[v.pairing.assetType]}</td>
-                    <td className="n font-mincho text-lg font-bold">{v.status === 'prelaunch' ? '' : v.veracity}</td>
-                    <td>{v.status === 'prelaunch' ? <span className="text-ink-3">not yet scored</span> : <BandMark band={v.band} />}</td>
+                    <td className={`n font-mincho text-xl font-bold ${!unranked && v.veracity >= HALLMARK ? 'text-gold' : ''}`}>{v.status === 'prelaunch' ? '' : v.veracity}</td>
+                    <td>{v.status === 'prelaunch' ? <span className="text-ink-3">not yet scored</span> : <BandMark band={v.band} pill />}</td>
                     <td className="num">{v.admittedEdition}</td>
                   </tr>
                 );

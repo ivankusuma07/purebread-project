@@ -8,6 +8,7 @@ import { shortHash } from '../lib/format';
 import HoldButton from '../reactbits/HoldButton';
 import StatusMark, { type StatusMarkStatus } from '../reactbits/StatusMark';
 import CopyButton from './CopyButton';
+import PageHead from './PageHead';
 
 const robinhood = defineChain({
   id: CHAIN.id,
@@ -189,23 +190,33 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
   ];
 
   return (
-    <div className="space-y-0">
-      <header className="pb-8 pt-8 min-[1200px]:pt-12">
-        <h1 className="text-[clamp(1.9rem,1.4rem+2vw,2.75rem)]">Fee router</h1>
-        <p className="measure mt-3 text-lg text-ink-2">
-          Every {TOKEN.symbol} creator fee lands in a contract nobody controls. Half is bought back and burned after
-          each edition freezes, three tenths pays readers who prove the register wrong, and a fifth pays for the data.
-        </p>
-        {!live && (
-          <p role="note" className="mt-5 max-w-3xl border border-ink px-4 py-3 text-sm" data-testid="preview-banner">
+    <div className="space-y-4 pb-8">
+      <PageHead
+        crumbs={[['fee router']]}
+        kicker={`${TOKEN.symbol} · Robinhood Chain`}
+        title={
+          <>
+            Hash, then <span className="text-gold">burn</span>
+          </>
+        }
+        lede={`Every ${TOKEN.symbol} creator fee lands in a contract nobody controls. Half is bought back and burned after each edition freezes, three tenths pays readers who prove the register wrong, and a fifth pays for the data.`}
+      />
+      {!live && (
+        <p
+          role="note"
+          className="flex items-start gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-5 py-4 text-sm text-gold-hi"
+          data-testid="preview-banner"
+        >
+          <span className="mt-1 size-2 shrink-0 animate-pulse-dot rounded-full bg-gold" aria-hidden />
+          <span>
             <strong>Preview mode.</strong> The router and the vault are not deployed yet, so figures marked
             &ldquo;sample&rdquo; are illustrations, not chain data. Calls below are simulated and nothing is sent.
-          </p>
-        )}
-      </header>
+          </span>
+        </p>
+      )}
 
-      <section aria-labelledby="token-title" className="chapter grid gap-10 md:grid-cols-2">
-        <div>
+      <section aria-labelledby="token-title" className="grid gap-4 md:grid-cols-2">
+        <div className="panel p-6 sm:p-8">
           <h2 id="token-title" className="chapter-title mb-4">
             {TOKEN.symbol}
           </h2>
@@ -224,12 +235,12 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
             </a>
           )}
         </div>
-        <div>
+        <div className="panel p-6 sm:p-8">
           <h2 className="chapter-title mb-4 flex items-center gap-2">
-            <Hourglass size={20} aria-hidden /> Freeze window
+            <Hourglass size={24} aria-hidden className="text-gold" /> Freeze window
           </h2>
           <p className="text-ink-2">Opens 05:00 UTC on the 1st of each month, for 72 hours. Buybacks run only inside it.</p>
-          <p className="num mt-4 font-mincho text-3xl font-bold" data-testid="freeze-countdown">
+          <p className="num mt-4 font-mincho text-5xl font-bold text-gold" data-testid="freeze-countdown">
             {freeze ? countdown(freeze.target - (now ?? 0)) : '…'}
           </p>
           <p className="text-sm text-ink-2">{freeze ? (freeze.open ? 'until the window closes' : 'until the window opens') : 'reading the clock'}</p>
@@ -239,39 +250,39 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
         </div>
       </section>
 
-      <section aria-labelledby="split-title" className="chapter">
+      <section aria-labelledby="split-title" className="panel p-6 sm:p-8">
         <h2 id="split-title" className="chapter-title mb-5">
           Where every fee goes
         </h2>
-        <div aria-hidden className="flex h-4 w-full">
-          <span className="w-1/2 bg-ink" />
-          <span className="w-[30%] bg-shiba" />
-          <span className="w-1/5 bg-grid" />
+        <div aria-hidden className="flex h-5 w-full gap-1 overflow-hidden rounded-full">
+          <span className="w-1/2 rounded-l-full bg-gradient-to-r from-vermilion to-[#ff8a4a] shadow-[0_0_20px_rgba(255,90,69,0.5)]" />
+          <span className="w-[30%] bg-gradient-to-r from-gold-lo to-gold" />
+          <span className="w-1/5 rounded-r-full bg-gradient-to-r from-k18/70 to-k18" />
         </div>
         <div className="mt-6 grid gap-8 md:grid-cols-3">
           <div>
             <h3 className="flex items-center gap-2 text-lg">
-              <Flame size={18} aria-hidden /> 50% burned
+              <Flame size={18} aria-hidden className="text-vermilion" /> 50% burned
             </h3>
             <p className="mt-1.5 text-ink-2">Bought back and burned inside the 72 hours after each edition freezes.</p>
           </div>
           <div>
             <h3 className="flex items-center gap-2 text-lg">
-              <Vault size={18} aria-hidden /> 30% verification vault
+              <Vault size={18} aria-hidden className="text-gold" /> 30% verification vault
             </h3>
             <p className="mt-1.5 text-ink-2">Bought back and held to pay readers who prove an error in the register.</p>
           </div>
           <div>
             <h3 className="flex items-center gap-2 text-lg">
-              <Database size={18} aria-hidden /> 20% data
+              <Database size={18} aria-hidden className="text-k18" /> 20% data
             </h3>
             <p className="mt-1.5 text-ink-2">Sent as ETH to the data wallet for the APIs and the RPC the register runs on.</p>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="balances-title" className="chapter grid gap-10 md:grid-cols-2">
-        <div>
+      <section aria-labelledby="balances-title" className="grid gap-4 md:grid-cols-2">
+        <div className="panel p-6 sm:p-8">
           <h2 id="balances-title" className="chapter-title mb-4">
             Balances
           </h2>
@@ -288,7 +299,7 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
             <AddressRow label="Data wallet" address={CONTRACTS.dataWallet} note="not published yet" />
           </ul>
         </div>
-        <div>
+        <div className="panel p-6 sm:p-8">
           <h2 className="chapter-title mb-4">Buyback guards</h2>
           <table className="table-ledger">
             <thead>
@@ -324,8 +335,8 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
         </div>
       </section>
 
-      <section aria-labelledby="ledgers-title" className="chapter grid gap-10 md:grid-cols-2">
-        <div>
+      <section aria-labelledby="ledgers-title" className="grid gap-4 md:grid-cols-2">
+        <div className="panel p-6 sm:p-8">
           <h2 id="ledgers-title" className="chapter-title mb-4">
             Burn history
           </h2>
@@ -357,7 +368,7 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
             </table>
           )}
         </div>
-        <div>
+        <div className="panel p-6 sm:p-8">
           <h2 className="chapter-title mb-4">Bounty ledger</h2>
           {live ? (
             <p className="text-ink-2">No bounty has been claimed yet.</p>
@@ -393,14 +404,14 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
         </div>
       </section>
 
-      <section aria-labelledby="run-title" className="chapter">
+      <section aria-labelledby="run-title" className="panel p-6 sm:p-8">
         <h2 id="run-title" className="chapter-title mb-2">
           Run it yourself
         </h2>
         <p className="measure mb-6 text-ink-2">
           The router has no owner, no withdraw and no keeper. Anyone can make these calls. Hold a button to confirm.
         </p>
-        <button type="button" className="btn mb-6" onClick={connect}>
+        <button type="button" className="btn btn-gold mb-6" onClick={connect}>
           <Wallet size={16} aria-hidden />
           {account ? `Connected ${shortHash(account)}` : 'Connect wallet'}
         </button>
@@ -416,13 +427,13 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
               </div>
               <HoldButton
                 size="sm"
-                radius={0}
+                radius={999}
                 holdTime={1200}
                 glow={false}
-                backgroundColor="var(--color-paper-deep)"
-                fillColor="var(--color-ink)"
-                textColor="var(--color-ink)"
-                fillTextColor="var(--color-paper)"
+                backgroundColor="rgba(255,255,255,0.06)"
+                fillColor="#F2C14E"
+                textColor="#F3EFE6"
+                fillTextColor="#1a1305"
                 doneLabel={live ? 'Sent' : 'Simulated'}
                 onHold={() => void call(c.name)}
               >
@@ -431,7 +442,7 @@ export default function FeeRouter({ editionId }: { editionId: string }) {
             </li>
           ))}
         </ul>
-        <div className="mt-6 max-w-3xl border-l-2 border-grid pl-4" aria-live="polite">
+        <div className="mono mt-6 max-w-3xl rounded-xl border border-white/10 bg-[#05070d] p-4" aria-live="polite">
           <p className="mb-1 text-sm text-ink-3">Output</p>
           {log.map((line, i) => (
             <p key={`${i}-${line}`} className="num text-sm text-ink">

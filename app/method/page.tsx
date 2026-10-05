@@ -1,11 +1,11 @@
 import { Scale } from 'lucide-react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { CRITERIA, HALLMARK, HOUSE_WEIGHTS } from '../../src/scoring/veracity';
 import { STANDARD_FROM, WATCHLIST_SPLIT_AT } from '../../src/build/admission';
 import BandMark from '../../src/site/components/BandMark';
 import Book from '../../src/site/components/Book';
+import PageHead from '../../src/site/components/PageHead';
 import { LATEST_EDITION } from '../../src/site/editions';
 import { CRITERION_INFO } from '../../src/site/lib/criteria';
 import { pct } from '../../src/site/lib/format';
@@ -32,12 +32,14 @@ const SECTIONS = [
 function Part({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   const label = SECTIONS.find((s) => s.id === id);
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="chapter">
-      <h2 id={`${id}-title`} className="chapter-title mb-4 flex items-baseline gap-3">
-        <span className="num font-gothic text-base font-normal text-ink-3">{SECTIONS.indexOf(label!) + 1}</span>
-        {title}
-      </h2>
-      <div className="measure space-y-4 text-ink-2 [&_strong]:font-bold [&_strong]:text-ink">{children}</div>
+    <section id={id} aria-labelledby={`${id}-title`} className="grid gap-6 border-t border-white/[0.07] py-12 lg:grid-cols-[16rem_1fr]">
+      <div>
+        <p className="chapter-tag">{String(SECTIONS.indexOf(label!) + 1).padStart(2, '0')}</p>
+        <h2 id={`${id}-title`} className="mt-4 text-3xl">
+          {title}
+        </h2>
+      </div>
+      <div className="measure space-y-4 text-lg text-ink-2 [&_strong]:font-bold [&_strong]:text-ink [&_table]:text-base">{children}</div>
     </section>
   );
 }
@@ -46,18 +48,21 @@ function Part({ id, title, children }: { id: string; title: string; children: Re
 export default function MethodPage() {
   return (
     <Book contents={SECTIONS.map((s) => ({ href: `#${s.id}`, label: s.label }))} edition={LATEST_EDITION.edition}>
-      <header className="pb-6 pt-8 min-[1200px]:pt-12">
-        <p className="text-sm text-ink-2">
-          <Link href="/">Register</Link> / method
-        </p>
-        <h1 className="mt-3 flex items-center gap-3 text-[clamp(1.9rem,1.4rem+2vw,2.75rem)]">
-          <Scale size={30} aria-hidden /> Method
-        </h1>
-        <p className="measure mt-3 text-lg text-ink-2">
-          The rules every edition is built by. Scores are editorial judgements on public information. Veracity is not an
-          audit, a credit rating or investment advice.
-        </p>
-      </header>
+      <PageHead
+        crumbs={[['method']]}
+        kicker="Standing rules"
+        title={
+          <>
+            How the <span className="text-gold">assay</span> works
+          </>
+        }
+        lede="The rules every edition is built by. Scores are editorial judgements on public information. Veracity is not an audit, a credit rating or investment advice."
+        aside={
+          <span className="hidden size-20 place-items-center rounded-2xl border border-gold/30 bg-gold/10 text-gold lg:grid">
+            <Scale size={34} aria-hidden />
+          </span>
+        }
+      />
 
       <Part id="score" title="The score">
         <p>
@@ -65,7 +70,7 @@ export default function MethodPage() {
           the weighted mean, multiplied by 100 and rounded once at the very end. That gives a veracity from 0 to 1000,
           read like the fineness of gold, in parts per thousand.
         </p>
-        <table className="table-ledger">
+        <table className="table-ledger panel">
           <thead>
             <tr>
               <th scope="col">Criterion</th>
