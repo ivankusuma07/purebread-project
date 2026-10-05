@@ -2,8 +2,8 @@
 
 // Adapted from React Bits ElasticSlider (https://reactbits.dev/r/ElasticSlider-TS-TW),
 // MIT + Commons Clause licence. Changes: controlled value with onChange, a
-// visible label, role="slider" with arrow-key and Home/End support, and ink
-// styling. The elastic overflow and spring release are unchanged.
+// visible label, role="slider" with arrow-key and Home/End support, and the
+// site's gold styling. The elastic overflow and spring release are unchanged.
 
 import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { animate, motion, useMotionValue, useMotionValueEvent, useTransform } from 'motion/react';
@@ -162,8 +162,8 @@ export default function ElasticSlider({
           className="relative flex flex-1 cursor-ew-resize touch-none items-center py-3"
         >
           <motion.div style={{ scaleX, scaleY, transformOrigin: origin }} className="flex h-[6px] flex-1">
-            <div className="relative h-full flex-1 bg-grid-soft">
-              <div className="absolute inset-y-0 left-0 bg-ink" style={{ width: `${pct}%` }} />
+            <div className="relative h-full flex-1 overflow-hidden rounded-full bg-white/10">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold-lo via-gold to-gold-hi shadow-[0_0_12px_rgba(242,193,78,0.6)]" style={{ width: `${pct}%` }} />
               {/* tick marks, like a rule */}
               <div
                 aria-hidden
@@ -185,7 +185,7 @@ export default function ElasticSlider({
           {rightIcon}
         </motion.span>
       </motion.div>
-      <span className="num text-right font-mincho text-lg text-ink" aria-hidden>
+      <span className="num text-right font-mincho text-lg text-gold" aria-hidden>
         {value}
       </span>
     </div>
