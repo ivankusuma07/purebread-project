@@ -11,7 +11,8 @@ interface SourceResponse {
  */
 export async function fetchContractVerification(address: string, apiBase?: string): Promise<boolean | null> {
   const base = (apiBase || process.env.EXPLORER_API_URL || '').replace(/\/$/, '');
-  if (!base) return null;
+  // Solana accounts and other non-EVM addresses have nothing to check here.
+  if (!base || !/^0x[0-9a-fA-F]{40}$/.test(address)) return null;
   const raw = (await fetchJson(
     `${base}?module=contract&action=getsourcecode&address=${encodeURIComponent(address)}`,
   )) as SourceResponse | null;

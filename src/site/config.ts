@@ -35,5 +35,7 @@ export const SITE = {
   x: process.env.NEXT_PUBLIC_X_URL || null,
 } as const;
 
-export const explorerAddress = (a: string) => `${CHAIN.explorer}/address/${a}`;
+/** Explorer link for an address on a venue's own chain. Robinhood Chain by default. */
+export const explorerAddress = (a: string, chain = 'robinhood-chain') =>
+  chain === 'solana' ? `https://solscan.io/account/${a}` : `${CHAIN.explorer}/address/${a}`;
 export const explorerTx = (h: string) => `${CHAIN.explorer}/tx/${h}`;

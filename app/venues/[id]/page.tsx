@@ -277,11 +277,13 @@ export default async function VenuePage({ params }: { params: Params }) {
             {current.contracts.map((c) => (
               <li key={c.address} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-2.5">
                 <span className="w-24 text-ink-2">{c.label}</span>
-                <a href={explorerAddress(c.address)} className="num" title={c.address}>
+                <a href={explorerAddress(c.address, current.chain)} className="num" title={c.address}>
                   {shortHash(c.address)}
                 </a>
                 <CopyButton value={c.address} what={`${c.label} address`} />
-                <span className="text-sm text-ink-3">{c.verified ? 'verified on the explorer' : 'not verified'}</span>
+                <span className="text-sm text-ink-3">
+                  {current.chain === 'solana' ? 'Solana account' : c.verified ? 'source verified on the explorer' : 'source not verified'}
+                </span>
               </li>
             ))}
           </ul>
