@@ -55,8 +55,19 @@ Add a note to the edition's `corrections` array with the date, the note, the ori
 
 **Figures** are the last complete day before the data cut, never a partial day. **A TVL of 0 on DefiLlama** means it isn't tracked, so it's stored as not published.
 
+**Venues no data provider tracks** (Long.xyz today) can be measured from the chain itself:
+
+```
+pnpm tsx scripts/launch-scan.ts <scan.json>       # every launch and what it pairs against
+pnpm tsx scripts/launch-figures.ts <scan.json>    # 24h DexScreener volume and liquidity of those pools
+```
+
+Both resume after a dropped connection. The scan's summary gives each venue's stock-paired share of launches. DexScreener's figure is a rolling 24 hours at the time you run it, not the last complete day, so it goes in the venue's facts and rationale with its UTC time, never in the snapshot.
+
 **Blockscout's API sits behind Cloudflare**, which blocks most scripted requests. When the monthly job can't reach it, contract `verified` flags carry forward unchanged. Re-check them by hand in a browser when a venue changes contracts.
 
 ## Evidence review (Phase 0, done 5 October 2026)
 
 Every Edition 01 venue was checked against public sources: what it pairs against, who issues and holds any stock behind the pairs, its site and docs, its contracts on the explorer, and DefiLlama's figures. Each score's rationale names its evidence and date, and every source is in `data/sources.json`. CSL and Cardpad were removed from the register at the editor's decision; Factory New's move to Solana is recorded on its record.
+
+The factory logs then showed that only 50.4% of Long.xyz's 72,224 launches pair with a Stock Token, against the "every token" claim in the press, and that 29.1% of Pons's 671,162 v2 launches do. Long.xyz's asset and transparency scores were set on that evidence before Edition 01 was announced.
