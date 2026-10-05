@@ -1,20 +1,13 @@
 import type { Delta, Edition, SourceRegistry } from '../types';
 import Book, { type ContentsItem } from './components/Book';
-import {
-  CorrectionsChapter,
-  CustodyChapter,
-  DataChapter,
-  MatrixChapter,
-  NextChapter,
-  SourcesChapter,
-  StruckChapter,
-} from './components/chapters/Ledgers';
+import { ColophonChapter, CustodyChapter, DataChapter, MatrixChapter, StruckChapter } from './components/chapters/Ledgers';
 import { BandsChapter, FaqChapter, LimitsChapter, MadeChapter, SniffChapter, UsesChapter } from './components/chapters/Story';
 import EditionHead from './components/EditionHead';
 import Register from './components/Register';
+import ScoreTicker from './components/ScoreTicker';
 import type { RawWeights } from './weight-url';
 
-/** Chapter order, as the plan's register book. The contents rail is built from this. */
+/** Section order. "On this page" is built from this. */
 const CHAPTERS: { id: string; label: string }[] = [
   { id: 'register', label: 'Register' },
   { id: 'bands', label: 'Bands' },
@@ -49,8 +42,9 @@ export default function EditionView({ edition, sources, deltas, initialRaw, isLa
   return (
     <Book contents={contents} edition={edition.edition}>
       <EditionHead edition={edition} isLatest={isLatest} />
+      <ScoreTicker venues={edition.venues} />
       <Register venues={edition.venues} deltas={deltas} initialRaw={initialRaw} />
-      <BandsChapter n={n('bands')} />
+      <BandsChapter n={n('bands')} edition={edition} />
       <SniffChapter n={n('sniff-test')} />
       <MadeChapter n={n('how-it-is-made')} />
       <UsesChapter n={n('uses')} />
@@ -60,9 +54,7 @@ export default function EditionView({ edition, sources, deltas, initialRaw, isLa
       <LimitsChapter n={n('limits')} />
       <FaqChapter n={n('faq')} />
       <DataChapter n={n('data')} edition={edition} />
-      <NextChapter n={n('next')} edition={edition} />
-      <CorrectionsChapter n={n('corrections')} edition={edition} />
-      <SourcesChapter n={n('sources')} edition={edition} sources={sources} />
+      <ColophonChapter edition={edition} sources={sources} />
     </Book>
   );
 }

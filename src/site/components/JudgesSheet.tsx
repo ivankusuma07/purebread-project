@@ -26,9 +26,9 @@ export default function JudgesSheet({ raw, onChange, isHouse }: JudgesSheetProps
   const weights = normalise(raw);
 
   return (
-    <details ref={detailsRef} className="judges-sheet mt-6 border-t border-ink pt-3" data-testid="judges-sheet">
+    <details ref={detailsRef} className="judges-sheet panel mt-4 px-5 py-4" data-testid="judges-sheet">
       <summary className="flex cursor-pointer list-none items-center gap-2 py-1 text-ink [&::-webkit-details-marker]:hidden">
-        <SlidersHorizontal size={17} aria-hidden />
+        <span className="grid size-8 place-items-center rounded-full bg-gold/15 text-gold"><SlidersHorizontal size={16} aria-hidden /></span>
         <span className="font-mincho text-lg font-bold">Judge&apos;s sheet</span>
         <span className="num text-sm text-ink-2">
           {isHouse ? 'house weights' : 'your weights'} · {CRITERIA.map((c) => Math.round(weights[c] * 100)).join(' ')}
@@ -80,7 +80,7 @@ export default function JudgesSheet({ raw, onChange, isHouse }: JudgesSheetProps
                     type="button"
                     aria-pressed={same(raw, p.values)}
                     onClick={() => onChange({ ...p.values })}
-                    className="btn w-full justify-between"
+                    className="btn w-full justify-between rounded-xl"
                   >
                     <span>{p.label}</span>
                     <span className="text-xs opacity-75">{p.note}</span>

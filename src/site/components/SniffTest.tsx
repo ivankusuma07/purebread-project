@@ -44,18 +44,18 @@ export default function SniffTest() {
         <div aria-hidden className="mt-6 space-y-2 text-sm">
           <div className="grid grid-cols-[7rem_1fr] items-center gap-3">
             <span className="text-ink-2">Claimed</span>
-            <span className="h-3 bg-ink" />
+            <span className="h-3 rounded-full bg-gradient-to-r from-white/70 to-white/90" />
           </div>
           <div className="grid grid-cols-[7rem_1fr] items-center gap-3">
             <span className="text-ink-2">In the pool</span>
-            <span className="h-3 bg-grid-soft">
-              <span className="block h-full bg-shiba" style={{ width: `${inPool}%` }} />
+            <span className="h-3 overflow-hidden rounded-full bg-white/10">
+              <span className="block h-full rounded-full bg-gradient-to-r from-gold-lo via-gold to-gold-hi shadow-[0_0_14px_rgba(242,193,78,0.6)] transition-[width] duration-300" style={{ width: `${inPool}%` }} />
             </span>
           </div>
         </div>
 
         <p className="num mt-6 text-lg text-ink" role="status" data-testid="sniff-result">
-          Asset {asset}/10 gives a veracity of <span className="font-mincho text-2xl font-bold">{score}</span>,{' '}
+          Asset {asset}/10 gives a veracity of <span className="font-mincho text-4xl font-bold text-gold">{score}</span>,{' '}
           <BandMark band={b} />.
         </p>
         <p className="measure mt-2 text-sm text-ink-2">
@@ -66,8 +66,9 @@ export default function SniffTest() {
               : 'Real stock behind the claim moves a venue up a whole band on its own.'}
         </p>
       </div>
-      <div className="mx-auto w-40 md:w-full">
-        <Hanko pose="sit" mood={mood} title={`Hanko, ${mood === 'wary' ? 'ears back, unconvinced' : mood === 'alert' ? 'ears up, tail curled' : 'calm'}`} className="h-auto w-full" />
+      <div className="relative mx-auto w-44 md:w-full">
+        <div aria-hidden className={`absolute inset-0 rounded-full blur-2xl transition-colors duration-500 ${score < HALLMARK ? "bg-vermilion/25" : "bg-gold/25"}`} />
+        <Hanko pose="sit" mood={mood} title={`Hanko, ${mood === 'wary' ? 'ears back, unconvinced' : mood === 'alert' ? 'ears up, tail curled' : 'calm'}`} className="relative h-auto w-full" />
       </div>
     </div>
   );

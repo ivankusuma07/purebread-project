@@ -7,8 +7,9 @@ const latest = loadEdition(LATEST_ID);
 const ranked = latest.venues.filter((v) => v.status !== 'prelaunch' && v.status !== 'struck');
 const expectedOrder = (search: string) => applyWeights(ranked, parseWeights(search)).map((v) => v.id);
 
-test('E-01: the register is the first screen, with the hallmark between the last ≥375 and the first <375', async ({ page }) => {
+test('E-01: the hero leads straight to the register, with the hallmark between the last ≥375 and the first <375', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('link', { name: /Explore the register/ }).click();
   const firstRow = page.locator('[data-testid="register-rows"] > li[data-venue]').first();
   await expect(firstRow).toBeInViewport();
   expect(await rowOrder(page)).toEqual(expectedOrder(''));
