@@ -1,0 +1,4 @@
+# Content-addressed files are hashed byte for byte. Keep LF everywhere.
+* text=auto eol=lf
+*.png binary
+*.ico binary

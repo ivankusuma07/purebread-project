@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+*.local
+.env
+*.log
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Playwright recordings and reports (uploaded as CI artifacts instead)
+e2e/results
+e2e/report
+playwright/.cache
+
+# Reference material, not part of the product
+fineness-main.zip

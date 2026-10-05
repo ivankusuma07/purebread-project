@@ -1,0 +1,45 @@
+{
+  "name": "veracity",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A monthly register that checks the papers on every tokenized-stock venue. Scored in karat, inspected by Hanko.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "e2e:smoke": "playwright test --grep @smoke",
+    "e2e:record": "playwright codegen http://localhost:3000",
+    "monthly": "tsx scripts/monthly.ts",
+    "art:export": "tsx scripts/export-hanko.tsx"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "dependencies": {
+    "lucide-react": "^1.51.0",
+    "motion": "^14.0.0",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "viem": "^2.57.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.3"
+  },
+  "packageManager": "pnpm@11.10.0"
+}
