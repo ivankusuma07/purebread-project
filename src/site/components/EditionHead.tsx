@@ -3,14 +3,15 @@ import { HALLMARK } from '../../scoring/veracity';
 import type { Edition } from '../../types';
 import Hanko from '../art/Hanko';
 import Seal from '../art/Seal';
+import { headlineFinding } from '../lib/finding';
 import { editionMonth, shortDate, shortHash } from '../lib/format';
-import Aurora from '../reactbits/Aurora';
 import CountUp from '../reactbits/CountUp';
 import DecryptedText from '../reactbits/DecryptedText';
 import ShinyText from '../reactbits/ShinyText';
 import SplitText from '../reactbits/SplitText';
 import SpotlightCard from '../reactbits/SpotlightCard';
 import StarBorder from '../reactbits/StarBorder';
+import AuroraBackdrop from './AuroraBackdrop';
 import BandMark from './BandMark';
 import CopyButton from './CopyButton';
 import StampMoment from './StampMoment';
@@ -20,15 +21,6 @@ function median(values: number[]): number {
   const s = [...values].sort((a, b) => a - b);
   const mid = Math.floor(s.length / 2);
   return s.length % 2 ? s[mid] : Math.round((s[mid - 1] + s[mid]) / 2);
-}
-
-/** The headline finding, as Fineness: does anything clear 18 karat? */
-export function headlineFinding(edition: Edition): string {
-  const ranked = edition.venues.filter((v) => v.status !== 'prelaunch' && v.status !== 'struck');
-  const peak = Math.max(0, ...ranked.map((v) => v.veracity));
-  if (peak >= 916) return 'A venue in this register clears 22 karat.';
-  if (peak >= 750) return 'A venue in this register clears 18 karat.';
-  return 'Nothing in this register clears 18 karat.';
 }
 
 interface EditionHeadProps {
@@ -52,7 +44,7 @@ export default function EditionHead({ edition, isLatest }: EditionHeadProps) {
     <header className="relative isolate pb-10 pt-14 lg:pt-20">
       {/* The aurora: molten gold into vermilion, behind the fold only. */}
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-[-4rem] -z-10 h-[760px] w-screen -translate-x-1/2 opacity-80 [mask-image:linear-gradient(to_bottom,black_35%,transparent)]">
-        <Aurora colorStops={['#B7791F', '#FF5A45', '#F2C14E']} amplitude={1.1} blend={0.55} speed={0.6} />
+        <AuroraBackdrop />
       </div>
 
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
