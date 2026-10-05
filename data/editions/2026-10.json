@@ -1,0 +1,501 @@
+{
+  "edition": "2026-10",
+  "published": "2026-10-05",
+  "dataAsOf": "2026-10-01",
+  "snapshotHash": "sha256:ab0e8e831931bf82920f75a1d7c112ddd4dd11c1e4a01981a9f18a1932c450e0",
+  "houseWeights": {
+    "asset": 0.3,
+    "traction": 0.25,
+    "transparency": 0.2,
+    "compliance": 0.15,
+    "durability": 0.1
+  },
+  "disclosures": [
+    "Edition 01 scores are a first desk review of each venue's stated pairing structure. Market figures, contract addresses and venue links are still being verified, so they show as not published.",
+    "o1.exchange is on the watchlist. It is not admitted until a verified contract is on record.",
+    "No venue paid for inclusion, placement or removal. There are no affiliate links in this edition."
+  ],
+  "corrections": [],
+  "venues": [
+    {
+      "id": "long-xyz",
+      "name": "Long.xyz",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 1,
+      "veracity": 605,
+      "band": "14k",
+      "thesis": "Lists Robinhood stock tokens as the quote asset, so the claim to a real share is the strongest in the register.",
+      "scores": {
+        "asset": 7,
+        "traction": 6,
+        "transparency": 6,
+        "compliance": 5,
+        "durability": 5
+      },
+      "rationale": {
+        "asset": "Pairs are quoted in issued stock tokens, not index exposure. Holders still have no redemption route of their own.",
+        "traction": "Visible launch flow on the chain, but no volume figure has been published that we can source yet.",
+        "transparency": "Operator documentation describes the pairing. Factory addresses are still to be confirmed on the explorer.",
+        "compliance": "Relies on the token issuer for regulated status. The venue itself cites no licence.",
+        "durability": "Live for one quarter. No shock on record yet, so resilience is untested rather than proven."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe",
+        "jurisdiction": "Lithuania (EU)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "pons",
+      "name": "Pons",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 2,
+      "veracity": 585,
+      "band": "14k",
+      "thesis": "The busiest launchpad on the chain. Most of its flow is memecoins; stock pairs are a small share.",
+      "scores": {
+        "asset": 6,
+        "traction": 7,
+        "transparency": 6,
+        "compliance": 4,
+        "durability": 5
+      },
+      "rationale": {
+        "asset": "Offers stock-token pairs, but most launches pair with ETH, so the real asset sits behind a minority of flow.",
+        "traction": "The most active launchpad we can see. A sourced volume figure is pending.",
+        "transparency": "Public interface and docs. Contract addresses are pending explorer confirmation.",
+        "compliance": "Standard launchpad terms. No prospectus or licence cited.",
+        "durability": "Running since the chain opened, with no outage on record."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe",
+        "jurisdiction": "Lithuania (EU)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "pools-trade",
+      "name": "Pools.trade",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 3,
+      "veracity": 510,
+      "band": "9k",
+      "thesis": "Index vaults with careful disclosure. The vaults hold exposure, not shares, which caps the asset score.",
+      "scores": {
+        "asset": 4,
+        "traction": 4,
+        "transparency": 7,
+        "compliance": 6,
+        "durability": 6
+      },
+      "rationale": {
+        "asset": "Vaults track a basket rather than hold custodied shares.",
+        "traction": "Modest flow compared with the launchpads.",
+        "transparency": "Vault composition is published and can be checked on-chain.",
+        "compliance": "Discloses risks and the vault operator by name.",
+        "durability": "Vault design has fewer moving parts than a launchpad, so less can break."
+      },
+      "pairing": {
+        "assetType": "inventory-index",
+        "custodian": "Pools vault operator",
+        "jurisdiction": null,
+        "redeemable": true,
+        "verifiability": "on-chain"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "flap",
+      "name": "Flap",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 4,
+      "veracity": 455,
+      "band": "9k",
+      "thesis": "Quotes launches against stock tokens, but holders get price exposure, not ownership.",
+      "scores": {
+        "asset": 6,
+        "traction": 3,
+        "transparency": 5,
+        "compliance": 4,
+        "durability": 4
+      },
+      "rationale": {
+        "asset": "Stock tokens set the quote. The launched tokens carry exposure to them, not a claim on them.",
+        "traction": "Thin activity in the window we checked.",
+        "transparency": "Docs explain the mechanism. Contract verification is pending.",
+        "compliance": "No licence or prospectus cited.",
+        "durability": "Young venue with one operator and no track record yet."
+      },
+      "pairing": {
+        "assetType": "tokenized-equity",
+        "custodian": "Robinhood Europe",
+        "jurisdiction": "Lithuania (EU)",
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "stonkfun",
+      "name": "StonkFun",
+      "chain": "solana",
+      "resident": false,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 5,
+      "veracity": 455,
+      "band": "9k",
+      "thesis": "A Solana memecoin launcher whose only link to real shares is an index it tracks.",
+      "scores": {
+        "asset": 4,
+        "traction": 6,
+        "transparency": 5,
+        "compliance": 3,
+        "durability": 4
+      },
+      "rationale": {
+        "asset": "Tracks listed equities through an index account. No custody, no redemption.",
+        "traction": "Steady launch cadence on Solana, the busiest of the off-chain venues.",
+        "transparency": "Public API and docs. Index holdings are only partly visible.",
+        "compliance": "Launcher disclaimers only.",
+        "durability": "Has survived one hype cycle. Volume swings hard with sentiment."
+      },
+      "pairing": {
+        "assetType": "inventory-index",
+        "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "public-inventory"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "pair",
+      "name": "PAIR",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 6,
+      "veracity": 435,
+      "band": "9k",
+      "thesis": "Multi-asset pools that synthesise stock exposure instead of holding stock tokens.",
+      "scores": {
+        "asset": 5,
+        "traction": 3,
+        "transparency": 6,
+        "compliance": 4,
+        "durability": 3
+      },
+      "rationale": {
+        "asset": "Exposure is synthetic. Nothing is custodied on the holder side.",
+        "traction": "Early pools with limited depth.",
+        "transparency": "Contracts are upgradeable through a proxy, documented but not yet confirmed.",
+        "compliance": "No licence cited for synthetic exposure.",
+        "durability": "New, with an upgradeable core that adds operator risk."
+      },
+      "pairing": {
+        "assetType": "synthetic",
+        "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "on-chain"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "bankr",
+      "name": "Bankr",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 7,
+      "veracity": 375,
+      "band": "9k",
+      "thesis": "A trading bot that can pair launches with stock tokens. The stock link is optional, not the product.",
+      "scores": {
+        "asset": 3,
+        "traction": 4,
+        "transparency": 5,
+        "compliance": 3,
+        "durability": 4
+      },
+      "rationale": {
+        "asset": "Stock pairing is available but optional. Most use has no real asset behind it.",
+        "traction": "Real users through the bot interface. Venue-level volume is not published.",
+        "transparency": "Docs are public. The bot itself is closed.",
+        "compliance": "No licence cited.",
+        "durability": "An established bot that added this chain recently."
+      },
+      "pairing": {
+        "assetType": "synthetic",
+        "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "none"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "cardpad",
+      "name": "Cardpad",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 8,
+      "veracity": 350,
+      "band": "below-hallmark",
+      "thesis": "Says collectibles back its tokens. We could not see the vault, so the claim stays a claim.",
+      "scores": {
+        "asset": 3,
+        "traction": 2,
+        "transparency": 6,
+        "compliance": 4,
+        "durability": 3
+      },
+      "rationale": {
+        "asset": "Claims vaulted collectibles. Collectibles are not stock, and the vault is not visible.",
+        "traction": "No verifiable activity in the window.",
+        "transparency": "Contracts were filed for review, which is more than most venues offer.",
+        "compliance": "Names a vault operator but no regulator.",
+        "durability": "Interface reachability unconfirmed at the cut date."
+      },
+      "pairing": {
+        "assetType": "collectible",
+        "custodian": "Cardpad vault",
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "attestation"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "factory-new",
+      "name": "Factory New",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 9,
+      "veracity": 240,
+      "band": "below-hallmark",
+      "thesis": "Game tokens with no real asset behind them. Listed for scrutiny, not certified.",
+      "scores": {
+        "asset": 2,
+        "traction": 2,
+        "transparency": 4,
+        "compliance": 2,
+        "durability": 2
+      },
+      "rationale": {
+        "asset": "No stock or other real asset in the pairing.",
+        "traction": "A few dozen transfers in the window.",
+        "transparency": "Tokens are visible on the explorer. No docs.",
+        "compliance": "Nothing cited.",
+        "durability": "Too young to judge."
+      },
+      "pairing": {
+        "assetType": "none",
+        "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "none"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    },
+    {
+      "id": "csl",
+      "name": "CSL",
+      "chain": "robinhood-chain",
+      "resident": true,
+      "status": "active",
+      "struckDate": null,
+      "admittedEdition": "2026-10",
+      "rank": 10,
+      "veracity": 170,
+      "band": "below-hallmark",
+      "thesis": "Filed contracts and nothing else we could check. Listed so readers can watch it.",
+      "scores": {
+        "asset": 1,
+        "traction": 1,
+        "transparency": 4,
+        "compliance": 1,
+        "durability": 2
+      },
+      "rationale": {
+        "asset": "No backing shown.",
+        "traction": "No market activity found.",
+        "transparency": "Contracts filed, which is the one thing in its favour.",
+        "compliance": "Nothing cited.",
+        "durability": "Interface reachability unconfirmed at the cut date."
+      },
+      "pairing": {
+        "assetType": "none",
+        "custodian": null,
+        "jurisdiction": null,
+        "redeemable": false,
+        "verifiability": "none"
+      },
+      "metrics": {
+        "cumulativeVolumeUsd": null,
+        "dailyVolumeUsd": null,
+        "fees24hUsd": null,
+        "tvlUsd": null,
+        "sourceIds": [],
+        "asOf": "2026-10-01"
+      },
+      "contracts": [],
+      "links": {
+        "site": null,
+        "docs": null
+      },
+      "facts": []
+    }
+  ]
+}

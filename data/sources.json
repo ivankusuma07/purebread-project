@@ -1,0 +1,22 @@
+{
+  "defillama": {
+    "name": "DefiLlama",
+    "url": "https://defillama.com",
+    "type": "metrics"
+  },
+  "bitquery": {
+    "name": "Bitquery",
+    "url": "https://bitquery.io",
+    "type": "metrics"
+  },
+  "explorer": {
+    "name": "Robinhood Chain explorer",
+    "url": "https://robinscan.io",
+    "type": "contracts"
+  },
+  "robinhood-chain-docs": {
+    "name": "Robinhood Chain documentation",
+    "url": "https://docs.robinhood.com/chain/",
+    "type": "docs"
+  }
+}
