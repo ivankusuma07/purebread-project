@@ -1,0 +1,333 @@
+@import 'tailwindcss';
+
+/*
+ * Veracity: an assay-office register on Japanese ledger paper.
+ * Two radii only (0 for paper, full round for the seal). No shadows,
+ * no gradients. Vermilion is reserved for the seal and the hallmark line.
+ */
+@theme {
+  --color-paper: #e9eee8;
+  --color-paper-deep: #dfe6df;
+  --color-ink: #1f2b4a;
+  --color-ink-2: #47516b;
+  --color-ink-3: #5a6378;
+  --color-grid: #9fb8a3;
+  --color-grid-soft: #c9d6ca;
+  --color-vermilion: #d8342a;
+  --color-vermilion-ink: #b8261d;
+  --color-shiba: #c67b3d;
+  --color-cream: #f3ead8;
+
+  /* Karat bands. Swatch colours from the plan; *-ink variants pass 4.5:1 as text. */
+  --color-k22: #5b3a8e;
+  --color-k18: #2c5aa0;
+  --color-k14: #2f7a4f;
+  --color-k14-ink: #276843;
+  --color-k9: #b08a1e;
+  --color-k9-ink: #7a5f0e;
+  --color-below: #7a8088;
+  --color-below-ink: #5f656d;
+
+  --font-mincho: var(--font-zen-mincho), 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-gothic: var(--font-zen-gothic), 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+
+  --radius-seal: 9999px;
+}
+
+/* Double margin rule down the left of the book, like a printed ledger. */
+@utility margin-rule {
+  background-image: linear-gradient(var(--color-grid), var(--color-grid)), linear-gradient(var(--color-grid), var(--color-grid));
+  background-size: 1px 100%, 1px 100%;
+  background-position: 0 0, 4px 0;
+  background-repeat: no-repeat;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-gothic);
+    font-feature-settings: 'palt' 0;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 1.5rem;
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--color-paper);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-mincho);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-grid-soft);
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Figures in registers line up. */
+  .num {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* Body copy: under ~75 characters a line. */
+  .measure {
+    max-width: 68ch;
+  }
+
+  /* The ledger: thin grid-green rules between entries. */
+  .ledger > * + * {
+    border-top: 1px solid var(--color-grid-soft);
+  }
+
+  /* A chapter of the register book. */
+  .chapter {
+    border-top: 1px solid var(--color-grid);
+    padding-block: 3.5rem;
+  }
+
+  .chapter-title {
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  }
+
+
+  /* Plain rectangular controls: ink on paper. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--color-ink);
+    padding: 0.4rem 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: var(--color-paper-deep);
+  }
+
+  .btn[aria-pressed='true'] {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .table-ledger {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .table-ledger thead th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--color-ink-2);
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--color-ink);
+    vertical-align: bottom;
+  }
+
+  .table-ledger td {
+    padding: 0.65rem 0.75rem 0.65rem 0;
+    border-bottom: 1px solid var(--color-grid-soft);
+    vertical-align: top;
+  }
+
+  .table-ledger td.n,
+  .table-ledger th.n {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Native range input dressed as a ledger rule with an ink thumb. */
+  .rule-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 28px;
+    background: transparent;
+    cursor: ew-resize;
+  }
+
+  .rule-range::-webkit-slider-runnable-track {
+    height: 2px;
+    background: var(--color-ink);
+  }
+
+  .rule-range::-moz-range-track {
+    height: 2px;
+    background: var(--color-ink);
+  }
+
+  .rule-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 26px;
+    margin-top: -12px;
+    background: var(--color-paper);
+    border: 2px solid var(--color-ink);
+  }
+
+  .rule-range::-moz-range-thumb {
+    width: 10px;
+    height: 22px;
+    border-radius: 0;
+    background: var(--color-paper);
+    border: 2px solid var(--color-ink);
+  }
+}
+
+/*
+ * The stamp moment. The head script adds .stamp-pending before first paint on
+ * a first visit (and never with reduced motion or without JS), so the seal and
+ * the row imprints start hidden. StampMoment then adds .stamp-run to play the
+ * sequence once, under 1.2s, and removes both classes.
+ */
+.stamp-pending [data-stamp='seal'],
+.stamp-pending [data-stamp='row'] {
+  opacity: 0;
+}
+
+.stamp-run [data-stamp='seal'] {
+  animation: seal-land 380ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 420ms both;
+}
+
+.stamp-run [data-stamp='ink'] {
+  animation: ink-spread 520ms ease-out 560ms both;
+}
+
+.stamp-run [data-stamp='row'] {
+  animation: row-seal 200ms ease-out calc(700ms + var(--i, 0) * 40ms) both;
+}
+
+/* Hanko's paw: raised until the seal lands, then down on the paper. */
+[data-hanko='up'] {
+  opacity: 0;
+}
+
+.stamp-pending [data-hanko='up'] {
+  opacity: 1;
+}
+
+.stamp-pending [data-hanko='down'] {
+  opacity: 0;
+}
+
+.stamp-run [data-hanko='up'] {
+  animation: paw-up 420ms steps(1, end) both;
+}
+
+.stamp-run [data-hanko='down'] {
+  animation: paw-down 420ms steps(1, end) both;
+}
+
+@keyframes paw-up {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes paw-down {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes seal-land {
+  from {
+    opacity: 0;
+    transform: scale(1.35) rotate(-9deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.96) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-3deg);
+  }
+}
+
+@keyframes ink-spread {
+  from {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@keyframes row-seal {
+  from {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+  to {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp-pending [data-stamp='seal'],
+  .stamp-pending [data-stamp='row'] {
+    opacity: 1;
+  }
+  .stamp-run [data-stamp] {
+    animation: none;
+  }
+}
+
+/* Mobile: the judge's sheet opens as a bottom sheet. */
+@media (max-width: 809px) {
+  .judges-sheet[open] > .judges-body {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    max-height: 72dvh;
+    overflow-y: auto;
+    background: var(--color-paper);
+    border-top: 2px solid var(--color-ink);
+    padding: 1rem 1rem 1.5rem;
+  }
+}
