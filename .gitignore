@@ -18,3 +18,6 @@ fineness-main.zip
 .vercel
 .env*
 !.env.example
+
+# Recorded walkthroughs (scripts/record-demo.ts)
+/demo
