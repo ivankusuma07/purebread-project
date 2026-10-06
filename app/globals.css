@@ -524,3 +524,18 @@
     box-shadow: 0 -20px 60px rgb(0 0 0 / 0.6);
   }
 }
+
+/* Terminal caret in the open data section. */
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}

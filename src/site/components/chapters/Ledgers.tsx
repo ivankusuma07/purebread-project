@@ -1,4 +1,4 @@
-import { Ban, CalendarClock, Crown, Database, FileCheck, ScrollText, ShieldCheck } from 'lucide-react';
+import { Ban, CalendarClock, Crown, Database, Download, ExternalLink, FileCheck, ScrollText, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { CRITERIA, HALLMARK } from '../../../scoring/veracity';
 import type { Edition, SourceRegistry, Venue } from '../../../types';
@@ -9,6 +9,7 @@ import SpotlightCard from '../../reactbits/SpotlightCard';
 import BandMark from '../BandMark';
 import Chapter from '../Chapter';
 import CopyButton from '../CopyButton';
+import DataTerminal from '../DataTerminal';
 import VenueIcon from '../VenueIcon';
 
 const listed = (venues: Venue[]) => venues.filter((v) => v.status !== 'prelaunch' && v.status !== 'struck');
@@ -240,18 +241,10 @@ export function StruckChapter({ n, edition }: { n: string; edition: Edition }) {
 }
 
 export function DataChapter({ n, edition }: { n: string; edition: Edition }) {
-  const url = `${SITE.url}/editions/${edition.edition}.json`;
-  const sample = edition.venues[0];
-  const excerpt = JSON.stringify(
-    {
-      edition: edition.edition,
-      published: edition.published,
-      snapshotHash: edition.snapshotHash,
-      venues: [{ id: sample.id, rank: sample.rank, veracity: sample.veracity, band: sample.band, scores: sample.scores }],
-    },
-    null,
-    2,
-  );
+  const file = `${edition.edition}.json`;
+  const url = `${SITE.url}/editions/${file}`;
+  const v0 = edition.venues[0];
+  const rows = listed(edition.venues).map((v) => ({ rank: v.rank, name: v.name, veracity: v.veracity, band: v.band }));
   return (
     <Chapter
       id="data"
@@ -279,23 +272,24 @@ export function DataChapter({ n, edition }: { n: string; edition: Edition }) {
             </SpotlightCard>
           ))}
         </div>
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#05070d] shadow-2xl shadow-black/50">
-          <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2.5">
-            <span className="flex gap-1.5" aria-hidden>
-              <span className="size-3 rounded-full bg-vermilion/80" />
-              <span className="size-3 rounded-full bg-gold/80" />
-              <span className="size-3 rounded-full bg-k14/80" />
+        <div className="min-w-0">
+          <DataTerminal
+            url={url}
+            file={file}
+            rows={rows}
+            first={{ name: v0.name, rank: v0.rank, veracity: v0.veracity, band: v0.band, scores: v0.scores }}
+          />
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <a href={`/editions/${file}`} download className="btn">
+              <Download size={15} aria-hidden /> Download {file}
+            </a>
+            <a href={`/editions/${file}`} target="_blank" rel="noopener" className="btn">
+              <ExternalLink size={15} aria-hidden /> Open raw
+            </a>
+            <span className="flex items-center gap-2 text-sm text-ink-3">
+              <CopyButton value={url} what="edition URL" /> URL
             </span>
-            <span className="mono truncate text-xs text-ink-3">{edition.edition}.json</span>
-            <CopyButton value={url} what="edition URL" />
           </div>
-          <pre className="mono overflow-x-auto p-5 text-[0.8125rem] leading-relaxed">
-            <code>
-              <span className="text-k14">$</span> <span className="text-ink">curl</span> <span className="text-gold">{url}</span>
-              {'\n\n'}
-              <span className="text-ink-2">{excerpt}</span>
-            </code>
-          </pre>
         </div>
       </div>
     </Chapter>
