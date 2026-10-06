@@ -1,44 +1,64 @@
-import { Ban, CalendarClock, Database, FileCheck, ScrollText, ShieldCheck } from 'lucide-react';
+import { Ban, CalendarClock, Crown, Database, FileCheck, ScrollText, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { CRITERIA, HALLMARK } from '../../../scoring/veracity';
 import type { Edition, SourceRegistry, Venue } from '../../../types';
 import { SITE } from '../../config';
 import { CRITERION_INFO } from '../../lib/criteria';
-import { ASSET_TYPE_LABEL, longDate, nextEditionMonth, pct, VERIFIABILITY_LABEL } from '../../lib/format';
+import { ASSET_TYPE_LABEL, chainLabel, longDate, nextEditionMonth, pct, usd, VERIFIABILITY_LABEL } from '../../lib/format';
 import SpotlightCard from '../../reactbits/SpotlightCard';
 import BandMark from '../BandMark';
 import Chapter from '../Chapter';
 import CopyButton from '../CopyButton';
+import VenueIcon from '../VenueIcon';
 
 const listed = (venues: Venue[]) => venues.filter((v) => v.status !== 'prelaunch' && v.status !== 'struck');
 
-/** A score cell lit in gold by its value. */
-function Heat({ score, dim }: { score: number; dim: boolean }) {
-  return (
-    <span
-      className="num mx-auto grid size-10 place-items-center rounded-lg text-sm font-bold"
-      style={{
-        background: dim ? `rgb(143 151 171 / ${0.05 + score * 0.02})` : `rgb(242 193 78 / ${0.06 + score * 0.06})`,
-      }}
-    >
-      {score}
-    </span>
-  );
+/** Score tiers for the matrix: 8 and up is a strength, under 4 a weakness. */
+const STRONG = 8;
+const WEAK = 4;
+
+function ScoreChip({ score }: { score: number }) {
+  const tier =
+    score >= STRONG
+      ? 'border-gold/60 bg-gold/15 text-gold-hi shadow-[0_0_14px_-4px] shadow-gold/50'
+      : score < WEAK
+        ? 'border-vermilion/50 bg-vermilion/10 text-vermilion-ink'
+        : 'border-white/10 bg-white/[0.04] text-ink-2';
+  return <span className={`num mx-auto grid size-10 place-items-center rounded-lg border text-sm font-bold ${tier}`}>{score}</span>;
 }
 
 export function MatrixChapter({ n, edition }: { n: string; edition: Edition }) {
   const venues = listed(edition.venues);
+  const leader = venues.reduce<Venue | null>(
+    (best, v) => ((v.metrics.dailyVolumeUsd ?? -1) > (best?.metrics.dailyVolumeUsd ?? -1) ? v : best),
+    null,
+  );
   return (
-    <Chapter id="criteria" number={n} kicker="Heatmap" title="Criteria matrix" lede="Every venue on every criterion, out of 10. Brighter is stronger. House weights in the column heads.">
+    <Chapter
+      id="criteria"
+      number={n}
+      kicker="Heatmap"
+      title="Criteria matrix"
+      lede="Every venue on every criterion, scored 0 to 10. Gold marks a strength, red a weakness. Weights at house settings in the column heads."
+    >
+      <div className="mb-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.12em] text-ink-3 sm:justify-end">
+        <span className="inline-flex items-center gap-2">
+          <span className="size-2.5 rounded-full bg-gold" aria-hidden /> {STRONG} and up: strength
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <span className="size-2.5 rounded-full bg-vermilion" aria-hidden /> Under {WEAK}: weakness
+        </span>
+      </div>
       <div className="panel overflow-x-auto p-2">
-        <table className="table-ledger min-w-[44rem]">
+        <table className="table-ledger min-w-[58rem]">
           <thead>
             <tr>
-              <th scope="col">Venue</th>
+              <th scope="col">Venue and pairing</th>
               {CRITERIA.map((c) => (
                 <th key={c} scope="col" className="text-center!">
                   {CRITERION_INFO[c].label}
-                  <span className="mono mt-0.5 block text-[0.7rem] text-gold/70">{pct(edition.houseWeights[c])}</span>
+                  <span className="mt-0.5 block text-[0.68rem] font-normal normal-case tracking-normal text-ink-3">{CRITERION_INFO[c].measures}</span>
+                  <span className="mono block text-[0.7rem] text-gold/70">{pct(edition.houseWeights[c])}</span>
                 </th>
               ))}
               <th scope="col" className="n">
@@ -51,22 +71,61 @@ export function MatrixChapter({ n, edition }: { n: string; edition: Edition }) {
               const dim = v.veracity < HALLMARK;
               return (
                 <tr key={v.id} className={dim ? 'text-below-ink' : ''}>
-                  <th scope="row" className="text-left font-mincho text-lg font-bold">
-                    <Link href={`/venues/${v.id}`} className="no-underline">
-                      {v.name}
-                    </Link>
+                  <th scope="row" className="min-w-[18rem] text-left font-normal">
+                    <span className="flex items-center gap-3">
+                      <span className="num w-4 text-right text-sm text-ink-3">{v.rank}</span>
+                      <VenueIcon id={v.id} name={v.name} size={34} />
+                      <span className="min-w-0">
+                        <span className="flex flex-wrap items-center gap-2">
+                          <Link href={`/venues/${v.id}`} className="font-mincho text-lg font-bold no-underline hover:underline">
+                            {v.name}
+                          </Link>
+                          <span className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-px text-[0.68rem] uppercase tracking-wider text-ink-3">
+                            {chainLabel(v.chain)}
+                          </span>
+                          {v.rank === 1 && (
+                            <span className="inline-flex items-center gap-1 rounded bg-gold/90 px-1.5 py-px text-[0.68rem] font-bold uppercase tracking-wider text-paper">
+                              <Crown size={11} aria-hidden /> Top
+                            </span>
+                          )}
+                        </span>
+                        <span className="mt-0.5 block whitespace-nowrap text-sm text-ink-3">
+                          {ASSET_TYPE_LABEL[v.pairing.assetType]} · {VERIFIABILITY_LABEL[v.pairing.verifiability]}
+                        </span>
+                      </span>
+                    </span>
                   </th>
                   {CRITERIA.map((c) => (
                     <td key={c} className="py-2!">
-                      <Heat score={v.scores[c]} dim={dim} />
+                      <ScoreChip score={v.scores[c]} />
                     </td>
                   ))}
-                  <td className={`n font-mincho text-xl font-bold ${dim ? '' : 'text-gold'}`}>{v.veracity}</td>
+                  <td className="n">
+                    <span className="inline-flex items-center gap-3">
+                      <span className={`font-mincho text-xl font-bold ${dim ? '' : 'text-gold'}`}>
+                        {v.veracity}
+                        <span className="num ml-0.5 text-xs font-normal text-ink-3">/1000</span>
+                      </span>
+                      <BandMark band={v.band} pill />
+                    </span>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.12em] text-ink-3">
+        {leader?.metrics.dailyVolumeUsd != null ? (
+          <span>
+            Daily volume leader: <span className="num text-ink-2">{usd(leader.metrics.dailyVolumeUsd)}</span> ({leader.name}, last full day before the cut)
+          </span>
+        ) : (
+          <span />
+        )}
+        <Link href="/venues" className="text-gold no-underline hover:underline">
+          Open a venue for the full evidence
+        </Link>
       </div>
     </Chapter>
   );
