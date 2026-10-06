@@ -4,6 +4,7 @@ import { HALLMARK } from '../../src/scoring/veracity';
 import BandMark from '../../src/site/components/BandMark';
 import Book from '../../src/site/components/Book';
 import PageHead from '../../src/site/components/PageHead';
+import VenueIcon from '../../src/site/components/VenueIcon';
 import { LATEST_EDITION } from '../../src/site/editions';
 import { ASSET_TYPE_LABEL, chainLabel, editionMonth } from '../../src/site/lib/format';
 import type { Venue } from '../../src/types';
@@ -62,13 +63,18 @@ export default function VenuesPage() {
                   <tr key={v.id} className={!unranked && v.veracity < HALLMARK ? 'text-below-ink' : ''}>
                     <td className="num text-ink-3">{unranked ? '' : v.rank}</td>
                     <td>
-                      <Link href={`/venues/${v.id}`} className="font-mincho text-lg font-bold no-underline hover:underline">
-                        {v.name}
-                      </Link>
-                      <span className="block text-sm text-ink-3">
-                        {chainLabel(v.chain)}
-                        {!v.resident && ' · off-chain'}
-                        {STATUS_NOTE[v.status] && ` · ${STATUS_NOTE[v.status]}`}
+                      <span className="flex items-center gap-3">
+                        <VenueIcon id={v.id} name={v.name} size={36} />
+                        <span>
+                          <Link href={`/venues/${v.id}`} className="font-mincho text-lg font-bold no-underline hover:underline">
+                            {v.name}
+                          </Link>
+                          <span className="block text-sm text-ink-3">
+                            {chainLabel(v.chain)}
+                            {!v.resident && ' · off-chain'}
+                            {STATUS_NOTE[v.status] && ` · ${STATUS_NOTE[v.status]}`}
+                          </span>
+                        </span>
                       </span>
                     </td>
                     <td>{ASSET_TYPE_LABEL[v.pairing.assetType]}</td>

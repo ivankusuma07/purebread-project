@@ -72,7 +72,8 @@ export default function Footer({ current }: { current?: string }) {
       <div className="mt-12 flex flex-wrap items-start justify-between gap-6 border-t border-white/[0.07] pt-8 text-sm text-ink-3">
         <p className="max-w-xl">
           Veracity scores are editorial judgements on public information. Not an audit, a credit rating or investment
-          advice. Stock tokens are not offered to US persons.
+          advice. Stock tokens are not offered to US persons. Venue names and logos belong to their owners and are shown
+          only to identify each venue; no venue endorses Veracity.
         </p>
         <ul className="flex items-center gap-5">
           <li>

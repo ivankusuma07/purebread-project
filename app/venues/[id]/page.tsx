@@ -6,6 +6,7 @@ import { CRITERIA, HALLMARK, HOUSE_WEIGHTS } from '../../../src/scoring/veracity
 import Seal from '../../../src/site/art/Seal';
 import BandMark from '../../../src/site/components/BandMark';
 import PageHead from '../../../src/site/components/PageHead';
+import VenueIcon from '../../../src/site/components/VenueIcon';
 import Book from '../../../src/site/components/Book';
 import CopyButton from '../../../src/site/components/CopyButton';
 import { explorerAddress } from '../../../src/site/config';
@@ -113,7 +114,12 @@ export default async function VenuePage({ params }: { params: Params }) {
       <PageHead
         crumbs={[['venues', '/venues'], ['papers']]}
         kicker={`${chainLabel(current.chain)}${current.resident ? '' : ' · off-chain'} · admitted ${current.admittedEdition}`}
-        title={current.name}
+        title={
+          <span className="flex items-center gap-4">
+            <VenueIcon id={current.id} name={current.name} size={64} />
+            {current.name}
+          </span>
+        }
         lede={
           <>
             <p className="font-mincho text-xl text-ink">{current.thesis}</p>

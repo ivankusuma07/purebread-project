@@ -5,6 +5,7 @@ import type { Venue } from '../../types';
 import { chainLabel, signed } from '../lib/format';
 import LogoLoop from '../reactbits/LogoLoop';
 import { BAND_COLOR } from './BandMark';
+import VenueIcon from './VenueIcon';
 
 /** A strip of every ranked venue and its score, looping under the hero. Pauses on hover. */
 export default function ScoreTicker({ venues }: { venues: Venue[] }) {
@@ -16,6 +17,7 @@ export default function ScoreTicker({ venues }: { venues: Venue[] }) {
       node: (
         <span className="flex items-center gap-3 whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-2 pr-4 text-sm">
           <span className="num grid size-7 place-items-center rounded-full bg-white/5 text-xs text-ink-3">{v.rank}</span>
+          <VenueIcon id={v.id} name={v.name} size={24} />
           <span className="font-mincho text-base font-bold text-ink">{v.name}</span>
           <span className="text-ink-3">{chainLabel(v.chain)}</span>
           <span className="num font-bold" style={{ color: BAND_COLOR[v.band].text }}>

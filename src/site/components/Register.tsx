@@ -12,6 +12,7 @@ import { ASSET_TYPE_LABEL, chainLabel, pct, signed, usd, VERIFIABILITY_LABEL } f
 import { applyWeights, HOUSE_RAW, isHouse as isHouseWeights, serializeRaw, type RawWeights } from '../weight-url';
 import BandMark from './BandMark';
 import JudgesSheet from './JudgesSheet';
+import VenueIcon from './VenueIcon';
 
 type Filter = 'all' | 'certified' | 'below';
 
@@ -259,7 +260,9 @@ export default function Register({ venues, deltas, initialRaw }: RegisterProps) 
                       >
                         {v.rank}
                       </span>
-                      <span className="min-w-0">
+                      <span className="flex min-w-0 items-center gap-3 sm:gap-4">
+                      <VenueIcon id={v.id} name={v.name} size={40} />
+                      <span className="min-w-0 flex-1">
                         <span className="block truncate font-mincho text-[1.2rem] font-bold leading-tight sm:text-[1.35rem]">{v.name}</span>
                         <span className="mt-1 flex items-center gap-2 text-sm text-ink-3">
                           {chainLabel(v.chain)}
@@ -271,6 +274,7 @@ export default function Register({ venues, deltas, initialRaw }: RegisterProps) 
                         <span className={`score-bar mt-2 hidden max-w-xs sm:block ${certified ? '' : 'below'}`} aria-hidden>
                           <span style={{ width: `${v.veracity / 10}%` }} />
                         </span>
+                      </span>
                       </span>
                       <span className={`num text-right font-mincho text-[1.6rem] font-bold leading-none sm:text-3xl ${certified ? 'text-gold' : ''}`}>
                         {v.veracity}
