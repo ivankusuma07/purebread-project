@@ -204,12 +204,6 @@ function Finished({ s }: { s: Snippet }) {
   );
 }
 
-/**
- * A terminal that types a real request for the edition file and streams the
- * real response. Starts when scrolled into view, then cycles curl, JavaScript
- * and Python until the reader picks one. Without JavaScript, or with reduced
- * motion, it shows the finished state.
- */
 const REDUCED = '(prefers-reduced-motion: reduce)';
 function subscribeMotion(onChange: () => void) {
   const mq = window.matchMedia(REDUCED);
@@ -217,6 +211,13 @@ function subscribeMotion(onChange: () => void) {
   return () => mq.removeEventListener('change', onChange);
 }
 
+/**
+ * A terminal that types a real request for the edition file and streams the
+ * real response. Starts when scrolled into view and loops curl, JavaScript and
+ * Python for as long as it is on screen; picking a tab jumps there and the loop
+ * carries on. Hovering or focusing it holds the current snippet for reading.
+ * Without JavaScript, or with reduced motion, it shows the finished state.
+ */
 export default function DataTerminal({ url, file, rows, first }: DataTerminalProps) {
   const all = useMemo(() => snippets(url, rows, first), [url, rows, first]);
   const [tab, setTab] = useState(0);
@@ -233,7 +234,8 @@ export default function DataTerminal({ url, file, rows, first }: DataTerminalPro
   const chars = progress.key === key ? progress.chars : 0;
   const lines = progress.key === key ? progress.lines : 0;
   const [inView, setInView] = useState(false);
-  const [auto, setAuto] = useState(true);
+  // True while the pointer is over the terminal or focus is inside it.
+  const [held, setHeld] = useState(false);
   const frame = useRef<HTMLDivElement>(null);
 
   const s = all[tab];
@@ -269,15 +271,15 @@ export default function DataTerminal({ url, file, rows, first }: DataTerminalPro
     return () => clearTimeout(timer);
   }, [animate, inView, key, total, s.output.length]);
 
-  // Move to the next tab on its own until the reader takes over.
+  // Loop: once a snippet finishes, move to the next one, unless it is held.
+  const waiting = animate && inView && done && !held;
   useEffect(() => {
-    if (!animate || !auto || !inView || !done) return;
+    if (!waiting) return;
     const t = setTimeout(() => setTab((i) => (i + 1) % all.length), NEXT_TAB_MS);
     return () => clearTimeout(t);
-  }, [animate, auto, inView, done, all.length]);
+  }, [waiting, all.length]);
 
   const pick = (i: number) => {
-    setAuto(false);
     setTab(i);
     setRun((r) => r + 1);
   };
@@ -292,8 +294,25 @@ export default function DataTerminal({ url, file, rows, first }: DataTerminalPro
   const activeLine = typed.findIndex((n, i) => n < lineLength(s.input[i]));
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#05070d] shadow-2xl shadow-black/50">
-      <div className="flex items-center gap-3 border-b border-white/10 px-4 py-2.5">
+    <div
+      className="overflow-hidden rounded-2xl border border-white/10 bg-[#05070d] shadow-2xl shadow-black/50"
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setHeld(false);
+      }}
+    >
+      <div className="relative flex items-center gap-3 border-b border-white/10 px-4 py-2.5">
+        {/* Fills while a finished snippet waits for the next one. Restarts after a hold. */}
+        {waiting && (
+          <span
+            key={`${key}:${held}`}
+            aria-hidden
+            className="loop-bar absolute inset-x-0 bottom-0 h-px origin-left bg-gold/70"
+            style={{ animationDuration: `${NEXT_TAB_MS}ms` }}
+          />
+        )}
         <span className="flex gap-1.5" aria-hidden>
           <span className="size-3 rounded-full bg-vermilion/80" />
           <span className="size-3 rounded-full bg-gold/80" />
@@ -315,14 +334,11 @@ export default function DataTerminal({ url, file, rows, first }: DataTerminalPro
             </button>
           ))}
         </div>
-        <span className="mono ml-auto hidden truncate text-xs text-ink-3 sm:inline">{file}</span>
+        <span className="mono ml-auto hidden truncate text-xs text-ink-3 sm:inline">{held && animate && done ? 'paused' : file}</span>
         {animate && (
           <button
             type="button"
-            onClick={() => {
-              setAuto(false);
-              setRun((r) => r + 1);
-            }}
+            onClick={() => setRun((r) => r + 1)}
             className="text-ink-3 hover:text-ink"
             aria-label="Replay"
             title="Replay"

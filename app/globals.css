@@ -539,3 +539,16 @@
     animation: none;
   }
 }
+
+/* Countdown to the next snippet in the open data terminal. */
+@keyframes loop-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.loop-bar {
+  animation: loop-fill linear forwards;
+}
