@@ -41,8 +41,11 @@ test('the sniff test reacts to dragging', async ({ page }) => {
   await page.goto('/#sniff-test');
   const result = page.getByTestId('sniff-result');
   const slider = page.locator('#sniff-test input[type="range"]');
-  // The first change can land before hydration; repeat it until the page reacts.
+  // A change made before hydration is remembered by React as the input's value,
+  // so setting the same value again fires nothing. Move it elsewhere first, and
+  // repeat until the page reacts.
   await expect(async () => {
+    await slider.fill('50');
     await slider.fill('0');
     await expect(result).toContainText('Below hallmark', { timeout: 1000 });
   }).toPass();
