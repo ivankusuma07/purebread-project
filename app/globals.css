@@ -40,6 +40,7 @@
   --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
   --animate-star-movement-top: star-movement-top linear infinite alternate;
   --animate-pulse-dot: pulse-dot 2s ease-out infinite;
+  --animate-steam: steam 2.1s ease-out infinite;
 
   @keyframes star-movement-bottom {
     0% {
@@ -69,6 +70,20 @@
     }
     100% {
       box-shadow: 0 0 0 10px rgb(90 214 146 / 0);
+    }
+  }
+
+  @keyframes steam {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.8);
+    }
+    30% {
+      opacity: 0.55;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-48px) scale(1.5);
     }
   }
 }
@@ -452,44 +467,6 @@
   to {
     opacity: 1;
     transform: scale(1) rotate(-6deg);
-  }
-}
-
-[data-hanko='up'] {
-  opacity: 0;
-}
-
-.stamp-pending [data-hanko='up'] {
-  opacity: 1;
-}
-
-.stamp-pending [data-hanko='down'] {
-  opacity: 0;
-}
-
-.stamp-run [data-hanko='up'] {
-  animation: paw-up 420ms steps(1, end) both;
-}
-
-.stamp-run [data-hanko='down'] {
-  animation: paw-down 420ms steps(1, end) both;
-}
-
-@keyframes paw-up {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes paw-down {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 

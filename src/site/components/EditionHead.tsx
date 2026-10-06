@@ -1,7 +1,6 @@
 import { ArrowDown, Braces, Hash } from 'lucide-react';
 import { HALLMARK } from '../../scoring/veracity';
 import type { Edition } from '../../types';
-import Hanko from '../art/Hanko';
 import Seal from '../art/Seal';
 import { headlineFinding } from '../lib/finding';
 import { editionMonth, shortDate, shortHash } from '../lib/format';
@@ -14,6 +13,7 @@ import StarBorder from '../reactbits/StarBorder';
 import AuroraBackdrop from './AuroraBackdrop';
 import BandMark from './BandMark';
 import CopyButton from './CopyButton';
+import HankoDesk from './HankoDesk';
 import StampMoment from './StampMoment';
 
 function median(values: number[]): number {
@@ -28,11 +28,13 @@ interface EditionHeadProps {
   isLatest: boolean;
 }
 
-/** The hero: the claim, the finding, Hanko stamping this edition's seal, and the numbers. */
+/** The hero: the claim, the finding, Hanko stamping the register under this edition's seal, and the numbers. */
 export default function EditionHead({ edition, isLatest }: EditionHeadProps) {
   const ranked = edition.venues.filter((v) => v.status !== 'prelaunch' && v.status !== 'struck');
   const below = ranked.filter((v) => v.veracity < HALLMARK).length;
-  const top = [...ranked].sort((a, b) => b.veracity - a.veracity)[0];
+  const byScore = [...ranked].sort((a, b) => b.veracity - a.veracity);
+  const top = byScore[0];
+  const papers = byScore.map((v) => ({ name: v.name, band: v.band, veracity: v.veracity }));
   const stats = [
     { label: 'Venues scored', value: ranked.length, note: `across ${new Set(ranked.map((v) => v.chain)).size} chains` },
     { label: 'Median veracity', value: median(ranked.map((v) => v.veracity)), note: 'out of 1000' },
@@ -47,7 +49,7 @@ export default function EditionHead({ edition, isLatest }: EditionHeadProps) {
         <AuroraBackdrop />
       </div>
 
-      <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <p className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-ink-2 backdrop-blur">
             <span className="size-2 animate-pulse-dot rounded-full bg-k14" aria-hidden />
@@ -91,27 +93,16 @@ export default function EditionHead({ edition, isLatest }: EditionHeadProps) {
           </div>
         </div>
 
-        {/* The seal, and Hanko stamping it. */}
-        <div className="relative mx-auto aspect-square w-full max-w-[420px]">
-          <div aria-hidden className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(255_90_69/0.35),transparent_65%)] blur-2xl" />
-          <div aria-hidden className="absolute inset-[4%] rounded-full border border-dashed border-gold/25 motion-safe:animate-[spin_60s_linear_infinite]" />
-          <div aria-hidden className="absolute inset-[13%] rounded-full border border-white/10" />
-          <div className="absolute inset-[18%]">
-            <span data-stamp="ink" aria-hidden className="absolute inset-0 rounded-seal border-[6px] border-vermilion opacity-0" />
-            <span data-stamp="seal" className="block size-full -rotate-6 drop-shadow-[0_0_40px_rgba(255,90,69,0.55)]">
+        {/* Hanko at his desk, stamping the register, under this edition's seal. */}
+        <HankoDesk papers={papers}>
+          <div className="pointer-events-none absolute left-[1%] top-[3%] w-[21%]">
+            <span data-stamp="ink" aria-hidden className="absolute inset-0 rounded-seal border-[5px] border-vermilion opacity-0" />
+            <span data-stamp="seal" className="block size-full -rotate-6 drop-shadow-[0_0_28px_rgba(255,90,69,0.5)]">
               <Seal ring={`VERACITY · EDITION ${edition.edition} · ASSAY REGISTER ·`} title={`Edition ${edition.edition} seal`} className="size-full" />
             </span>
           </div>
-          <div aria-hidden className="absolute -bottom-2 -left-2 w-[34%]">
-            <span data-hanko="up" className="absolute inset-0">
-              <Hanko pose="stamp-up" mood="alert" className="h-auto w-full drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]" />
-            </span>
-            <span data-hanko="down" className="block">
-              <Hanko pose="stamp-down" mood="calm" className="h-auto w-full drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]" />
-            </span>
-          </div>
           {top && (
-            <div className="panel absolute -right-2 top-[8%] px-4 py-2.5 text-sm shadow-xl shadow-black/40 sm:right-0">
+            <div className="panel pointer-events-none absolute -bottom-[4%] left-[-2%] px-4 py-2.5 text-sm shadow-xl shadow-black/40">
               <p className="text-xs text-ink-3">Leading</p>
               <p className="font-mincho text-lg font-bold">
                 {top.name} <span className="num text-gold">{top.veracity}</span>
@@ -119,11 +110,11 @@ export default function EditionHead({ edition, isLatest }: EditionHeadProps) {
               <BandMark band={top.band} className="text-xs" />
             </div>
           )}
-          <div className="panel absolute bottom-[10%] right-[-4px] px-4 py-2 text-sm shadow-xl shadow-black/40">
+          <div className="panel pointer-events-none absolute -bottom-[1%] right-[-2%] px-4 py-2 text-sm shadow-xl shadow-black/40">
             <span className="text-ink-3">Hallmark </span>
             <span className="num font-bold text-vermilion-ink">{HALLMARK}</span>
           </div>
-        </div>
+        </HankoDesk>
       </div>
 
       {/* The numbers. */}
