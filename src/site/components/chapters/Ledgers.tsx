@@ -143,7 +143,7 @@ export function CustodyChapter({ n, edition }: { n: string; edition: Edition }) 
       lede="Who holds what backs each venue's pairs, where they answer to a regulator, whether a holder can redeem, and how anyone can check."
     >
       <div className="panel overflow-x-auto p-2">
-        <table className="table-ledger min-w-[46rem]">
+        <table className="table-ledger min-w-[62rem]">
           <thead>
             <tr>
               <th scope="col">
@@ -152,7 +152,7 @@ export function CustodyChapter({ n, edition }: { n: string; edition: Edition }) 
                 </span>
               </th>
               <th scope="col">Pairing</th>
-              <th scope="col">Custodian</th>
+              <th scope="col" className="min-w-[16rem]">Custodian</th>
               <th scope="col">Jurisdiction</th>
               <th scope="col">Redeemable</th>
               <th scope="col">Checked by</th>
@@ -161,8 +161,13 @@ export function CustodyChapter({ n, edition }: { n: string; edition: Edition }) 
           <tbody>
             {venues.map((v) => (
               <tr key={v.id}>
-                <th scope="row" className="text-left font-mincho text-lg font-bold">
-                  {v.name}
+                <th scope="row" className="text-left font-normal">
+                  <span className="flex items-center gap-3 whitespace-nowrap">
+                    <VenueIcon id={v.id} name={v.name} size={32} />
+                    <Link href={`/venues/${v.id}`} className="font-mincho text-lg font-bold no-underline hover:underline">
+                      {v.name}
+                    </Link>
+                  </span>
                 </th>
                 <td>{ASSET_TYPE_LABEL[v.pairing.assetType]}</td>
                 <td className={v.pairing.custodian ? '' : 'text-ink-3'}>{v.pairing.custodian ?? 'not published'}</td>
