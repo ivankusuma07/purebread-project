@@ -50,7 +50,7 @@ export default async function Image() {
               }}
             />
             <img src={art('seal')} width={250} height={250} alt="" style={{ position: 'absolute', top: 30, left: 50, transform: 'rotate(-6deg)' }} />
-            <img src={art('stamp-down')} width={130} height={156} alt="" style={{ position: 'absolute', bottom: -10, left: -20 }} />
+            <img src={art('stamp-down')} width={190} height={190} alt="" style={{ position: 'absolute', bottom: -24, left: -46 }} />
           </div>
         </div>
       </Frame>

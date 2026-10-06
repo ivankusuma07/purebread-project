@@ -1,9 +1,18 @@
 'use client';
 
+import Image from 'next/image';
 import { useId, useState } from 'react';
 import { band, HALLMARK, veracity } from '../../scoring/veracity';
-import Hanko from '../art/Hanko';
 import BandMark from './BandMark';
+
+type Mood = 'wary' | 'calm' | 'alert';
+
+/** Hanko's sprite per mood. They are pixel-aligned, so they swap in place. */
+const MOODS: Record<Mood, string> = {
+  wary: 'Hanko, ears back, unconvinced',
+  calm: 'Hanko, calm',
+  alert: 'Hanko, ears up, tail curled',
+};
 
 /**
  * The sniff test: an illustration, not a venue. How much of the stock a venue
@@ -16,7 +25,7 @@ export default function SniffTest() {
   const asset = Math.round(inPool / 10);
   const score = veracity({ asset, traction: 5, transparency: 5, compliance: 5, durability: 5 });
   const b = band(score);
-  const mood = score >= HALLMARK + 150 ? 'alert' : score >= HALLMARK ? 'calm' : 'wary';
+  const mood: Mood = score >= HALLMARK + 150 ? 'alert' : score >= HALLMARK ? 'calm' : 'wary';
 
   return (
     <div className="grid items-center gap-8 md:grid-cols-[1fr_200px]">
@@ -68,7 +77,19 @@ export default function SniffTest() {
       </div>
       <div className="relative mx-auto w-44 md:w-full">
         <div aria-hidden className={`absolute inset-0 rounded-full blur-2xl transition-colors duration-500 ${score < HALLMARK ? "bg-vermilion/25" : "bg-gold/25"}`} />
-        <Hanko pose="sit" mood={mood} title={`Hanko, ${mood === 'wary' ? 'ears back, unconvinced' : mood === 'alert' ? 'ears up, tail curled' : 'calm'}`} className="relative h-auto w-full" />
+        <div role="img" aria-label={MOODS[mood]} className="relative aspect-square w-full">
+          {(Object.keys(MOODS) as Mood[]).map((m) => (
+            <Image
+              key={m}
+              src={`/hanko/sniff-${m}.webp`}
+              alt=""
+              fill
+              sizes="(min-width: 768px) 200px, 176px"
+              className="object-contain"
+              style={{ opacity: m === mood ? 1 : 0 }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

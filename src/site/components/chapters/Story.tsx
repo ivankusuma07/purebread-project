@@ -1,8 +1,8 @@
 import { Braces, Eye, Plus, Scale, Shuffle, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { HALLMARK } from '../../../scoring/veracity';
 import type { Edition } from '../../../types';
-import Hanko from '../../art/Hanko';
 import SpotlightCard from '../../reactbits/SpotlightCard';
 import BandMark, { BAND_COLOR } from '../BandMark';
 import Chapter from '../Chapter';
@@ -107,17 +107,20 @@ export function SniffChapter({ n }: { n: string }) {
 
 const STEPS = [
   {
-    pose: 'fetch' as const,
+    art: 'step-fetch',
+    alt: 'Hanko at an amber terminal, reading a long printout of figures',
     title: 'Fetch',
     body: 'On the first of the month a job pulls every published figure: volume, fees, pool depth, and whether each contract is verified. Anything unpublished stays empty, never a guess or a zero. The raw pull is saved and hashed.',
   },
   {
-    pose: 'judge' as const,
+    art: 'step-judge',
+    alt: 'Hanko weighing a stock certificate against a shiny token on a brass scale',
     title: 'Judge',
     body: 'Five criteria, 0 to 10 each. A score moves at most one point a month, only on new public evidence written into its rationale. An AI reviewer may propose; the code clamps it; two people sign off.',
   },
   {
-    pose: 'stamp-down' as const,
+    art: 'step-freeze',
+    alt: 'Hanko stamping his seal onto a bound ledger by candlelight',
     title: 'Freeze',
     body: 'House weights turn five scores into one number out of 1000. Venues are ranked, compared with last month, and frozen into an edition that never changes. Mistakes get a dated correction, original left in view.',
   },
@@ -128,10 +131,9 @@ export function MadeChapter({ n }: { n: string }) {
     <Chapter id="how-it-is-made" number={n} kicker="Process" title="How an edition is made">
       <ol className="relative grid gap-4 md:grid-cols-3">
         {STEPS.map((s, i) => (
-          <SpotlightCard key={s.title} as="li" className="panel lift flex flex-col p-6">
-            <div className="relative mx-auto grid h-36 w-full place-items-center">
-              <div aria-hidden className="absolute size-28 rounded-full bg-[radial-gradient(circle,rgba(242,193,78,0.25),transparent_70%)]" />
-              <Hanko pose={s.pose} mood="calm" className={`relative h-full w-auto ${s.pose === 'judge' ? 'max-w-[190px]' : ''}`} />
+          <SpotlightCard key={s.title} as="li" className="panel lift flex flex-col overflow-hidden p-6">
+            <div className="relative -mx-6 -mt-6 aspect-[12/5] border-b border-white/10">
+              <Image src={`/hanko/${s.art}.webp`} alt={s.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover object-[50%_35%]" />
             </div>
             <p className="mono mt-4 text-sm text-gold">Step {i + 1}</p>
             <h3 className="mt-1 text-2xl">{s.title}</h3>
@@ -270,7 +272,7 @@ export function FaqChapter({ n }: { n: string }) {
         </div>
         <div className="relative mx-auto w-56 lg:w-full">
           <div aria-hidden className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(224,138,69,0.35),transparent_65%)] blur-xl" />
-          <Hanko pose="sit" mood="calm" certificate title="Hanko inspecting a certificate" className="relative h-auto w-full" />
+          <Image src="/hanko/inspector.webp" alt="Hanko inspecting a certificate" width={300} height={300} className="relative h-auto w-full" />
           <p className="relative mt-2 flex items-center justify-center gap-2 text-sm text-ink-3">
             <Scale size={14} aria-hidden /> Hanko, chief inspector
           </p>

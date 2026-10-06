@@ -1,7 +1,7 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
-import Hanko from '../art/Hanko';
 import Magnet from '../reactbits/Magnet';
 
 export const HANKO_LINES = [
@@ -40,7 +40,13 @@ export default function HankoMargin() {
             data-testid="hanko"
           >
             <span aria-hidden className="absolute inset-4 rounded-full bg-shiba/30 blur-2xl transition-opacity group-hover:opacity-100 sm:opacity-60" />
-            <Hanko pose="sit" mood="calm" certificate className="relative h-auto w-[124px] transition-transform duration-300 group-hover:-translate-y-1" />
+            <Image
+              src="/hanko/inspector.webp"
+              alt=""
+              width={124}
+              height={124}
+              className="relative h-auto w-[124px] transition-transform duration-300 group-hover:-translate-y-1"
+            />
           </button>
         </Magnet>
       </div>

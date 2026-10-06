@@ -18,7 +18,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm e2e:smoke` | Smoke tests only. Set `E2E_BASE_URL` to check a deploy |
 | `pnpm e2e:record` | Records a new spec with Playwright codegen |
 | `pnpm monthly` | Builds next month's edition (see `docs/RUNBOOK.md`) |
-| `pnpm art:export` | Writes Hanko's pose sheet to `art/hanko/` |
+| `pnpm art:export` | Writes the seal SVGs to `art/hanko/` |
 | `pnpm typecheck`, `pnpm lint` | The usual |
 
 Copy `.env.example` to `.env.local`. Every variable is optional: without provider keys figures stay "not published", without LLM keys scores carry, and without contract addresses the fee router stays in preview mode.
@@ -33,8 +33,8 @@ src/scoring/         veracity(), band(), normalise()
 src/build/           edition, carry, deltas, validate, admission, score-moves
 src/ingest/          providers and venue mappings
 src/llm/             the guarded AI review
-src/site/            components, Hanko and the seal, the edition loader, weight URLs
-art/hanko/           pose sheet as SVG
+src/site/            components, the seal, the edition loader, weight URLs
+art/hanko/           the seal as SVG, Hanko as PNG for share cards
 e2e/, tests/         Playwright and Vitest
 docs/                runbook, score policy, scope, data and licensing
 ```

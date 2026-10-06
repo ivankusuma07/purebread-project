@@ -311,6 +311,12 @@
     vertical-align: top;
   }
 
+  /* The panel's own edge closes the table; a rule under the last row doubles it. */
+  .table-ledger tbody tr:last-child > td,
+  .table-ledger tbody tr:last-child > th {
+    border-bottom: 0;
+  }
+
   .table-ledger tbody tr {
     transition: background 150ms ease;
   }

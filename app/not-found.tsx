@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import Hanko from '../src/site/art/Hanko';
 
 export default function NotFound() {
   return (
@@ -15,7 +15,7 @@ export default function NotFound() {
           <Link href="/venues">All venues</Link>
         </p>
       </div>
-      <Hanko pose="sit" mood="wary" title="Hanko, unconvinced" className="h-auto w-40 sm:w-full" />
+      <Image src="/hanko/sniff-wary.webp" alt="Hanko, unconvinced" width={180} height={180} className="h-auto w-40 sm:w-full" />
     </main>
   );
 }

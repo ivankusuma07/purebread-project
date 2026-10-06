@@ -10,12 +10,22 @@ interface ChapterProps {
   lede?: ReactNode;
   children: ReactNode;
   className?: string;
+  /** Full-bleed art behind the whole chapter, faded at the top and bottom edges. */
+  backdrop?: ReactNode;
 }
 
 /** A chapter: numbered tag, big heading, lede, then the content easing in on scroll. */
-export default function Chapter({ id, number, kicker, title, lede, children, className = '' }: ChapterProps) {
+export default function Chapter({ id, number, kicker, title, lede, children, className = '', backdrop }: ChapterProps) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={`chapter ${className}`}>
+    <section id={id} aria-labelledby={`${id}-title`} className={`chapter ${backdrop ? 'relative isolate' : ''} ${className}`}>
+      {backdrop && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_70%,transparent)]"
+        >
+          {backdrop}
+        </div>
+      )}
       <AnimatedContent distance={40}>
         <header className="mb-10 max-w-3xl">
           {(number || kicker) && (

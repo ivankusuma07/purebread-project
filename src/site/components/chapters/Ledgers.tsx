@@ -1,4 +1,5 @@
 import { Ban, CalendarClock, Crown, Database, Download, ExternalLink, FileCheck, ScrollText, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { CRITERIA, HALLMARK } from '../../../scoring/veracity';
 import type { Edition, SourceRegistry, Venue } from '../../../types';
@@ -141,8 +142,16 @@ export function CustodyChapter({ n, edition }: { n: string; edition: Edition }) 
       kicker="Papers"
       title="Custody and papers"
       lede="Who holds what backs each venue's pairs, where they answer to a regulator, whether a holder can redeem, and how anyone can check."
+      backdrop={
+        <>
+          <Image src="/images/custody-bg.webp" alt="" fill sizes="100vw" className="object-cover opacity-75" />
+          {/* Ink wash: darkest under the heading and table text, lighter where the corridor shows. */}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(7_10_18/0.88),rgb(7_10_18/0.55)_55%,rgb(7_10_18/0.7))]" />
+        </>
+      }
     >
-      <div className="panel overflow-x-auto p-2">
+      {/* Near-solid over the vault art, so the ledger reads; the glass blur stays. */}
+      <div className="panel overflow-x-auto p-2" style={{ background: 'linear-gradient(180deg, rgb(14 18 30 / 0.9), rgb(7 10 18 / 0.92))' }}>
         <table className="table-ledger min-w-[62rem]">
           <thead>
             <tr>

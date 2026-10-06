@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- next/og renders plain <img>; next/image does not work inside ImageResponse. */
 // Shared pieces for the social share cards (Open Graph and X). The cards are
 // rendered by next/og at build time: fonts are fetched as subsets holding only
-// the glyphs each card uses, and Hanko and the seal come from the exported
-// pose sheet in art/hanko.
+// the glyphs each card uses, and Hanko and the seal are read from art/hanko.
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -24,8 +23,12 @@ export const C = {
   vermilion: '#FF5A45',
 };
 
-/** Hanko or the seal as a data URI for an <img>. */
-export function art(name: 'seal' | 'stamp-down' | 'inspector' | 'sniff-high' | 'sniff-low'): string {
+/** The seal (SVG) or Hanko (PNG; next/og cannot read webp) as a data URI for an <img>. */
+export function art(name: 'seal' | 'stamp-down' | 'sniff-high' | 'sniff-low'): string {
+  if (name !== 'seal') {
+    const png = readFileSync(join(process.cwd(), 'art', 'hanko', `${name}.png`));
+    return `data:image/png;base64,${png.toString('base64')}`;
+  }
   const svg = readFileSync(join(process.cwd(), 'art', 'hanko', `${name}.svg`), 'utf8');
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 }

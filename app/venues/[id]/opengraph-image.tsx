@@ -52,7 +52,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 340 }}>
             <div style={{ display: 'flex', position: 'relative', width: 300, height: 220, justifyContent: 'center' }}>
               {hallmarked && <img src={art('seal')} width={200} height={200} alt="" style={{ position: 'absolute', top: 0, right: 0, transform: 'rotate(-8deg)', opacity: 0.9 }} />}
-              <img src={art(hallmarked ? 'sniff-high' : 'sniff-low')} width={170} height={204} alt="" style={{ position: 'absolute', bottom: -10, left: 10 }} />
+              <img src={art(hallmarked ? 'sniff-high' : 'sniff-low')} width={190} height={190} alt="" style={{ position: 'absolute', bottom: -6, left: 0 }} />
             </div>
             <span style={{ fontFamily: 'Mincho', fontSize: puppy ? 44 : 110, lineHeight: 1, color: hallmarked ? C.gold : C.muted, marginTop: 18 }}>{score}</span>
             <span
