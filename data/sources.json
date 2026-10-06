@@ -91,7 +91,7 @@
   },
   "launch-scan": {
     "name": "Launch counts from factory event logs on Robinhood Chain (scripts/launch-scan.ts)",
-    "url": "https://github.com/ivankusuma07/purebread-project/blob/main/scripts/launch-scan.ts",
+    "url": "https://github.com/ivankusuma07/veracity-project/blob/main/scripts/launch-scan.ts",
     "type": "contracts"
   },
   "dexscreener": {
