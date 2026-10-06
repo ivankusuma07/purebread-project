@@ -41,8 +41,11 @@ test('the sniff test reacts to dragging', async ({ page }) => {
   await page.goto('/#sniff-test');
   const result = page.getByTestId('sniff-result');
   const slider = page.locator('#sniff-test input[type="range"]');
-  await slider.fill('0');
-  await expect(result).toContainText('Below hallmark');
+  // The first change can land before hydration; repeat it until the page reacts.
+  await expect(async () => {
+    await slider.fill('0');
+    await expect(result).toContainText('Below hallmark', { timeout: 1000 });
+  }).toPass();
   await slider.fill('100');
   await expect(result).toContainText('14k');
 });
