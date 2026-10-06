@@ -1,7 +1,8 @@
 // Records a narrated walkthrough of Veracity's core functions with Playwright:
-// the register, re-weighting, the sniff test, a venue paper, the edition hash,
-// the method and the fee router. Captions and a visible cursor are drawn into
-// the page, since Playwright's video shows neither.
+// Hanko's stamping desk, the register, re-weighting, the criteria matrix,
+// custody, the sniff test, how an edition is made, a venue paper, the edition
+// hash, the method, the fee router and the source on GitHub. Captions and a
+// visible cursor are drawn into the page, since Playwright's video shows neither.
 //
 //   pnpm tsx scripts/record-demo.ts [out-dir]
 //
@@ -130,6 +131,13 @@ async function walkthrough(page: Page): Promise<void> {
   await caption(page, 'Veracity · Edition 01', 'An independent register of Robinhood Chain launchpads, rated on what really stands behind their tokens. One frozen edition a month.');
   await page.mouse.move(W * 0.4, H * 0.5, { steps: 40 });
   await hold(page, 3800);
+  const desk = page.getByTestId('hanko-desk');
+  await caption(page, 'Veracity · Edition 01', "Hanko, the register's inspector, stamps one venue's papers after another. Each stamp shows that venue's band and score.");
+  await glide(page, desk);
+  await hold(page, 4200);
+  await caption(page, 'Veracity · Edition 01', 'Click him to rush the stamping.');
+  await press(page, desk);
+  await hold(page, 4000);
 
   // 2. The register.
   await caption(page, '1 · The register', 'Every venue gets a Veracity score out of 1000, graded in karat bands like gold. Tap "Explore the register" to jump in.');
@@ -185,9 +193,20 @@ async function walkthrough(page: Page): Promise<void> {
     await hold(page, 1800);
   }
 
-  // 4. Sniff test.
+  // 4. Criteria matrix.
+  await scrollTo(page, page.locator('#criteria'), 90);
+  await caption(page, '3 · Criteria matrix', 'Every venue on all five criteria at a glance. Gold marks a strength, red a weakness.');
+  await page.mouse.move(W * 0.55, H * 0.5, { steps: 30 });
+  await hold(page, 4200);
+
+  // 5. Custody and papers.
+  await scrollTo(page, page.locator('#custody'), 90);
+  await caption(page, '4 · Custody and papers', "Who issues the stock behind each venue's pairs, who holds it, under which regulator, and whether a holder can redeem it.");
+  await hold(page, 4800);
+
+  // 6. Sniff test.
   const sniff = page.locator('#sniff-test');
-  await caption(page, '3 · Sniff test', 'Drag the slider to see how much real backing a token needs to clear the hallmark and climb the bands.');
+  await caption(page, '5 · Sniff test', "Drag the slider to see how much real stock a venue needs to clear the hallmark and climb the bands. Watch Hanko's ears.");
   await scrollTo(page, sniff, 90);
   const range = sniff.locator('input[type="range"]').first();
   const box = await range.boundingBox();
@@ -206,73 +225,85 @@ async function walkthrough(page: Page): Promise<void> {
     await hold(page, 2400);
   }
 
-  // 5. Hanko.
+  // 7. How an edition is made.
+  const steps = page.locator('#how-it-is-made li');
+  await scrollTo(page, page.locator('#how-it-is-made'), 90);
+  await caption(page, '6 · How an edition is made', 'Fetch, judge, freeze. Published figures are pulled and hashed, scores move at most one point with two sign-offs, and the edition is frozen for good.');
+  for (let i = 0; i < 3; i++) {
+    await glide(page, steps.nth(i), 18);
+    await hold(page, 1600);
+  }
+
+  // 8. Hanko.
   const hanko = page.getByTestId('hanko');
   if (await hanko.isVisible()) {
-    await caption(page, '4 · Hanko', 'Hanko, the house seal, sits in the margin. Tap it for a plain-language note on reading the register.');
+    await caption(page, '7 · Hanko', 'Hanko also keeps watch from the corner. Click him for a dry line on how the register works.');
     await press(page, hanko);
     await hold(page, 3200);
     await press(page, hanko);
     await hold(page, 3000);
   }
 
-  // 6. A venue paper.
+  // 9. A venue paper.
   await open(page, '/venues/long-xyz');
-  await caption(page, '5 · Venue papers', 'Each venue has its own paper: its score, its band and its history edition by edition.');
+  await caption(page, '8 · Venue papers', 'Each venue has its own paper: its score, its band and its history edition by edition.');
   await page.mouse.move(W * 0.5, H * 0.35, { steps: 30 });
   await hold(page, 3200);
   await scrollBy(page, 520, 1500);
-  await caption(page, '5 · Venue papers', 'The evidence behind every score. Here: the chain shows only 50.4% of Long.xyz launches are paired with a stock token, not all of them.');
+  await caption(page, '8 · Venue papers', 'The evidence behind every score. Here: the chain shows only 50.4% of Long.xyz launches are paired with a stock token, not all of them.');
   await hold(page, 4800);
   const custody = page.locator('#custody');
   if (await custody.count()) {
     await scrollTo(page, custody);
-    await caption(page, '5 · Venue papers', 'Who issues the asset behind the pairs, who holds it, under which regulator, and whether you can redeem it.');
+    await caption(page, '8 · Venue papers', 'Who issues the asset behind the pairs, who holds it, under which regulator, and whether you can redeem it.');
     await hold(page, 4200);
   }
   const contracts = page.locator('#contracts');
   await scrollTo(page, contracts);
-  await caption(page, '5 · Venue papers', 'Every contract address, checked on the explorer. Copy one, or open it on Blockscout to verify it yourself.');
+  await caption(page, '8 · Venue papers', 'Every contract address, checked on the explorer. Copy one, or open it on Blockscout to verify it yourself.');
   await press(page, contracts.getByRole('button', { name: /^Copy / }).first());
   await hold(page, 1200);
   await glide(page, contracts.locator('a.num').first());
   await hold(page, 3200);
 
-  // 7. Edition integrity.
+  // 10. Edition integrity.
   await open(page, '/');
   const hash = page.getByTestId('snapshot-hash');
   await scrollTo(page, hash, 300);
-  await caption(page, '6 · Check the numbers', 'Each edition is frozen with a SHA-256 hash of its raw data, so no figure can change quietly after publication.');
+  await caption(page, '9 · Check the numbers', 'Each edition is frozen with a SHA-256 hash of its raw data, so no figure can change quietly after publication.');
   await glide(page, hash);
   await hold(page, 2200);
   await press(page, page.getByRole('button', { name: 'Copy snapshot hash' }));
   await hold(page, 2400);
   await open(page, '/editions/2026-10.json');
-  await caption(page, '6 · Check the numbers', 'The whole edition is open data: one JSON file, free to download, hash and build on.');
+  await caption(page, '9 · Check the numbers', 'The whole edition is open data: one JSON file, free to download, hash and build on.');
   await hold(page, 4200);
 
-  // 8. Method.
+  // 11. Method.
   await open(page, '/method');
-  await caption(page, '7 · The method', 'Five criteria with fixed weights: asset 30%, traction 25%, transparency 20%, compliance 15%, durability 10%.');
+  await caption(page, '10 · The method', 'Five criteria with fixed weights: asset 30%, traction 25%, transparency 20%, compliance 15%, durability 10%.');
   await hold(page, 3500);
   await scrollBy(page, 600, 1600);
-  await caption(page, '7 · The method', 'Scores move only on cited evidence, one point at a time, with two sign-offs. No venue pays to be listed or ranked.');
+  await caption(page, '10 · The method', 'Scores move only on cited evidence, one point at a time, with two sign-offs. No venue pays to be listed or ranked.');
   await hold(page, 3800);
   await scrollBy(page, 600, 1600);
   await hold(page, 1800);
 
-  // 9. Fee router.
+  // 12. Fee router.
   await open(page, '/fee-router');
-  await caption(page, '8 · The $VERA fee router', 'How trading fees on the $VERA token will be split, in the open. Until the token launches the page runs in preview mode and says so.');
+  await caption(page, '11 · The $VERA fee router', 'How trading fees on the $VERA token will be split, in the open. Until the token launches the page runs in preview mode and says so.');
   await hold(page, 4200);
   await scrollBy(page, 650, 1600);
-  await caption(page, '8 · The $VERA fee router', 'The split, live balances and guards, and the burns and bounties ledgers, all readable straight from the chain.');
+  await caption(page, '11 · The $VERA fee router', 'The split, live balances and guards, and the burns and bounties ledgers, all readable straight from the chain.');
   await hold(page, 3800);
   await scrollBy(page, 650, 1600);
   await hold(page, 2000);
 
-  // 10. Close.
+  // 13. Close.
   await open(page, '/');
+  await caption(page, '12 · Open source', 'The code, the data and every past edition are on GitHub. The link sits in the top bar on every page.');
+  await glide(page, page.getByRole('banner').getByRole('link', { name: 'Source on GitHub' }));
+  await hold(page, 3800);
   await page.mouse.move(W * 0.55, H * 0.45, { steps: 30 });
   await caption(page, 'veracity-project.vercel.app', 'Read the register, judge it your way, and check every number yourself.');
   await hold(page, 5000);

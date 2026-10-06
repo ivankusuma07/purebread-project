@@ -1,10 +1,9 @@
 import { Archive, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import Seal from '../art/Seal';
-import { SITE } from '../config';
 import { EDITIONS, LATEST_EDITION } from '../editions';
 import { editionMonth, shortHash } from '../lib/format';
-import { GitHubIcon, XIcon } from './BrandIcons';
+import { SOCIAL_LINKS } from './BrandIcons';
 
 /** A closing call to action, the archive of every edition, and the colophon. */
 export default function Footer({ current }: { current?: string }) {
@@ -85,20 +84,13 @@ export default function Footer({ current }: { current?: string }) {
           <li>
             <Link href="/fee-router">Fee router</Link>
           </li>
-          {SITE.github && (
-            <li>
-              <a href={SITE.github} aria-label="Source on GitHub" className="inline-flex hover:text-ink">
-                <GitHubIcon />
+          {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+            <li key={href}>
+              <a href={href} aria-label={label} className="inline-flex hover:text-ink">
+                <Icon />
               </a>
             </li>
-          )}
-          {SITE.x && (
-            <li>
-              <a href={SITE.x} aria-label="Veracity on X" className="inline-flex hover:text-ink">
-                <XIcon />
-              </a>
-            </li>
-          )}
+          ))}
         </ul>
       </div>
     </footer>

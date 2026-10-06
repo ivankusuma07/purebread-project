@@ -1,3 +1,6 @@
+import type { ComponentType } from 'react';
+import { SITE } from '../config';
+
 // Lucide ships no brand logos, so these two are drawn here.
 
 export function XIcon({ size = 16 }: { size?: number }) {
@@ -15,3 +18,16 @@ export function GitHubIcon({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
+
+export interface SocialLink {
+  href: string;
+  name: string;
+  label: string;
+  Icon: ComponentType<{ size?: number }>;
+}
+
+/** GitHub always; X only once NEXT_PUBLIC_X_URL is set. Shared by the top bar, the menu and the footer. */
+export const SOCIAL_LINKS: SocialLink[] = [
+  { href: SITE.github, name: 'GitHub', label: 'Source on GitHub', Icon: GitHubIcon },
+  ...(SITE.x ? [{ href: SITE.x, name: 'X', label: 'Veracity on X', Icon: XIcon }] : []),
+];

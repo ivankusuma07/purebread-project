@@ -2,6 +2,7 @@ import { BookOpen, ChevronDown, Menu } from 'lucide-react';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { LATEST_EDITION } from '../editions';
+import { SOCIAL_LINKS } from './BrandIcons';
 import Footer from './Footer';
 import HankoMargin from './HankoMargin';
 import Wordmark from './Wordmark';
@@ -72,6 +73,15 @@ export default function Book({ contents, children, edition, hanko = true }: Book
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <ul className="hidden items-center gap-1 sm:flex">
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <li key={href}>
+                  <a href={href} aria-label={label} className="grid size-9 place-items-center rounded-full text-ink-2 transition-colors hover:bg-white/5 hover:text-ink">
+                    <Icon size={17} />
+                  </a>
+                </li>
+              ))}
+            </ul>
             <OnThisPage items={contents} />
             <Link href={`/editions/${LATEST_EDITION.edition}.json`} className="btn btn-gold hidden no-underline sm:inline-flex">
               Edition {LATEST_EDITION.edition}
@@ -104,6 +114,15 @@ export default function Book({ contents, children, edition, hanko = true }: Book
                     </ol>
                   </>
                 )}
+                <ul className="mt-3 flex gap-1 border-t border-white/10 px-1 pt-3">
+                  {SOCIAL_LINKS.map(({ href, name, Icon }) => (
+                    <li key={href}>
+                      <a href={href} className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-ink-2 no-underline hover:bg-white/5 hover:text-ink">
+                        <Icon size={15} /> {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </nav>
             </details>
           </div>
