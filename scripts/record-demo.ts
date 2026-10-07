@@ -305,7 +305,7 @@ async function walkthrough(page: Page): Promise<void> {
   await glide(page, page.getByRole('banner').getByRole('link', { name: 'Source on GitHub' }));
   await hold(page, 3800);
   await page.mouse.move(W * 0.55, H * 0.45, { steps: 30 });
-  await caption(page, 'veracity-project.vercel.app', 'Read the register, judge it your way, and check every number yourself.');
+  await caption(page, 'useveracity.site', 'Read the register, judge it your way, and check every number yourself.');
   await hold(page, 5000);
 }
 

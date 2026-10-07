@@ -4,7 +4,7 @@
 
 **A monthly register that checks the papers on every tokenized-stock venue.**
 
-[Site](https://veracity-project.vercel.app) · [Latest edition](https://veracity-project.vercel.app/editions/2026-10) · [Edition JSON](https://veracity-project.vercel.app/editions/2026-10.json) · [Method](https://veracity-project.vercel.app/method)
+[Site](https://www.useveracity.site) · [Latest edition](https://www.useveracity.site/editions/2026-10) · [Edition JSON](https://www.useveracity.site/editions/2026-10.json) · [Method](https://www.useveracity.site/method)
 
 [![GitHub](https://img.shields.io/badge/GitHub-veracity--project-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivankusuma07/veracity-project)
 <!-- X: replace X_URL with the account link, then uncomment.
