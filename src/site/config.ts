@@ -31,7 +31,7 @@ export const TOKEN = {
 
 export const SITE = {
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.useveracity.site').replace(/\/$/, ''),
-  github: process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/ivankusuma07/veracity-project',
+  github: process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/veracity-hq/veracity-project',
   x: process.env.NEXT_PUBLIC_X_URL || 'https://x.com/veracity1o',
 } as const;
 
