@@ -7,9 +7,7 @@
 [Site](https://www.useveracity.site) · [Latest edition](https://www.useveracity.site/editions/2026-10) · [Edition JSON](https://www.useveracity.site/editions/2026-10.json) · [Method](https://www.useveracity.site/method)
 
 [![GitHub](https://img.shields.io/badge/GitHub-veracity--project-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivankusuma07/veracity-project)
-<!-- X: replace X_URL with the account link, then uncomment.
-[![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](X_URL)
--->
+[![X](https://img.shields.io/badge/X-@veracity1o-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/veracity1o)
 
 *Most venues launch memecoins. The real stock shows up only as the pairing asset. Veracity measures that gap.*
 

@@ -43,6 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@veracity1o',
     title: 'Veracity: most venues launch memecoins. Hanko checks the papers.',
     description: DESCRIPTION,
   },
